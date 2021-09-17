@@ -41,14 +41,14 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false)
-                .apiInfo(apiInfo())
+                .apiInfo(apiInfo())     // 이 apiInfo는 바로 아래 select()보다 무조건 위에 있어야하는 것 같다!
                 .select()
                 .apis(RequestHandlerSelectors.any())        // 현재 RequestMapping으로 할당된 모든 URL 리스트를 추출
           //      .paths(PathSelectors.ant("/**"))    // 그 중 /api/** 인 url들만 필터링
                 .apis(RequestHandlerSelectors.basePackage("com.ssafy.study.api.controller"))
                 .build()
-                .securityContexts(newArrayList(securityContext()))
-               .securitySchemes(newArrayList(apiKey()))
+//                .securityContexts(newArrayList(securityContext()))
+//               .securitySchemes(newArrayList(apiKey()))
                 ;
     }
 
@@ -61,10 +61,10 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     }
 
-    private ApiKey apiKey() {
-        return new ApiKey(SECURITY_SCHEMA_NAME, "Authorization", "header");
-    }
-
+//    private ApiKey apiKey() {
+//        return new ApiKey(SECURITY_SCHEMA_NAME, "Authorization", "header");
+//    }
+//
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
