@@ -8,31 +8,30 @@
         />
         <h1 class="study-with-us animate-enter" :style="{ 'font-size': title_fontsize + 'px', top: title_top + 'px' }">STUDY<br />WITH<br />US</h1>
       </div>
-      <div class="login" :style="{ top: login_top }">
-        <div class="overlap-group1">
-          <input class="form-control" type="text" placeholder="ID">
-        </div>
-        <div class="overlap-group3">
-          <input class="password nanumbarungothic-ultra-light-boulder-18px" type="password" placeholder="Password">
-        </div>
-        <div class="loginbtn">
-          <div class="overlap-group">
-            <div class="loginbtntext valign-text-middle">로그인</div>
+      <div class="login">
+        <input class="form-control login-form" type="text" placeholder="ID">
+        <input class="form-control login-form" type="password" placeholder="PASSWORD">
+        <button class="btn login-btn" type="button" style="width: 100%">로그인</button>
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col below-btn-left">회원가입</div>
+            <div class="col below-btn-right">아이디/비밀번호 찾기</div>
           </div>
         </div>
-        <div class="flex-row nanumbarungothic-regular-normal-black-13px">
-          <div class="signupbtntext">회원가입</div>
-          <div class="finduserbtntext">아이디/비밀번호 찾기</div>
-        </div>
-        <div class="flex-row-1">
-          <img
-            class="googlelogo"
-            src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/google-logo@2x.png"
-          />
-          <img
-            class="kakaologo"
-            src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/kakao-logo@2x.png"
-          />
+        <div class="container">
+          <div class="row justify-content-evenly flex-row-1">
+            <div class="col"></div>
+            <img
+              class="googlelogo col"
+              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/google-logo@2x.png"
+            />
+            <img
+              class="kakaologo col"
+              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/kakao-logo@2x.png"
+            />
+            <div class="col"></div>
+          </div>
+
         </div>
 
       </div>
@@ -65,8 +64,10 @@ export default {
 
 <style>
 .login {
-  position: absolute;
-  bottom: auto;
+  position: fixed;
+  bottom: 30px;
+  padding: 15px;
+  width: 100%;
 }
 
 .entrance-page {
@@ -119,111 +120,53 @@ to{opacity: 1;
 }
 }
 
-.entrance-page .overlap-group1 {
-  align-items: flex-end;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px #69bcc1;
-  display: flex;
-  height: 41px;
-  margin-right: 1.0px;
-  margin-top: 101px;
-  min-width: 266px;
-  padding: 8px 12px;
+.entrance-page .login-form {
+  font-family: "NanumBarunGothic-Light";
+  width: 100%;
+  margin-bottom: 10px;
 }
 
-.entrance-page .overlap-group3 {
-  align-items: flex-end;
-  background-color: var(--white);
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px #69bcc1;
-  display: flex;
-  height: 41px;
-  margin-right: 1.0px;
-  margin-top: 19px;
-  min-width: 266px;
-  padding: 7px 12px;
-}
-
-.entrance-page .password {
-  letter-spacing: 0;
-  min-height: 21px;
-  min-width: 81px;
-}
-
-.entrance-page .loginbtn {
-  align-items: flex-start;
-  display: flex;
-  margin-left: 1.0px;
-  margin-top: 19px;
-  min-width: 268px;
-}
-
-.entrance-page .overlap-group {
-  align-items: flex-end;
-  background-color: var(--teal-blue);
-  border-radius: 10px;
-  box-shadow: 0px 4px 4px #69bcc1;
-  display: flex;
-  height: 45px;
-  justify-content: flex-end;
-  min-width: 266px;
-  padding: 9.8px 104px;
-}
-
-.entrance-page .loginbtntext {
-  color: var(--white);
+.entrance-page .login .login-btn {
+  background-color: #21B2BA; 
   font-family: "NanumBarunGothic-Bold";
-  font-size: var(--font-size-s2);
-  font-weight: 700;
-  height: 25px;
-  letter-spacing: 0;
-  text-align: right;
-  width: 56px;
+  color: white;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
-.entrance-page .flex-row {
-  align-items: flex-start;
-  display: flex;
-  height: 15px;
-  margin-left: 1.0px;
-  margin-top: 13px;
-  min-width: 268px;
+.entrance-page .login .below-btn-left {
+  font-family: "NanumBarunGothic-Regular";
+  padding: 0;
+  font-size: 13px;
 }
 
-.entrance-page .signupbtntext {
-  letter-spacing: 0;
-  min-height: 15px;
-  min-width: 49px;
-}
-
-.entrance-page .finduserbtntext {
-  letter-spacing: 0;
-  margin-left: 103px;
-  min-height: 15px;
-  min-width: 116px;
+.entrance-page .login .below-btn-right {
+  font-family: "NanumBarunGothic-Regular";
+  font-size: 13px;
+  padding: 0;
   text-align: right;
 }
 
 .entrance-page .flex-row-1 {
   align-items: flex-start;
   display: flex;
-  margin-left: 4.0px;
   margin-top: 17px;
   min-width: 125px;
 }
 
 .entrance-page .googlelogo {
   height: 57px;
-  object-fit: cover;
+  object-fit: contain;
   width: 57px;
+  padding: 0;
 }
 
 .entrance-page .kakaologo {
   height: 57px;
   margin-left: 11px;
-  object-fit: cover;
+  object-fit: contain;
   width: 57px;
+  padding: 0;
 }
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
