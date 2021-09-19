@@ -9,9 +9,20 @@
         <h1 class="study-with-us animate-enter" :style="{ 'font-size': title_fontsize + 'px', top: title_top + 'px' }">STUDY<br />WITH<br />US</h1>
       </div>
       <div class="login">
-        <input class="form-control login-form" type="text" placeholder="ID">
-        <input class="form-control login-form" type="password" placeholder="PASSWORD">
-        <button class="btn login-btn" type="button" style="width: 100%">로그인</button>
+        <input
+          class="form-control login-form"
+          type="text"
+          placeholder="ID"
+          v-model="credentials.id"
+        />
+        <input
+          class="form-control login-form"
+          type="password"
+          placeholder="PASSWORD"
+          v-model="credentials.password"
+          @keyup.enter="userLogin"
+        />
+        <button class="btn login-btn" type="button" style="width: 100%" @click="userLogin">로그인</button>
         <div class="container">
           <div class="row justify-content-between">
             <div class="col below-btn-left">회원가입</div>
@@ -31,9 +42,7 @@
             />
             <div class="col"></div>
           </div>
-
         </div>
-
       </div>
     </div>
   </div>
@@ -50,6 +59,10 @@ export default {
       title_right: 0,
       title_top: 0,
       login_top: 0,
+      credentials: {
+        id: null,
+        password: null,
+      }
     }
   },
   created() {
@@ -58,7 +71,17 @@ export default {
     this.title_fontsize = window.innerHeight * 0.074
     this.title_top = window.innerHeight * 0
     this.login_top = window.innerHeight * 0.5
-  }
+    if (this.$store.getters.login.decodedToken) {
+      this.$router.push({ name: 'MainPage' })
+    }
+  },
+  methods: {
+    userLogin() {
+      console.log('component_userLogin')
+      this.$store.dispatch('login/getJWT', this.credentials)
+      this.$router.push({ name: 'MainPage' })
+    }
+  },
 }
 </script>
 
