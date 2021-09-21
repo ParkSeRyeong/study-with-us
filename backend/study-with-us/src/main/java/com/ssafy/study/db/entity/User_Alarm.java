@@ -1,5 +1,6 @@
 package com.ssafy.study.db.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,21 +15,17 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 @Builder
 @DynamicInsert      // 입력 안 할시에 default값으로 생성.
+@AllArgsConstructor
 @RequiredArgsConstructor
 public class User_Alarm {
 
     @Id     // PK임을 나타냄.
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // PK 생성규칙 설정. AutoIncrement 설정
     @Column(name = "alarm_pk")
-    private String alarm_pk;
+    private int alarm_pk;
 
-    @NotNull
     private Boolean screen;
-
-    @NotNull
     private Boolean sound;
-
-    @NotNull
     private Boolean msg;
 
 

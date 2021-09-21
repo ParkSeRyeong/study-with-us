@@ -14,7 +14,9 @@ import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -41,6 +43,8 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false)
+//                .consumes(getConsumeContentTypes())
+//                .produces(getProduceContentTypes())
                 .apiInfo(apiInfo())     // 이 apiInfo는 바로 아래 select()보다 무조건 위에 있어야하는 것 같다!
                 .select()
                 .apis(RequestHandlerSelectors.any())        // 현재 RequestMapping으로 할당된 모든 URL 리스트를 추출
@@ -51,6 +55,19 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 //               .securitySchemes(newArrayList(apiKey()))
                 ;
     }
+
+//    private Set<String> getConsumeContentTypes() {
+//        Set<String> consumes = new HashSet<>();
+//        consumes.add("application/json;charset=UTF-8");
+//        return consumes;
+//    }
+//
+//    private Set<String> getProduceContentTypes() {
+//        Set<String> produces = new HashSet<>();
+//        produces.add("application/json;charset=UTF-8");
+//        produces.add("text/plain;charset=UTF-8");
+//        return produces;
+//    }
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder().
