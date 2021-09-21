@@ -1,19 +1,18 @@
-package com.ssafy.study.api.request;
+package com.ssafy.study.api.response;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * 유저 회원가입 API ([POST] /api/v1/users) 요청에 필요한 리퀘스트 바디 정의.
  */
 @Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 @AllArgsConstructor
-@ApiModel("UserRequest")
-public class UserReq {
+@Builder
+@ApiModel("UserResponse")
+public class UserRes {
 
 	@ApiModelProperty(name="ID", example="test")
 	private String userid;

@@ -55,6 +55,13 @@ dependencies {
 
     /* junit */
     testImplementation group: 'junit', name: 'junit', version: '4.12'
+
+    /* JWT */
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
+    implementation group: 'com.auth0', name: 'java-jwt', version: '3.18.1'
+    implementation 'io.jsonwebtoken:jjwt-api:0.10.7'
+    runtime 'io.jsonwebtoken:jjwt-impl:0.10.7'
+    runtime 'io.jsonwebtoken:jjwt-jackson:0.10.7'
 }
 
 test {

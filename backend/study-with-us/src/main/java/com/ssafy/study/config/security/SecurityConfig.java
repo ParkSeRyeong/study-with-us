@@ -18,18 +18,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    private final JwtTokenUtil jwtTokenProvider;
 //
-//    // 암호화에 필요한 PasswordEncoder 를 Bean 등록
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//    }
+    // 암호화에 필요한 PasswordEncoder 를 Bean 등록
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 //
-//    // authenticationManager를 Bean 등록
-//    @Bean
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
+    // authenticationManager를 Bean 등록
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 //
     protected void configure(HttpSecurity http) throws Exception {
         http
