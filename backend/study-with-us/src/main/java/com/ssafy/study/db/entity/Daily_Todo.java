@@ -23,7 +23,7 @@ public class Daily_Todo {
     @NotNull
     private String todo;
 
-    private boolean check;
+    private boolean done;
 
     @ManyToOne(fetch = LAZY)        // 얘가 주인 (FK 여기있음)
     @JoinColumn(name = "daily_pk")    // 연관관계의 주인은 mappedBy X, JoinColumn 사용

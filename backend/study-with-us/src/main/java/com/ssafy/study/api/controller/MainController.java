@@ -1,5 +1,6 @@
 package com.ssafy.study.api.controller;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.ssafy.study.api.request.UserReq;
 import com.ssafy.study.api.response.MyStudyRes;
 import com.ssafy.study.api.service.UserServiceImpl;
@@ -28,5 +29,13 @@ public class MainController {
         // 총 공부시간, 순공부시간, todolist, 명언 가져오기
         MyStudyRes res = mainService.getTodayInfo(token);
         return res;
+    }
+
+    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
+    @ApiOperation(value = "todo 리스트 수정")
+    @PutMapping("/update")
+    public BaseResponseBody updateTodo(@RequestHeader(value = "Authorization") String token, @RequestBody @ApiParam(value = "update할 todo", required = true) MyStudyRes updateInfo){
+        mainService.updateTodo(token, updateInfo.getTodo());
+        return BaseResponseBody.of(200, "Success");
     }
 }
