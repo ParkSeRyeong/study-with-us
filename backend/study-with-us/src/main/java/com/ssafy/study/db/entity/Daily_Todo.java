@@ -1,12 +1,10 @@
 package com.ssafy.study.db.entity;
 
 import lombok.*;
-import org.graalvm.compiler.lir.CompositeValue;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Time;
 
 import static javax.persistence.FetchType.LAZY;
 
