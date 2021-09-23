@@ -1,11 +1,7 @@
 <template>
     <div>
-        <div class="title">
-                Hello, goorm!
-        </div>
-        <div>Teachable Machine Image Model</div>
-        <button type="button" @click="clickStart()">Start</button>
-        <div id="webcam-container"></div>
+        <button type="button" @click="init()">Start</button>
+        <div id='webcam-container'></div>
         <div id="label-container"></div>
         
     </div>
@@ -24,12 +20,9 @@ export default {
         return{}
     },
     method: {
-        clickStart() {
-            this.init()
-        },
-
         async init() {
-            const URL = '../assets/my_model/'
+            
+            const URL = '../assets/my_model/';
             const modelURL = URL + 'model.json';
             const metadataURL = URL + 'metadata.json';
 
@@ -39,6 +32,7 @@ export default {
             // Note: the pose library adds "tmImage" object to your window (window.tmImage)
             model = await tmImage.load(modelURL, metadataURL);
             maxPredictions = model.getTotalClasses();
+            
 
             // Convenience function to setup a webcam
             const flip = true; // whether to flip the webcam
