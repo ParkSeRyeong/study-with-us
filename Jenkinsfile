@@ -52,9 +52,7 @@ pipeline {
 
 
 						sh 'docker run -d --name backend \
-						-p 8080:8080 \
-						--network studywithuscicdnetwork \
-						backend:latest'
+						--network studywithuscicdnetwork backend:latest'
 
 						sh 'docker images'
 						sh 'docker ps -a'
