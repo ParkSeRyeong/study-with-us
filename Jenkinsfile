@@ -2,16 +2,16 @@ pipeline {
 	agent none
 	options { skipDefaultCheckout(false) }
 	stages {
-		stage('git pull') {
-			agent any
-			steps {
-				mattermostSend (
-                        color: "#2A42EE",
-                        message: "Build STARTED: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Link to build>)"
-                )
-				checkout scm
-			}
-		}
+// 		stage('git pull') {
+// 			agent any
+// 			steps {
+// 				mattermostSend (
+//                         color: "#2A42EE",
+//                         message: "Build STARTED: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Link to build>)"
+//                 )
+// 				checkout scm
+// 			}
+// 		}
 		stage('Docker build') {
 			agent any
 			steps {
