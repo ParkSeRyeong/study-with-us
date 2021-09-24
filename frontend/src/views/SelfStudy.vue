@@ -1,6 +1,5 @@
 <template>
     <div>
-        <button type="button" @click="init()">Start</button>
         <div id='webcam-container'></div>
         <div id="label-container"></div>
         
@@ -14,41 +13,41 @@ import * as tmImage from '@teachablemachine/image';
 let model, webcam, labelContainer, maxPredictions;
 
 export default {
-
-    name : 'AI',
     data() {
-        return{}
+        return{
+        }
     },
-    method: {
-        async init() {
-            
-            const URL = '../assets/my_model/';
-            const modelURL = URL + 'model.json';
-            const metadataURL = URL + 'metadata.json';
 
-            // load the model and metadata
-            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-            // or files from your local hard drive
-            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-            model = await tmImage.load(modelURL, metadataURL);
-            maxPredictions = model.getTotalClasses();
-            
+    async mounted() {
+        const URL = '../assets/my_model/';
+        const modelURL = URL + 'model.json';
+        const metadataURL = URL + 'metadata.json';
+        const flip = true; // whether to flip the webcam
 
-            // Convenience function to setup a webcam
-            const flip = true; // whether to flip the webcam
-            webcam = new tmImage.Webcam(500, 500, flip); // width, height, flip
-            await webcam.setup(); // request access to the webcam
-            await webcam.play();
-            window.requestAnimationFrame(this.loop);
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // or files from your local hard drive
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+        
 
-            // append elements to the DOM
-            document.getElementById('webcam-container').appendChild(webcam.canvas);
-            labelContainer = document.getElementById('label-container');
-            for (let i = 0; i < maxPredictions; i++) {
-                // and class labels
-                labelContainer.appendChild(document.createElement('div'));
-            }
-        },
+        // Convenience function to setup a webcam
+        webcam = new tmImage.Webcam(500, 500, flip); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        window.requestAnimationFrame(this.loop);
+
+        // append elements to the DOM
+        document.getElementById('webcam-container').appendChild(webcam.canvas);
+        labelContainer = document.getElementById('label-container');
+        for (let i = 0; i < maxPredictions; i++) {
+            // and class labels
+            labelContainer.appendChild(document.createElement('div'));
+        }
+    },
+
+    methods: {
         async loop() {
             webcam.update(); // update the webcam frame
             await this.predict();

@@ -16,7 +16,7 @@ const routes = [
     path: '/',
     name: 'SelfStudy',
     component: () => import('@/views/SelfStudy.vue'),
-  }
+  },
 ]
 
 const router = createRouter({

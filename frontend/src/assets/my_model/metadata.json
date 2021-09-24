@@ -1,1 +1,1 @@
-{"tfjsVersion":"1.3.1","tmVersion":"2.4.4","packageVersion":"0.8.4-alpha2","packageName":"@teachablemachine/image","timeStamp":"2021-09-22T07:28:13.726Z","userMetadata":{},"modelName":"tm-my-image-model","labels":["studying","phone"],"imageSize":224}
+{"tfjsVersion":"1.3.1","tmVersion":"2.4.4","packageVersion":"0.8.4-alpha2","packageName":"@teachablemachine/image","timeStamp":"2021-09-22T12:54:45.429Z","userMetadata":{},"modelName":"tm-my-image-model","labels":["폰","공부"],"imageSize":224}
