@@ -45,7 +45,7 @@ pipeline {
 						sh 'docker run -d --name frontend \
 						-p 80:80 \
 						-p 443:443 \
-           			    -v /etc/letsencrypt: \
+           			    -v /etc/letsencrypt:/cert \
 						-v /etc/localtime:/etc/localtime:ro \
 						--network studywithuscicdnetwork \
 						frontend:latest'
