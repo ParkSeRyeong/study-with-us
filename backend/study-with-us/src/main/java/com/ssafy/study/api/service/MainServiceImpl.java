@@ -127,31 +127,27 @@ public class MainServiceImpl implements MainService {
             logger.info("new daily_other save complete");
         }
 
-        // 오늘의 to-do 다 지움
-        deleteTodayTodo(user, now);
+        // 오늘의 Daily_Study 엔티티 = today
+        Daily_Study today = dailyStudyRepository.findByUserAndDay(user, now);
+        logger.info(today.getDaily_pk() + " / " + today.getDay());
 
-        // 들어온 투두 리스트가 1개 이상일 때! / 혹시 몰라 null 조건도 넣음
-        if (todo_list != null && todo_list.size() > 0) {
-            // 오늘의 Daily_Study 엔티티 = today
-            Daily_Study today = dailyStudyRepository.findByUserAndDay(user, now);
-            logger.info(today.getDaily_pk() + " / " + today.getDay());
+        // todo_list 의 todo와 체크여부done을 iterator로 돌리면서 todo엔티티에 저장.
+        Iterator<String> it = todo_list.keySet().iterator();
+        while (it.hasNext()) {
+            String todo = it.next();
+            Boolean isDone = todo_list.get(todo);
 
-            Iterator<String> it = todo_list.keySet().iterator();
+            System.out.println(todo + " / " + isDone);
 
-            while (it.hasNext()) {
-                String todo = it.next();
-                Boolean isDone = todo_list.get(todo);
-
-                System.out.println(todo + " / " + isDone);
-                // 업데이트로 들어온 to-do 리스트에서 하나하나 뽑아 넣는다
-                Daily_Todo new_todo = Daily_Todo.builder()
-                        .todo(todo)
-                        .done(isDone)
-                        .dailyStudy(today)
-                        .build();
-                dailyTodoRepository.save(new_todo);
-            }
+            // 업데이트로 들어온 to-do 리스트에서 하나하나 뽑아 넣는다
+            Daily_Todo new_todo = Daily_Todo.builder()
+                    .todo(todo)
+                    .done(isDone)
+                    .dailyStudy(today)
+                    .build();
+            dailyTodoRepository.save(new_todo);
         }
+
     }
 
     @Transactional

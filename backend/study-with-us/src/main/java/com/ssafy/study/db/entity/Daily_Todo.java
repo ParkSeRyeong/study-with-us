@@ -29,4 +29,9 @@ public class Daily_Todo {
     @JoinColumn(name = "daily_pk")    // 연관관계의 주인은 mappedBy X, JoinColumn 사용
     private Daily_Study dailyStudy;
 
+    // to-do update시 상태 업데이트
+    public void updateTodo(Boolean todoStatus) {
+        this.done = todoStatus;
+    }
+
 }

@@ -5,5 +5,5 @@ import com.ssafy.study.db.entity.User_Alarm;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserAlarmRepository extends JpaRepository<User_Alarm, Long> {
-   // Optional<User> findByUserId(String id);
+   User_Alarm findByUser(User user);
 }
