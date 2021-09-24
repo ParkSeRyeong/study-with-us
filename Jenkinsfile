@@ -10,7 +10,7 @@ pipeline {
     }
     post {
         always {
-            echo 'post process !'
+            echo 'post process!'
         }
     }
 }
