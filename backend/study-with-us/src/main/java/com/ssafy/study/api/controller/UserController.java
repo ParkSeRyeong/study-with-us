@@ -24,7 +24,6 @@ public class UserController {
     @ApiOperation(value = "회원 가입")
     @PostMapping("/signup")
     public BaseResponseBody signUp(@RequestBody @ApiParam(value = "회원가입 정보", required = true) UserReq registerInfo){
-        logger.debug("signup method 진입");
          userService.signUp(registerInfo);
         return BaseResponseBody.of(200, "Success");
     }
