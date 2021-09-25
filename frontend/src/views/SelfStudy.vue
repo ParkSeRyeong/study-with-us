@@ -1,5 +1,5 @@
 <template>
-  
+  <h1>selfstudy</h1>
 </template>
 
 <script>
