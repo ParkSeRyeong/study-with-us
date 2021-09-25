@@ -1,11 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import EntrancePage from '@/views/EntrancePage.vue'
+import Signup from '@/views/Signup.vue'
 import MainPage from '@/views/MainPage.vue'
 
 const routes = [
   {
-    path: '/e',
+    path: '/',
     name: 'EntrancePage',
-    component: () => import('@/views/EntrancePage.vue')
+    component: EntrancePage,
+  },
+  {
+    path: '/signup',
+    name: 'Signup',
+    component: Signup,
   },
   {
     path: '/main',
@@ -13,7 +20,7 @@ const routes = [
     component: MainPage,
   },
   {
-    path: '/',
+    path: '/selfstudy',
     name: 'SelfStudy',
     component: () => import('@/views/SelfStudy.vue'),
   }
