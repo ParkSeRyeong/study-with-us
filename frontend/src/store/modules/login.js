@@ -11,7 +11,7 @@ const actions = {
   getJWT: function (context, credentials) {
     axios({
       method: 'post',
-      url: '',
+      url: 'http://localhost:8080/user/login',
       data: credentials,
     })
       .then((res) => {
@@ -39,6 +39,7 @@ const mutations = {
 const getters = {
   decodedToken: function (state) {
     if (state.userToken) {
+      console.log(jwt_decode(state.userToken))
       return jwt_decode(state.userToken)
     }
     else {
