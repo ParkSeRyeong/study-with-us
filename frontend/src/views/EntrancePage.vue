@@ -13,7 +13,7 @@
           class="form-control login-form"
           type="text"
           placeholder="ID"
-          v-model="credentials.id"
+          v-model="credentials.userid"
         />
         <input
           class="form-control login-form"
@@ -60,7 +60,7 @@ export default {
       title_top: 0,
       login_top: 0,
       credentials: {
-        id: null,
+        userid: null,
         password: null,
       }
     }
@@ -71,9 +71,9 @@ export default {
     this.title_fontsize = window.innerHeight * 0.074
     this.title_top = window.innerHeight * 0
     this.login_top = window.innerHeight * 0.5
-    if (this.$store.getters.login.decodedToken) {
-      this.$router.push({ name: 'MainPage' })
-    }
+    // if (this.$store.getters.login.decodedToken) {
+    //   this.$router.push({ name: 'MainPage' })
+    // }
   },
   methods: {
     userLogin() {

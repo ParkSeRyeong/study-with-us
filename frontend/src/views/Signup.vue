@@ -1,61 +1,61 @@
 <template>
-  <div class="page-background container" :style="{ width: this.$store.state.window_width + 'px', height: this.$store.state.window_height + 'px' }">
-    <p class="signup-title">회원 가입</p>
-    <br>
-    <p class="signup-eletitle">아이디</p>
-    <input type="text" id="userid" class="form-control" placeholder="아이디 입력" v-model="credentials.id">
-    <button
-      v-if="emailDup === null || emailDup === '401' || emailDup === '100'"
-      class="btn dup-btn"
-      @click="emailDupCheck"
-    >
-      중복검사
-    </button>
-    <p
-      v-if="emailDup === '401' && emailAuthChk === null"
-      class="warning-text"  
-    >
-      "이미 존재하는 아이디입니다."
-    </p>
-    <p
-      v-else-if="emailDup === '200' && emailAuthChk === null"
-      class="warning-text"
-    >
-      "해당 아이디를 사용할 수 있습니다."
-    </p>
-    <p
-      v-else-if="emailDup === '100' && emailAuthChk === null"
-      class="warning-text"
-    >
-      "아이디 입력창이 비어있습니다. 아이디를 입력해주세요."
-    </p>
-    <p class="signup-eletitle">비밀번호</p>
-    <input type="password" id="password" class="form-control" placeholder="비밀번호 입력" v-model="credentials.password">
-    <p class="signup-eletitle">비밀번호 확인</p>
-    <input type="password" id="passwordConfirmation" class="form-control" placeholder="비밀번호 확인" v-model="passwordConfirmation">
-    <p
-      v-if="
-        credentials.password === passwordConfirmation &&
-        credentials.password != null
-      "
-      class="warning-text"
-    >
-      "비밀번호가 일치합니다."
-    </p>
-    <p
-      v-if="credentials.password != null"
-      class="warning-text"
-    >
-      "비밀번호가 일치하지 않습니다."
-    </p>
-    <p class="signup-eletitle">닉네임</p>
-    <input type="text" id="nickname" class="form-control" placeholder="닉네임 입력" v-model="credentials.nickname">
-    <p class="signup-eletitle">이름</p>
-    <input type="text" id="name" class="form-control" placeholder="이름 입력" v-model="credentials.name">
-    <p class="signup-eletitle">전화번호</p>
-    <input type="tel" id="phone" class="form-control" placeholder="전화번호 입력" v-model="credentials.phone">
-  </div>  
   <div>
+    <div class="page-background container" :style="{ width: this.$store.state.window_width + 'px', height: this.$store.state.window_height + 'px' }">
+      <p class="signup-title">회원 가입</p>
+      <br>
+      <p class="signup-eletitle">아이디</p>
+      <input type="text" id="userid" class="form-control" placeholder="아이디 입력" v-model="credentials.userid">
+      <button
+        v-if="idDup === null || idDup === '401' || idDup === '100'"
+        class="btn dup-btn"
+        @click="idDupCheck"
+      >
+        중복검사
+      </button>
+      <p
+        v-if="idDup === '401'"
+        class="warning-text"  
+      >
+        "이미 존재하는 아이디입니다."
+      </p>
+      <p
+        v-else-if="idDup === '200'"
+        class="warning-text"
+      >
+        "해당 아이디를 사용할 수 있습니다."
+      </p>
+      <p
+        v-else-if="idDup === '100'"
+        class="warning-text"
+      >
+        "아이디 입력창이 비어있습니다. 아이디를 입력해주세요."
+      </p>
+      <p class="signup-eletitle">비밀번호</p>
+      <input type="password" id="password" class="form-control" placeholder="비밀번호 입력" v-model="credentials.password">
+      <p class="signup-eletitle">비밀번호 확인</p>
+      <input type="password" id="passwordConfirmation" class="form-control" placeholder="비밀번호 확인" v-model="passwordConfirmation">
+      <p
+        v-if="
+          credentials.password === passwordConfirmation &&
+          credentials.password != null
+        "
+        class="warning-text"
+      >
+        "비밀번호가 일치합니다."
+      </p>
+      <p
+        v-if="credentials.password != null"
+        class="warning-text"
+      >
+        "비밀번호가 일치하지 않습니다."
+      </p>
+      <p class="signup-eletitle">닉네임</p>
+      <input type="text" id="nickname" class="form-control" placeholder="닉네임 입력" v-model="credentials.nickname">
+      <p class="signup-eletitle">이름</p>
+      <input type="text" id="name" class="form-control" placeholder="이름 입력" v-model="credentials.name">
+      <p class="signup-eletitle">전화번호</p>
+      <input type="tel" id="phone" class="form-control" placeholder="전화번호 입력" v-model="credentials.phone">
+    </div>  
     <button
       type="button"
       class="signup-btn"
@@ -69,14 +69,14 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'Signup',
   data: function () {
     return {
       credentials: {
-        id: null,
+        userid: null,
         password: null,
         nickname: null,
         name: null,
@@ -91,28 +91,29 @@ export default {
     }
   },
   methods: {
-    // idDupCheck: function () {
-    //   axios({
-    //     method: 'get',
-    //     url: `${this.credentials.id}`
-    //   })
-    //     .then((res)=> {
-    //       if (this.credentials.id == null) {
-    //         this.idDup = '100'
-    //       } else {
-    //         if (res.data.statusCode == 200) {
-    //           this.idDup = '200'
-    //           this.idDupid = this.credentials.id
-    //         } else if (res.data.statusCode == 401) {
-    //           this.emailDup = '401'
-    //         }
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //       this.emailDup = '401'
-    //     })
-    // }
+    idDupCheck: function () {
+      axios({
+        method: 'get',
+        url: `http://localhost:8080/user/idDuplciateCheck/${this.credentials.userid}`
+      })
+        .then((res)=> {
+          console.log(res)
+          if (this.credentials.userid == null) {
+            this.idDup = '100'
+          } else {
+            if (res.data.statusCode == 200) {
+              this.idDup = '200'
+              this.idDupid = this.credentials.id
+            } else if (res.data.statusCode == 401) {
+              this.emailDup = '401'
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+          this.emailDup = '401'
+        })
+    },
 
     // signup: function () {
     //   if (
@@ -148,9 +149,9 @@ export default {
     },
   },
   created() {
-    if (this.$store.getters.login.decodedToken) {
-      this.$router.push({ name: 'MainPage' })
-    }
+    // if (this.$store.getters.login.decodedToken) {
+    //   this.$router.push({ name: 'MainPage' })
+    // }
   },
   mounted() {
     window.scrollTo(0, 0)
