@@ -18,6 +18,10 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    enabled = false
+}
+
 dependencies {
     // --------------- 초기 기본 spring boot dependency ----------------
     /* project 생성시 선택한 dependency :
