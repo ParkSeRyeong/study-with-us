@@ -1,12 +1,10 @@
 package com.ssafy.study.db.entity;
 
 import lombok.*;
-import org.graalvm.compiler.lir.CompositeValue;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Time;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -25,10 +23,15 @@ public class Daily_Todo {
     @NotNull
     private String todo;
 
-    private boolean check;
+    private boolean done;
 
     @ManyToOne(fetch = LAZY)        // 얘가 주인 (FK 여기있음)
     @JoinColumn(name = "daily_pk")    // 연관관계의 주인은 mappedBy X, JoinColumn 사용
     private Daily_Study dailyStudy;
+
+    // to-do update시 상태 업데이트
+    public void updateTodo(Boolean todoStatus) {
+        this.done = todoStatus;
+    }
 
 }

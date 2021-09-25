@@ -46,4 +46,17 @@ public class Daily_Study {
     @OneToMany(mappedBy = "dailyStudy", fetch = LAZY)
     private List<Daily_Todo> dailyTodo = new ArrayList<>();
 
+
+    @PrePersist
+    public void prePersist() {
+        this.alltime = this.alltime == null ? Time.valueOf("00:00:00") : this.alltime;
+        this.focustime = this.focustime == null ? Time.valueOf("00:00:00") : this.focustime;
+        this.othertime = this.othertime == null ? Time.valueOf("00:00:00") : this.othertime;
+    }
+
+    // 공부 완료시 공부한 시간 update
+    public void updateTodayStudy(Time alltime, Time focustime) {
+        this.alltime = alltime;
+        this.focustime = focustime;
+    }
 }
