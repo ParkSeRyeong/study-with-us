@@ -11,7 +11,7 @@ const actions = {
   getJWT: function (context, credentials) {
     axios({
       method: 'post',
-      url: 'https://j5a206.p.ssafy.io:8080/user/login',
+      url: 'http://j5a206.p.ssafy.io:8080/user/login',
       data: credentials,
     })
       .then((res) => {
