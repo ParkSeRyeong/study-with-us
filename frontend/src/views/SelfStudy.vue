@@ -1,5 +1,8 @@
 <template>
     <div>
+        <!-- <input type="file" id='upload-model'>
+        <input type="file" id='upload-weights'>
+        <input type="file" id='upload-metadata'> -->
         <div id='webcam-container'></div>
         <div id="label-container"></div>
         
@@ -8,8 +11,11 @@
 
 <script>
 // the link to your model provided by Teachable Machine export panel
-import '@tensorflow/tfjs';
+import * as tf from'@tensorflow/tfjs';  // eslint-disable-line no-unused-vars
 import * as tmImage from '@teachablemachine/image';
+//import 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js'
+//import * as tmImage from 'https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js';
+
 let model, webcam, labelContainer, maxPredictions;
 
 export default {
@@ -19,16 +25,32 @@ export default {
     },
 
     async mounted() {
+
+        let externalScript = document.createElement('script')
+        externalScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js')
+        document.head.appendChild(externalScript)
+
+        let externalScript2 = document.createElement('script')
+        externalScript2.setAttribute('src', 'https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js')
+        document.head.appendChild(externalScript2)
+
+
         const URL = '../assets/my_model/';
         const modelURL = URL + 'model.json';
         const metadataURL = URL + 'metadata.json';
+        //const weightsURL = URL + 'weights.bin';
         const flip = true; // whether to flip the webcam
 
         // load the model and metadata
         // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
         // or files from your local hard drive
         // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-        model = await tmImage.load(modelURL, metadataURL);
+
+        //const uploadModel = document.getElementById('upload-model');
+        //const uploadWeights = document.getElementById('upload-weights');
+        //const uploadMetadata = document.getElementById('upload-metadata');
+       
+        model = await tmImage.load(modelURL,metadataURL);
         maxPredictions = model.getTotalClasses();
         
 
