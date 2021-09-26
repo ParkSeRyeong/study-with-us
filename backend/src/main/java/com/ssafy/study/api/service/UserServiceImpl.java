@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean idDuplicateCheck(String id) {
-        if(userRepository.findUserByUserid(id) != null)   return true;      // id를 찾아봤는데 null이 아니다 = 이미 있는 사용자 아이디
+        if(userRepository.findUserByUserid(id).isPresent())   return true;      // id를 찾아봤는데 null이 아니다 = 이미 있는 사용자 아이디
         return false;
     }
 
