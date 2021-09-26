@@ -11,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @Api("User Controller API V1")
 @CrossOrigin("*")
 public class UserController {
@@ -39,10 +41,10 @@ public class UserController {
     }
 
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "로그아웃")
     @PostMapping("/logout")
-    public BaseResponseBody logout(@RequestHeader(value = "Authorization") String token) {
+    public BaseResponseBody logout(HttpServletRequest request) {
+        final String token = request.getHeader("Authorization");
         logger.debug("logout method 진입");
         /**
          *  구현해야함!!!
@@ -61,30 +63,28 @@ public class UserController {
         }
     }
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "사용자 정보 가져오기")
     @GetMapping("/userinfo")
-    public UserRes getUserInfo(@RequestHeader(value = "Authorization") String token) {
+    public UserRes getUserInfo(HttpServletRequest request) {
+        final String token = request.getHeader("Authorization");
         logger.debug("userinfo method 진입");
         return userService.getUserInfo(token);
     }
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "회원탈퇴")
     @DeleteMapping("/userinfo")
-    public BaseResponseBody withdrawalUser(@RequestHeader(value = "Authorization") String token) {
+    public BaseResponseBody withdrawalUser(HttpServletRequest request) {
+        final String token = request.getHeader("Authorization");
         logger.debug("withdrawalUser method 진입");
         userService.withdrawalUser(token);
         return BaseResponseBody.of(200, "Success");
     }
 
 
-
-
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "jwt 유효성 검증")
     @PostMapping("/jwtValidate")
-    public BaseResponseBody jwtValidateTest(@RequestHeader(value = "Authorization") String token) {
+    public BaseResponseBody jwtValidateTest(HttpServletRequest request) {
+        final String token = request.getHeader("Authorization");
         logger.debug("jwt 유효성 검증 테스트 메서드");
         if (userService.jwt_test(token)) {
             return UserLoginPostRes.of(200, "Success");

@@ -10,6 +10,7 @@ import java.util.List;
 @Transactional
 public interface DailyTodoRepository extends JpaRepository<Daily_Todo, Long> {
     List<Daily_Todo> findByDailyStudy(Daily_Study daily_study);
+    Daily_Todo findByDailyStudyAndAndTodo(Daily_Study daily_study, String todo);
 
     @Transactional
     void deleteByDailyStudy(Daily_Study daily_study);

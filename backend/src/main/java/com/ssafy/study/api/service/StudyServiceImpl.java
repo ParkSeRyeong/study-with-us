@@ -3,14 +3,8 @@ package com.ssafy.study.api.service;
 import com.ssafy.study.api.response.MyStudyRes;
 import com.ssafy.study.api.service.service.StudyService;
 import com.ssafy.study.common.util.JwtTokenUtil;
-import com.ssafy.study.db.entity.Daily_Study;
-import com.ssafy.study.db.entity.Daily_Todo;
-import com.ssafy.study.db.entity.User;
-import com.ssafy.study.db.entity.User_Alarm;
-import com.ssafy.study.db.repository.DailyStudyRepository;
-import com.ssafy.study.db.repository.DailyTodoRepository;
-import com.ssafy.study.db.repository.UserAlarmRepository;
-import com.ssafy.study.db.repository.UserRepository;
+import com.ssafy.study.db.entity.*;
+import com.ssafy.study.db.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +32,8 @@ public class StudyServiceImpl implements StudyService {
     private DailyTodoRepository dailyTodoRepository;
     @Autowired
     private UserAlarmRepository userAlarmRepository;
+    @Autowired
+    private DailyOtherRepository dailyOtherRepository;
 
     @Transactional
     public User getUser(String token) {
@@ -92,9 +88,29 @@ public class StudyServiceImpl implements StudyService {
          * "msg" : 1
          * }
          * */
+        Date now = getToday();
         // 1. alltime, focustime 업데이트
         User user = getUser(token);
-        Daily_Study today = dailyStudyRepository.findByUserAndDay(user, getToday());
+       // Daily_Study today = dailyStudyRepository.findByUserAndDay(user, getToday());        // 근데 없으면? 새로 저장해야지
+
+        // 2. 근데 오늘 Daily_Study 엔티티가 없다면? >> 새로 생성
+        if (dailyStudyRepository.findByUserAndDay(user, now) == null) {
+            Daily_Study new_daily = Daily_Study.builder()
+                    .day(now)
+                    .user(user)
+                    .build();
+            dailyStudyRepository.save(new_daily);
+            logger.info("new daily_study save complete");
+
+            Daily_Other new_other = Daily_Other.builder()
+                    .dailyStudy(new_daily)
+                    .build();
+            dailyOtherRepository.save(new_other);
+            logger.info("new daily_other save complete");
+        }
+
+        Daily_Study today = dailyStudyRepository.findByUserAndDay(user, now);
+
         today.updateTodayStudy(Time.valueOf(info.getAlltime()), Time.valueOf(info.getFocustime()));
         dailyStudyRepository.save(today);
         logger.debug("스터디 시간 업데이트 완료");
