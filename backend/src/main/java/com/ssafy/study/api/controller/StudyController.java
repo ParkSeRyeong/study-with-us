@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/study")
+@RequestMapping("/api/study")
 @Api("Study Controller API V1")
 @CrossOrigin("*")
 public class StudyController {

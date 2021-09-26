@@ -7,6 +7,10 @@
 <script>
 export default {
   name: 'App',
+  created() {
+    this.$store.state.window_width = window.innerWidth
+    this.$store.state.window_height = window.innerHeight
+  }
 }
 </script>
 
