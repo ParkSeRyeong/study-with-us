@@ -1,6 +1,6 @@
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-
+import SERVER from '../../api/api'
 
 const state = {
   userToken: null,
@@ -10,7 +10,7 @@ const actions = {
   getJWT: function (context, credentials) {
     axios({
       method: 'post',
-      url: 'http://localhost:8080/user/login',
+      url: `${SERVER.URL}/user/login`,
       data: credentials,
     })
       .then((res) => {
