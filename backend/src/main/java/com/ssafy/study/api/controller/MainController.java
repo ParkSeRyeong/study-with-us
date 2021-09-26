@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/main")
+@RequestMapping("/api/main")
 @Api("Main Controller API V1")
 @CrossOrigin("*")
 public class MainController {
