@@ -1,5 +1,4 @@
 import axios from 'axios'
-import createPersistedState from 'vuex-persistedstate'
 import jwt_decode from 'jwt-decode'
 
 
@@ -15,8 +14,8 @@ const actions = {
       data: credentials,
     })
       .then((res) => {
-        console.log(res.data.token)
-        context.commit('saveJWT', res.data.token)
+        console.log(res.data.jwt)
+        context.commit('saveJWT', res.data.jwt)
       })
       .catch((err) => {
         console.log(err)
@@ -38,8 +37,8 @@ const mutations = {
 
 const getters = {
   decodedToken: function (state) {
+    console.log(jwt_decode(state.userToken))
     if (state.userToken) {
-      console.log(jwt_decode(state.userToken))
       return jwt_decode(state.userToken)
     }
     else {
@@ -50,7 +49,6 @@ const getters = {
 
 export default {
   namespaced: true,
-  plugins: [createPersistedState()],
   state,
   actions,
   mutations,
