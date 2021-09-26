@@ -70,6 +70,7 @@
 
 <script>
 import axios from 'axios'
+import SERVER from '../api/api.js'
 
 export default {
   name: 'Signup',
@@ -94,7 +95,7 @@ export default {
     idDupCheck: function () {
       axios({
         method: 'get',
-        url: `http://localhost:8080/user/idDuplciateCheck/${this.credentials.userid}`
+        url: `${SERVER.URL}/user/idDuplciateCheck/${this.credentials.userid}`
       })
         .then((res)=> {
           console.log(res)
@@ -123,7 +124,7 @@ export default {
         this.signupstate = 'success'
         axios({
           method: 'post',
-          url: 'http://localhost:8080/user/signup',
+          url: `${SERVER.URL}/user/signup`,
           data: this.credentials,
         })
           .then((res) => {
