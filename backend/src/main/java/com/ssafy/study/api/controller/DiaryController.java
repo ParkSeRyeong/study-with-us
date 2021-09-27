@@ -1,12 +1,11 @@
 package com.ssafy.study.api.controller;
 
 import com.ssafy.study.api.request.TodoReq;
-import com.ssafy.study.api.response.DiaryRes;
-import com.ssafy.study.api.response.MyStudyRes;
+import com.ssafy.study.api.response.DailyRes;
+import com.ssafy.study.api.response.WeeklyRes;
 import com.ssafy.study.api.service.UserServiceImpl;
 import com.ssafy.study.api.service.service.DiaryService;
 import com.ssafy.study.api.service.service.MainService;
-import com.ssafy.study.api.service.service.StudyService;
 import com.ssafy.study.common.response.BaseResponseBody;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -31,21 +30,21 @@ public class DiaryController {
 
     @ApiOperation(value = "일간 공부 다이어리 : 3일치")
     @PostMapping("/daily")
-    public List<DiaryRes> getTodayInfo(HttpServletRequest request, @RequestBody String day) {
+    public List<DailyRes> getTodayInfo(HttpServletRequest request, @RequestBody String day) {
         final String token = request.getHeader("Authorization");
-        List<DiaryRes> list = diaryService.getDailyDiary(token, day);
-        for(DiaryRes dr : list) {
+        List<DailyRes> list = diaryService.getDailyDiary(token, day);
+        for(DailyRes dr : list) {
             System.out.println(dr);
         }
         return list;
     }
 
 
-    @PostMapping("/test")
-    public BaseResponseBody testing(HttpServletRequest request, @RequestBody @ApiParam(value = "공부 완료 후 갱신", required = true) MyStudyRes updateInfo) {
+    @GetMapping("/weekly/{day}")
+    public List<WeeklyRes> testing(HttpServletRequest request, @PathVariable("day") String day) {
         final String token = request.getHeader("Authorization");
-        diaryService.nowTesting();
-        return BaseResponseBody.of(200, "Success");
+        List<WeeklyRes> res = diaryService.getWeeklyDiary(day, token);
+        return res;
     }
 
     @ApiOperation(value = "todo 체크/해제")
