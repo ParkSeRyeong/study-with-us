@@ -1,89 +1,9 @@
 <template>
-  <div class="container-center-horizontal">
-    <div class="entrance-page screen" :style="{ width: width + 'px', height: height + 'px' }">
-      <div class="overlap-group2">
-        <img
-          class="blob"
-          src="@/assets/images/Blob.png"
-        />
-        <h1 class="study-with-us animate-enter" :style="{ 'font-size': title_fontsize + 'px', top: title_top + 'px' }">STUDY<br />WITH<br />US</h1>
-      </div>
-      <div class="login">
-        <input
-          class="form-control login-form"
-          type="text"
-          placeholder="ID"
-          v-model="credentials.userid"
-        />
-        <input
-          class="form-control login-form"
-          type="password"
-          placeholder="PASSWORD"
-          v-model="credentials.password"
-          @keyup.enter="userLogin"
-        />
-        <button class="btn login-btn" type="button" style="width: 100%" @click="userLogin">로그인</button>
-        <div class="container">
-          <div class="row justify-content-between">
-            <div class="col below-btn-left">회원가입</div>
-            <div class="col below-btn-right">아이디/비밀번호 찾기</div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row justify-content-evenly flex-row-1">
-            <div class="col"></div>
-            <img
-              class="googlelogo col"
-              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/google-logo@2x.png"
-            />
-            <img
-              class="kakaologo col"
-              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/kakao-logo@2x.png"
-            />
-            <div class="col"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <div></div>
 </template>
 
 <script>
-export default {
-  name: 'EntrancePage',
-  data: function () {
-    return {
-      width: 0,
-      height: 0,
-      title_fontsize: 0,
-      title_right: 0,
-      title_top: 0,
-      login_top: 0,
-      credentials: {
-        userid: null,
-        password: null,
-      }
-    }
-  },
-  created() {
-    this.width = window.innerWidth
-    this.height = window.innerHeight
-    this.title_fontsize = window.innerHeight * 0.074
-    this.title_top = window.innerHeight * 0
-    this.login_top = window.innerHeight * 0.5
-    console.log(this.$store.getters['login/decodedToken'])
-    if (this.$store.getters['login/decodedToken']) {
-      this.$router.push({ name: 'MainPage' })
-    }
-  },
-  methods: {
-    userLogin() {
-      console.log('component_userLogin')
-      this.$store.dispatch('login/getJWT', this.credentials)
-      this.$router.push({ name: 'MainPage' })
-    }
-  },
-}
+
 </script>
 
 <style>
