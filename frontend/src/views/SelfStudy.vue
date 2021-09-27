@@ -3,7 +3,8 @@
         <!-- <input type="file" id='upload-model'>
         <input type="file" id='upload-weights'>
         <input type="file" id='upload-metadata'> -->
-        <div id='webcam-container'></div>
+        <Blink>can you see me?</Blink>
+        <div id='webcam-container' style="height: auto; width: 100%; border:5px solid gold;"></div>
         <div id="label-container"></div>
         
     </div>
@@ -26,16 +27,17 @@ export default {
 
     async mounted() {
 
-        let externalScript = document.createElement('script')
-        externalScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js')
-        document.head.appendChild(externalScript)
+        //let externalScript = document.createElement('script')
+        //externalScript.setAttribute('src', 'https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js')
+        
+        //document.body.appendChild(externalScript)
 
-        let externalScript2 = document.createElement('script')
-        externalScript2.setAttribute('src', 'https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js')
-        document.head.appendChild(externalScript2)
+        //let externalScript2 = document.createElement('script')
+        //externalScript2.setAttribute('src', 'https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js')
+        //document.body.appendChild(externalScript2)
 
-
-        const URL = '../assets/my_model/';
+        const URL = 'https://teachablemachine.withgoogle.com/models/uK53pgina/'
+        //const URL = '../assets/my_model/';
         const modelURL = URL + 'model.json';
         const metadataURL = URL + 'metadata.json';
         //const weightsURL = URL + 'weights.bin';
@@ -99,6 +101,15 @@ export default {
 </script>
 
 <style>
+    blink{
+        animation: blink 0.5s linear infinite;
+    }
+
+    @keyframes blink{
+        0%{opacity: 1;}
+        50%{opacity: 0;}
+        100%{opacity: 1;}
+    }
 
 </style>
 
