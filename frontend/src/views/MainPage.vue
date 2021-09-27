@@ -95,7 +95,7 @@ export default {
   name: 'MainPage',
   components: {
     NavBar,
-  }
+  },
 }
 </script>
 

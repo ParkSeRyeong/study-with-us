@@ -2,6 +2,7 @@ package com.ssafy.study.api.controller;
 
 import com.ssafy.study.api.request.TodoReq;
 import com.ssafy.study.api.response.DailyRes;
+import com.ssafy.study.api.response.MonthlyRes;
 import com.ssafy.study.api.response.WeeklyRes;
 import com.ssafy.study.api.service.UserServiceImpl;
 import com.ssafy.study.api.service.service.DiaryService;
@@ -30,7 +31,7 @@ public class DiaryController {
 
     @ApiOperation(value = "일간 공부 다이어리 : 3일치")
     @PostMapping("/daily")
-    public List<DailyRes> getTodayInfo(HttpServletRequest request, @RequestBody String day) {
+    public List<DailyRes> getDailyDiary(HttpServletRequest request, @RequestBody String day) {
         final String token = request.getHeader("Authorization");
         List<DailyRes> list = diaryService.getDailyDiary(token, day);
         for(DailyRes dr : list) {
@@ -41,9 +42,16 @@ public class DiaryController {
 
 
     @GetMapping("/weekly/{day}")
-    public List<WeeklyRes> testing(HttpServletRequest request, @PathVariable("day") String day) {
+    public List<WeeklyRes> getWeeklyDiary(HttpServletRequest request, @PathVariable("day") String day) {
         final String token = request.getHeader("Authorization");
         List<WeeklyRes> res = diaryService.getWeeklyDiary(day, token);
+        return res;
+    }
+
+    @GetMapping("/monthly/{day}")
+    public MonthlyRes getMonthlyDiary(HttpServletRequest request, @PathVariable("day") String day) {
+        final String token = request.getHeader("Authorization");
+        MonthlyRes res = diaryService.getMonthlyDiary(day, token);
         return res;
     }
 

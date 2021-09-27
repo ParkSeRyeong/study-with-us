@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
@@ -25,8 +26,14 @@ public interface DailyStudyRepository extends JpaRepository<Daily_Study, Long> {
      @Query(value = "SELECT d FROM Daily_Study as d where d.day between :startDate and :endDate and d.user = :user order by d.focustime desc")
      List<Daily_Study> getWeekStudyInfo(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("user") User user);
 
-     @Query(value = "SELECT sum(focustime) FROM Daily_Study where day between :startDate and :endDate order by focustime desc", nativeQuery = true)
-     Time getMaxStudyInfo(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+     @Query(value = "SELECT max(focustime) FROM daily_study where day between :startDate and :endDate and userid = :userid order by focustime desc", nativeQuery = true)
+     Time getMaxFocusTime(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("userid") String userid);
+
+     @Query(value = "SELECT sum(focustime) FROM daily_study where day between :startDate and :endDate order by focustime desc", nativeQuery = true)
+     BigDecimal getTotalFocusTime(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
+
+     @Query(value = "SELECT sum(othertime) FROM daily_study where day between :startDate and :endDate order by focustime desc", nativeQuery = true)
+     BigDecimal getTotalOtherTime(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
 //    @Query("SELECT distinct m FROM Daily_Study m join fetch m.user")
 //    List<Daily_Study> findAllByUser();
