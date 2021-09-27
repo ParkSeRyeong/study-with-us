@@ -12,7 +12,7 @@ import java.util.HashMap;
 @Builder
 @ApiModel("Main, study page response")
 @ToString
-public class DiaryRes {
+public class DailyRes {
 
     @ApiModelProperty(name="allTime", example="07:17:17")
     private String alltime;

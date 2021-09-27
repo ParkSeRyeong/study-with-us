@@ -5,7 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.ParameterBuilder;
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.schema.ModelRef;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -14,9 +17,7 @@ import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.google.common.collect.Lists.newArrayList;
 
@@ -31,45 +32,33 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     private String version = "V1";
     private String title = "STUDY-WITH-US API " + version;
+
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
     /**
      * api 구조를 만들어줄 범위를 지정한다
-     * */
+     */
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false)
-//                .consumes(getConsumeContentTypes())
-//                .produces(getProduceContentTypes())
+        return new Docket(DocumentationType.SWAGGER_2)
+                .useDefaultResponseMessages(false)
                 .apiInfo(apiInfo())     // 이 apiInfo는 바로 아래 select()보다 무조건 위에 있어야하는 것 같다!
                 .select()
                 .apis(RequestHandlerSelectors.any())        // 현재 RequestMapping으로 할당된 모든 URL 리스트를 추출
-          //      .paths(PathSelectors.ant("/**"))    // 그 중 /api/** 인 url들만 필터링
+                //      .paths(PathSelectors.ant("/**"))    // 그 중 /api/** 인 url들만 필터링
                 .apis(RequestHandlerSelectors.basePackage("com.ssafy.study.api.controller"))
                 .build()
-//                .securityContexts(newArrayList(securityContext()))
-//               .securitySchemes(newArrayList(apiKey()))
-                ;
+                .securityContexts(newArrayList(securityContext()))
+                .securitySchemes(Arrays.asList(apiKey()));
     }
 
-//    private Set<String> getConsumeContentTypes() {
-//        Set<String> consumes = new HashSet<>();
-//        consumes.add("application/json;charset=UTF-8");
-//        return consumes;
-//    }
-//
-//    private Set<String> getProduceContentTypes() {
-//        Set<String> produces = new HashSet<>();
-//        produces.add("application/json;charset=UTF-8");
-//        produces.add("text/plain;charset=UTF-8");
-//        return produces;
-//    }
-
-    private ApiInfo apiInfo(){
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder().
                 title("Study With Us Swagger")
                 .version("V1")
@@ -78,14 +67,19 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     }
 
-//    private ApiKey apiKey() {
-//        return new ApiKey(SECURITY_SCHEMA_NAME, "Authorization", "header");
-//    }
-//
+    // 헤더 설정 : jwt 입력
+    private ApiKey apiKey() {
+        return new ApiKey("JWT", "Authorization", "header");
+    }
+
     private SecurityContext securityContext() {
-        return SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .build();
+        return springfox
+                .documentation
+                .spi.service
+                .contexts
+                .SecurityContext
+                .builder()
+                .securityReferences(defaultAuth()).forPaths(PathSelectors.any()).build();
     }
 
     public static final String SECURITY_SCHEMA_NAME = "JWT";

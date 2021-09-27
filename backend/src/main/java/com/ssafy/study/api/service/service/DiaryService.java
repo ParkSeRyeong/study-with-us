@@ -1,8 +1,11 @@
 package com.ssafy.study.api.service.service;
 
-import com.ssafy.study.api.response.DiaryRes;
-import com.ssafy.study.api.response.MyStudyRes;
+import com.ssafy.study.api.response.DailyRes;
+import com.ssafy.study.api.response.WeeklyRes;
+
+import java.util.List;
 
 public interface DiaryService {
-    DiaryRes getDailyDiary();
+    List<DailyRes> getDailyDiary(String token, String today);
+    List<WeeklyRes> getWeeklyDiary(String inputDate, String token);
 }

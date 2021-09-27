@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api/study")
 @Api("Study Controller API V1")
@@ -21,18 +23,18 @@ public class StudyController {
     @Autowired
     StudyService studyService;
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "공부페이지 진입")
     @GetMapping("/sidebar")
-    public MyStudyRes getTodayInfo(@RequestHeader(value = "Authorization") String token) {
+    public MyStudyRes getTodayInfo(HttpServletRequest request) {
+        final String token = request.getHeader("Authorization");
         MyStudyRes res = studyService.getStudyInfo(token);
         return res;
     }
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "공부 완료 후 현재 정보 갱신")
     @PostMapping("/stop")
-    public BaseResponseBody getTodayInfo(@RequestHeader(value = "Authorization") String token, @RequestBody @ApiParam(value = "공부 완료 후 갱신", required = true) MyStudyRes updateInfo) {
+    public BaseResponseBody getTodayInfo(HttpServletRequest request, @RequestBody @ApiParam(value = "공부 완료 후 갱신", required = true) MyStudyRes updateInfo) {
+        final String token = request.getHeader("Authorization");
         studyService.saveTodayStudy(token, updateInfo);
         return BaseResponseBody.of(200, "Success");
     }
