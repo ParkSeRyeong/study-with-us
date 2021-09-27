@@ -10,6 +10,7 @@
     </div>
 </template>
 
+
 <script>
 // the link to your model provided by Teachable Machine export panel
 import * as tf from'@tensorflow/tfjs';  // eslint-disable-line no-unused-vars
