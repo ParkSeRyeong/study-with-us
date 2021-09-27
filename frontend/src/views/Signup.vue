@@ -60,8 +60,6 @@
       type="button"
       class="signup-btn"
       @click="signup(credentials)"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
     >
       회원가입
     </button>
@@ -149,9 +147,9 @@ export default {
     },
   },
   created() {
-    // if (this.$store.getters.login.decodedToken) {
-    //   this.$router.push({ name: 'MainPage' })
-    // }
+    if (this.$store.getters['login/decodedToken']) {
+      this.$router.push({ name: 'MainPage' })
+    }
   },
   mounted() {
     window.scrollTo(0, 0)
