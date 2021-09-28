@@ -23,7 +23,7 @@ const routes = [
     path: '/selfstudy',
     name: 'SelfStudy',
     component: () => import('@/views/SelfStudy.vue'),
-  }
+  },
 ]
 
 const router = createRouter({
