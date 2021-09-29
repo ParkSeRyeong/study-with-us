@@ -1,12 +1,17 @@
 <template>
   <div class="container-center-horizontal">
-    <div class="entrance-page screen" :style="{ width: width + 'px', height: height + 'px' }">
+    <div
+      class="entrance-page screen"
+      :style="{ width: width + 'px', height: height + 'px' }"
+    >
       <div class="overlap-group2">
-        <img
-          class="blob"
-          src="@/assets/images/Blob.png"
-        />
-        <h1 class="study-with-us animate-enter" :style="{ 'font-size': title_fontsize + 'px', top: title_top + 'px' }">STUDY<br />WITH<br />US</h1>
+        <img class="blob" src="@/assets/images/Blob.png" />
+        <h1
+          class="study-with-us animate-enter"
+          :style="{ 'font-size': title_fontsize + 'px', top: title_top + 'px' }"
+        >
+          STUDY<br />WITH<br />US
+        </h1>
       </div>
       <div class="login">
         <input
@@ -22,7 +27,14 @@
           v-model="credentials.password"
           @keyup.enter="userLogin"
         />
-        <button class="btn login-btn" type="button" style="width: 100%" @click="userLogin">로그인</button>
+        <button
+          class="btn login-btn"
+          type="button"
+          style="width: 100%"
+          @click="userLogin"
+        >
+          로그인
+        </button>
         <div class="container">
           <div class="row justify-content-between">
             <div class="col below-btn-left">회원가입</div>
@@ -50,8 +62,8 @@
 
 <script>
 export default {
-  name: 'EntrancePage',
-  data: function () {
+  name: "EntrancePage",
+  data: function() {
     return {
       width: 0,
       height: 0,
@@ -62,28 +74,28 @@ export default {
       credentials: {
         userid: null,
         password: null,
-      }
-    }
+      },
+    };
   },
   created() {
-    this.width = window.innerWidth
-    this.height = window.innerHeight
-    this.title_fontsize = window.innerHeight * 0.074
-    this.title_top = window.innerHeight * 0
-    this.login_top = window.innerHeight * 0.5
-    console.log(this.$store.getters['login/decodedToken'])
-    if (this.$store.getters['login/decodedToken']) {
-      this.$router.push({ name: 'MainPage' })
-    }
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    this.title_fontsize = window.innerHeight * 0.074;
+    this.title_top = window.innerHeight * 0;
+    this.login_top = window.innerHeight * 0.5;
+    console.log(this.$store.getters["login/decodedToken"]);
+    // if (this.$store.getters['login/decodedToken']) {
+    //   this.$router.push({ name: 'MainPage' })
+    // }
   },
   methods: {
     userLogin() {
-      console.log('component_userLogin')
-      this.$store.dispatch('login/getJWT', this.credentials)
-      this.$router.push({ name: 'MainPage' })
-    }
+      console.log("component_userLogin");
+      this.$store.dispatch("login/getJWT", this.credentials);
+      this.$router.push({ name: "MainPage" });
+    },
   },
-}
+};
 </script>
 
 <style>
@@ -121,8 +133,8 @@ export default {
 }
 
 .entrance-page .study-with-us {
-  color: #218D93;
-  font-family: 'Cafe24Shiningstar';
+  color: #218d93;
+  font-family: "Cafe24Shiningstar";
   font-weight: 400;
   letter-spacing: 0;
   position: absolute;
@@ -133,15 +145,17 @@ export default {
 }
 
 .entrance-page .study-with-us.animate-enter {
-  animation: animate-enter-frames 0.60s ease-in-out 0.50s 1 normal forwards;
+  animation: animate-enter-frames 0.6s ease-in-out 0.5s 1 normal forwards;
   opacity: 0;
 }
 
 @keyframes animate-enter-frames {
-  from{opacity: 0;
-}
-to{opacity: 1;
-}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .entrance-page .login-form {
@@ -151,7 +165,7 @@ to{opacity: 1;
 }
 
 .entrance-page .login .login-btn {
-  background-color: #21B2BA; 
+  background-color: #21b2ba;
   font-family: "NanumBarunGothic-Bold";
   color: white;
   margin-bottom: 10px;
@@ -196,46 +210,62 @@ to{opacity: 1;
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
 
 @font-face {
- font-family: "NanumBarunGothic-Regular";
- font-style: normal;
- font-weight: 400;
- src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
- src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
+  font-family: "NanumBarunGothic-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix")
+      format("embedded-opentype"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff")
+      format("woff"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf")
+      format("truetype");
 }
 
 @font-face {
- font-family: "NanumBarunGothic-Bold";
- font-style: normal;
- font-weight: 700;
- src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
- src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf') format('truetype')
+  font-family: "NanumBarunGothic-Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix")
+      format("embedded-opentype"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff")
+      format("woff"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf")
+      format("truetype");
 }
 
 @font-face {
- font-family: 'NanumBarunGothic-Light';
- font-style: normal;
- font-weight: 300;
- src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
- src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype');
+  font-family: "NanumBarunGothic-Light";
+  font-style: normal;
+  font-weight: 300;
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix")
+      format("embedded-opentype"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff")
+      format("woff"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf")
+      format("truetype");
 }
 
 .nanumbarungothic * {
- font-family: 'NanumBarunGothic', sans-serif;
-}
-
-
-@font-face {
-    font-family: "BM DoHyeon-Regular";
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "NanumBarunGothic", sans-serif;
 }
 
 @font-face {
-    font-family: 'Cafe24Shiningstar';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Shiningstar.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: "BM DoHyeon-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMDOHYEON.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Cafe24Shiningstar";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Shiningstar.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
 .screen a {
@@ -265,5 +295,4 @@ to{opacity: 1;
 * {
   box-sizing: border-box;
 }
-
 </style>
