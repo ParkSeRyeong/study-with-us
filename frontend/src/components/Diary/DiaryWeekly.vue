@@ -67,7 +67,7 @@
             
             <div class="group-2" data-id="51:34">
                 <div class="rectangle-19" data-id="51:7"></div>
-                <div class="first">
+                <div class="fifth">
             <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
              <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
@@ -75,6 +75,7 @@
             </div>
             </div>
             </div>
+            
             </div>
             <div class="study-diary-weekly-item" data-id="51:44">
             <div class="text nanumbarungothic-light-black-15px" data-id="51:11">09.07&nbsp;&nbsp;화</div>
@@ -95,27 +96,31 @@
             <div class="text nanumbarungothic-light-black-15px" data-id="51:14">09.08&nbsp;&nbsp;수</div>
             <div class="group" data-id="51:36">
                 <div class="overlap-group-2" data-id="an|7hj1ObF0">
-                  <div class="first">
+                  
+                <div class="rectangle-2" data-id="51:13">
+                 <div class="fourth">
             <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
              <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
              <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
-            </div>
-                <div class="rectangle-2" data-id="51:13"></div>
+            </div> 
+                </div>
                 </div>
             </div>
             </div>
             <div class="study-diary-weekly-item-1" data-id="51:42">
             <div class="text nanumbarungothic-light-black-15px" data-id="51:17">09.09&nbsp;&nbsp;목</div>
             
-            <div class="group-5" data-id="51:37"></div>
-            <div class="second">
+            <div class="group-5" data-id="51:37">
+             <div class="second">
             <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
              <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
              <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            </div> 
             </div>
+            
             </div>
             
             </div>
@@ -138,19 +143,22 @@
             </div>
             <div class="study-diary-weekly-item-1" data-id="51:40">
             <div class="text nanumbarungothic-light-black-15px" data-id="51:23">09.11&nbsp;&nbsp;토</div>
+            
             <div class="group" data-id="51:39">
-              <div class="third">
+              
+                <div class="overlap-group-4" data-id="an|6XqoLJqC">
+                  
+                  
+                  
+                <div class="rectangle-29" data-id="51:22">
+                  <div class="third">
             <div class="progress">
             <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
              <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
              <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
             </div>
-                <div class="overlap-group-4" data-id="an|6XqoLJqC">
-                  
-                  
-                  
-                <div class="rectangle-29" data-id="51:22"></div>
+                  </div>
                 
                 </div>
             </div>
@@ -206,11 +214,19 @@ export default {
     margin: auto;
 }
 .second{
-    width: 10000000%;
+    width: 110%;
     margin: auto;
 }
 .third{
-    width: 100000000000000%;
+    width: 1000%;
+    margin: auto;
+}
+.fourth{
+    width: 250%;
+    margin: auto;
+}
+.fifth{
+    width: 20000000%;
     margin: auto;
 }
 .study-diary-weekly {
