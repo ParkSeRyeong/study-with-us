@@ -40,7 +40,7 @@
               class="kakaologo col"
               src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/kakao-logo@2x.png"
             />
-            <div class="col"></div>
+            <div class="col">_</div>
           </div>
         </div>
       </div>
@@ -71,9 +71,10 @@ export default {
     this.title_fontsize = window.innerHeight * 0.074
     this.title_top = window.innerHeight * 0
     this.login_top = window.innerHeight * 0.5
-    // if (this.$store.getters.login.decodedToken) {
-    //   this.$router.push({ name: 'MainPage' })
-    // }
+    console.log(this.$store.getters['login/decodedToken'])
+    if (this.$store.getters['login/decodedToken']) {
+      this.$router.push({ name: 'MainPage' })
+    }
   },
   methods: {
     userLogin() {

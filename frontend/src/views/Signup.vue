@@ -44,7 +44,7 @@
         "비밀번호가 일치합니다."
       </p>
       <p
-        v-if="credentials.password != null"
+        v-else-if="credentials.password != null"
         class="warning-text"
       >
         "비밀번호가 일치하지 않습니다."
@@ -70,6 +70,7 @@
 
 <script>
 import axios from 'axios'
+import SERVER from '../api/api.js'
 
 export default {
   name: 'Signup',
@@ -94,7 +95,7 @@ export default {
     idDupCheck: function () {
       axios({
         method: 'get',
-        url: `http://localhost:8080/user/idDuplciateCheck/${this.credentials.userid}`
+        url: `${SERVER.URL}/user/idDuplciateCheck/${this.credentials.userid}`
       })
         .then((res)=> {
           console.log(res)
@@ -103,9 +104,9 @@ export default {
           } else {
             if (res.data.statusCode == 200) {
               this.idDup = '200'
-              this.idDupid = this.credentials.id
+              this.idDupid = this.credentials.userid
             } else if (res.data.statusCode == 401) {
-              this.emailDup = '401'
+              this.idDup = '401'
             }
           }
         })
@@ -115,35 +116,35 @@ export default {
         })
     },
 
-    // signup: function () {
-    //   if (
-    //     this.idDupid === this.credentials.id &&
-    //     this.credentials.password === this.passwordConfirmation
-    //   ) {
-    //     this.signupstate = 'success'
-    //     axios({
-    //       method: 'post',
-    //       url: '',
-    //       data: this.credentials,
-    //     })
-    //       .then((res) => {
-    //         console.log(res)
-    //       })
-    //       .catch((err) => {
-    //         console.log(err)
-    //       })
-    //   } else {
-    //     this.signupstate = 'fail'
-    //     if (!(this.idDupid === this.credentials.id)) {
-    //       this.warningtext = 
-    //         '중복체크한 아이디와 입력된 아이디가 다릅니다. 다시 확인해주세요.'
-    //     } else if (!(this.credentials.password === this.passwordConfirmation)) {
-    //       this.warningtext =
-    //         '비밀번호가 다릅니다.'
-    //     }
-    //     console.log(this.warningtext)
-    //   }
-    // },
+    signup: function () {
+      if (
+        this.idDupid === this.credentials.userid &&
+        this.credentials.password === this.passwordConfirmation
+      ) {
+        this.signupstate = 'success'
+        axios({
+          method: 'post',
+          url: `${SERVER.URL}/user/signup`,
+          data: this.credentials,
+        })
+          .then((res) => {
+            console.log(res)
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      } else {
+        this.signupstate = 'fail'
+        if (!(this.idDupid === this.credentials.userid)) {
+          this.warningtext = 
+            '중복체크한 아이디와 입력된 아이디가 다릅니다. 다시 확인해주세요.'
+        } else if (!(this.credentials.password === this.passwordConfirmation)) {
+          this.warningtext =
+            '비밀번호가 다릅니다.'
+        }
+        console.log(this.warningtext)
+      }
+    },
     gotoLogin: function () {
       this.$router.push({ name: 'entrancePage'})
     },
