@@ -40,7 +40,7 @@
               class="kakaologo col"
               src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/kakao-logo@2x.png"
             />
-            <div class="col"></div>
+            <div class="col">_</div>
           </div>
         </div>
       </div>
