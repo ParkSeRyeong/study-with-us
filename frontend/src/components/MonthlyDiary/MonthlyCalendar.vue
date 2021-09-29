@@ -1,11 +1,10 @@
 <template>
-  <div class="container-center-horizontal mt-3 calendarM">
+  <div class="container-center-horizontal mt-3 calendarM" style="width=100%">
     <div class="calendar flex justify-content-center" style="text-align:center">
       <h1 class="monthHeader">
         <!-- <div v-for="(days, index) in studyDay" v-bind:key="index">
           <span>{{ days }}</span>
         </div> -->
-        <div>{{ this.$store.state.diary.isStudy }}</div>
 
         <span v-on:click="onClickPrev(currentMonth)" class="mainColor">◀</span>
         {{ currentYear }}년 {{ currentMonth }}월
@@ -26,13 +25,7 @@
               :key="index2"
               style="padding:2rem;"
             >
-              <span
-                v-if="isToday(currentYear, currentMonth, day)"
-                class="rounded"
-              >
-                {{ day }}
-              </span>
-              <span v-else-if="studyDay[day - 1] != 0" class="rounded">
+              <span v-if="isStudy(day) && day != ''" class="rounded">
                 {{ day }}
               </span>
               <span v-else>
@@ -175,9 +168,8 @@ export default {
         day == date.getDate()
       );
     },
-    isStudy: function(year, month, day) {
-      let date = new Date();
-      return year == date.getFullYear() && month == 9 && day == 30;
+    isStudy: function(day) {
+      return this.$store.state.diary.isStudy[day - 1] != 0;
     },
     getMonthlyInfo() {
       console.log("getMonthlyInfo - component");
@@ -209,6 +201,7 @@ export default {
   font-size: 2rem;
   padding-bottom: 3rem;
 }
+
 .mainColor {
   color: #48d9df;
 }
