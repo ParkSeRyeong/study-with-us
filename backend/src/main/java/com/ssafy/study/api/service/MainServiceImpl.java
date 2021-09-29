@@ -1,5 +1,6 @@
 package com.ssafy.study.api.service;
 
+import com.ssafy.study.api.request.TodoReq;
 import com.ssafy.study.api.response.MyStudyRes;
 import com.ssafy.study.api.service.service.MainService;
 import com.ssafy.study.common.util.JwtTokenUtil;
@@ -148,6 +149,18 @@ public class MainServiceImpl implements MainService {
             dailyTodoRepository.save(new_todo);
         }
 
+    }
+
+    @Transactional
+    public void toggleTodo(String token, TodoReq info) {
+        // 해당 날짜의 유저 to-do 정보 가져오기
+        User user = getUser(token);
+        Daily_Study todo_day = dailyStudyRepository.findByUserAndDay(user, Date.valueOf(info.getDay()));
+
+        // todo와 daily_study 로 해당 to-do entity 찾아서
+        Daily_Todo update_todo = dailyTodoRepository.findByDailyStudyAndAndTodo(todo_day, info.getTodo());
+        update_todo.updateTodo(info.isDone());
+        dailyTodoRepository.save(update_todo);  // 업데이트
     }
 
     @Transactional
