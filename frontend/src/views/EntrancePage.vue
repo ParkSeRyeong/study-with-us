@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div class="container-center-horizontal">
     <div class="entrance-page screen" :style="{ width: width + 'px', height: height + 'px' }">
       <div class="overlap-group2">
@@ -41,15 +40,12 @@
               class="kakaologo col"
               src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/kakao-logo@2x.png"
             />
-            <div class="col">_</div>
+            <div class="col"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
-=======
-    <div></div>
->>>>>>> 79c0d42d0c803c219fbae645cff611f460b85c47
 </template>
 
 <script>
