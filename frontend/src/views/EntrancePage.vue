@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="container-center-horizontal">
     <div class="entrance-page screen" :style="{ width: width + 'px', height: height + 'px' }">
       <div class="overlap-group2">
@@ -46,44 +47,13 @@
       </div>
     </div>
   </div>
+=======
+    <div></div>
+>>>>>>> 79c0d42d0c803c219fbae645cff611f460b85c47
 </template>
 
 <script>
-export default {
-  name: 'EntrancePage',
-  data: function () {
-    return {
-      width: 0,
-      height: 0,
-      title_fontsize: 0,
-      title_right: 0,
-      title_top: 0,
-      login_top: 0,
-      credentials: {
-        userid: null,
-        password: null,
-      }
-    }
-  },
-  created() {
-    this.width = window.innerWidth
-    this.height = window.innerHeight
-    this.title_fontsize = window.innerHeight * 0.074
-    this.title_top = window.innerHeight * 0
-    this.login_top = window.innerHeight * 0.5
-    console.log(this.$store.getters['login/decodedToken'])
-    if (this.$store.getters['login/decodedToken']) {
-      this.$router.push({ name: 'MainPage' })
-    }
-  },
-  methods: {
-    userLogin() {
-      console.log('component_userLogin')
-      this.$store.dispatch('login/getJWT', this.credentials)
-      this.$router.push({ name: 'MainPage' })
-    }
-  },
-}
+
 </script>
 
 <style>
