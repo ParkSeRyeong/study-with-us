@@ -1,10 +1,19 @@
 <template>
-
+<div id="app">
+    <diary-weekly />
+  </div>
 </template>
 
 <script>
-export default {
+import DiaryWeekly from '@/components/Diary/DiaryWeekly';
 
+export default {
+name: 'App',
+  components: {
+    
+    DiaryWeekly,
+    
+  },
 }
 </script>
 
