@@ -5,6 +5,6 @@ import com.ssafy.study.db.entity.Daily_Study;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DailyOtherRepository extends JpaRepository<Daily_Other, Long> {
-
+    Daily_Other findByDailyStudy(Daily_Study daily_study);
 }
 
