@@ -1,15 +1,16 @@
 <template>
-  <div class="container-center-horizontal mt-3 calendarM" style="width=100%">
-    <div class="calendar flex justify-content-center" style="text-align:center">
-      <h1 class="monthHeader">
-        <!-- <div v-for="(days, index) in studyDay" v-bind:key="index">
-          <span>{{ days }}</span>
-        </div> -->
-
+  <div style="width:100%; background-color:#FAFFFE;">
+    <div
+      class="calendar calendarM flex justify-content-center monthlyDays"
+      style="text-align:center"
+    >
+      <!-- 년 월 start -->
+      <h1 class="monthHeader mt-5 mb-4">
         <span v-on:click="onClickPrev(currentMonth)" class="mainColor">◀</span>
         {{ currentYear }}년 {{ currentMonth }}월
         <span v-on:click="onClickNext(currentMonth)" class="mainColor">▶</span>
       </h1>
+      <!-- 년 월 end -->
       <table class="table table-hover pb-3">
         <thead>
           <tr>
@@ -20,12 +21,37 @@
         </thead>
         <tbody>
           <tr v-for="(row, index) in currentCalendarMatrix" :key="index">
-            <td
-              v-for="(day, index2) in row"
-              :key="index2"
-              style="padding:2rem;"
-            >
-              <span v-if="isStudy(day) && day != ''" class="rounded">
+            <td v-for="(day, index2) in row" :key="index2" style="padding:4vw;">
+              <span
+                v-if="
+                  isStudy(day) && this.$store.state.diary.isStudy[day - 1] == 4
+                "
+                class="rounded-4"
+              >
+                {{ day }}
+              </span>
+              <span
+                v-else-if="
+                  isStudy(day) && this.$store.state.diary.isStudy[day - 1] == 3
+                "
+                class="rounded-3"
+              >
+                {{ day }}
+              </span>
+              <span
+                v-else-if="
+                  isStudy(day) && this.$store.state.diary.isStudy[day - 1] == 2
+                "
+                class="rounded-2"
+              >
+                {{ day }}
+              </span>
+              <span
+                v-else-if="
+                  isStudy(day) && this.$store.state.diary.isStudy[day - 1] == 1
+                "
+                class="rounded-1"
+              >
                 {{ day }}
               </span>
               <span v-else>
@@ -144,8 +170,8 @@ export default {
       } else {
         this.currentMonth -= 1;
       }
-      this.init();
       this.getMonthlyInfo();
+      this.init();
       console.log(this.$store.state.diary.isStudy);
     },
     onClickNext: function(month) {
@@ -156,8 +182,8 @@ export default {
       } else {
         this.currentMonth += 1;
       }
-      this.init();
       this.getMonthlyInfo();
+      this.init();
       console.log(this.$store.state.diary.isStudy);
     },
     isToday: function(year, month, day) {
@@ -186,20 +212,56 @@ export default {
 
 <style type="text/css">
 .rounded {
-  -moz-border-radius: 20px 20px 20px 20px;
-  border-radius: 20px 20px 20px 20px;
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  background-color: #d2f3f5;
+  padding: 2vw;
+  color: #ffffff;
+}
+.rounded .rounded-1 {
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  background-color: #d2f3f5;
+  padding: 2vw;
+  color: #ffffff;
+}
+.rounded-2 {
+  -moz-border-radius: 100%;
+  border-radius: 100%;
   background-color: #48d9df;
-  padding: 10px;
+  padding: 2vw;
+  color: #ffffff;
+}
+.rounded-3 {
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  background-color: #39b6bb;
+  padding: 2vw;
+  color: #ffffff;
+}
+.rounded-4 {
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  background-color: #218d93;
+  padding: 2vw;
   color: #ffffff;
 }
 
 .calendarM {
-  padding: 5%;
+  /* margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 10%;
+  margin-bottom: 10%; */
+  margin: 5%;
 }
 
 .monthHeader {
-  font-size: 2rem;
-  padding-bottom: 3rem;
+  font-size: 5vw;
+  padding-bottom: 6vh;
+}
+
+.monthlyDays {
+  font-size: 2.5vw;
 }
 
 .mainColor {

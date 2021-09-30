@@ -1,22 +1,17 @@
 <template>
   <Monthly-calendar />
   <MonthlyStudyInfo />
-   
-
 </template>
 
 <script>
-import MonthlyCalendar from '@/components/MonthlyDiary/MonthlyCalendar'
-import MonthlyStudyInfo from '@/components/MonthlyDiary/MonthlyStudyInfo'
+import MonthlyCalendar from "@/components/MonthlyDiary/MonthlyCalendar";
+import MonthlyStudyInfo from "@/components/MonthlyDiary/MonthlyStudyInfo";
 export default {
-  components: { 
+  components: {
     MonthlyCalendar,
-    MonthlyStudyInfo, 
+    MonthlyStudyInfo,
   },
-
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
