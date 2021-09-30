@@ -8,14 +8,9 @@ const routes = [
   {
     mode : 'history',
     path: '/',
-    redirect: '/',
+    redirect: '/login',
     component: BottomMenu,
     children : [
-      {
-        path: '/',
-        name: 'EntrancePage',
-        component: EntrancePage,
-      },
       {
         path: '/signup',
         name: 'Signup',
@@ -32,6 +27,11 @@ const routes = [
         component: () => import('@/views/SelfStudy.vue'),
       }
     ]
+  },
+  {
+    path: '/login',
+    name: 'EntrancePage',
+    component: EntrancePage,
   }
 ]
 
