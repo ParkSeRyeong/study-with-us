@@ -62,8 +62,8 @@
 
 <script>
 export default {
-  name: "EntrancePage",
-  data: function() {
+  name: 'EntrancePage',
+  data: function () {
     return {
       width: 0,
       height: 0,

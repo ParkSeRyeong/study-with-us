@@ -8,13 +8,11 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^2.0.2",
     "@teachablemachine/image": "^0.8.5",
     "@tensorflow/tfjs": "^3.9.0",
-    "core-js": "^3.6.5",
-    "sass-loader": "^10.2.0",
-    "vue": "^3.0.0",
-    "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0",
     "axios": "^0.21.4",
     "bootstrap": "^5.1.1",
     "bootstrap-vue": "^2.21.2",
@@ -22,6 +20,7 @@
     "jwt-decode": "^3.1.2",
     "v-calendar": "^2.3.2",
     "vue": "^3.2.19",
+    "sass-loader": "^10.2.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",
     "vuex-persistedstate": "^4.1.0"

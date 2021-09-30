@@ -3,12 +3,31 @@ import EntrancePage from '@/views/EntrancePage.vue'
 import Signup from '@/views/Signup.vue'
 import MainPage from '@/views/MainPage.vue'
 import MonthlyDiary from '@/views/MonthlyDiary.vue'
+import BottomMenu from '@/components/BottomMenu.vue'
 
 const routes = [
   {
+    mode : 'history',
     path: '/',
-    name: 'EntrancePage',
-    component: EntrancePage,
+    redirect: '/login',
+    component: BottomMenu,
+    children : [
+      {
+        path: '/signup',
+        name: 'Signup',
+        component: Signup,
+      },
+      {
+        path: '/main',
+        name: 'MainPage',
+        component: MainPage,
+      },
+      {
+        path: '/selfstudy',
+        name: 'SelfStudy',
+        component: () => import('@/views/SelfStudy.vue'),
+      }
+    ]
   },
   {
     path: '/signup',
@@ -28,6 +47,9 @@ const routes = [
     path: '/monthly',
     name: 'MonthlyDiary',
     component: MonthlyDiary,
+    path: '/login',
+    name: 'EntrancePage',
+    component: EntrancePage,
   }
 ]
 
