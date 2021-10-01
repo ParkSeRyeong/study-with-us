@@ -39,7 +39,9 @@ public class Daily_Other {
         this.phonetime = this.phonetime == null? Time.valueOf("00:00:00"):this.phonetime;
     }
 
-    public void update(){
-
+    // 공부 완료시 딴짓한 시간 update
+    public void updateTodayOther(Time sleeptime, Time phonetime) {
+        this.sleeptime = sleeptime;
+        this.phonetime = phonetime;
     }
 }
