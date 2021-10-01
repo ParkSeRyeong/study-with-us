@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexchart width="350" type="donut" :options="options" :series="options.series"></apexchart>
+    <apexchart width="350" type="donut" :options="options" :series="series"></apexchart>
   </div>
 </template>
 
@@ -9,8 +9,9 @@
 export default {
   name: 'DonutExample',
   data: function() {
-    let n = 22;
     return {
+      series: [3600,10800,7200],
+      //series: this.$store.state.daily_diary.Studytime,
       options: {
         legend: { //하단 설정
           position: 'bottom',
@@ -18,18 +19,17 @@ export default {
         dataLabels: {
           enabled: false
         },
-        expandOnClick: false,
-        series: [10,40,50],
-        labels:['good','bye','hi'],
+
+        labels:['집중 시간','졸음 시간','핸드폰 시간'],
         plotOptions: {
           pie: {
             startAngle: 0,
-            expandOnClick: true,
+            expandOnClick: false,
             offsetX: 0,
             offsetY: 0,
             customScale: 1,
             dataLabels: {
-              offset: 0,
+              offset: 1,
               minAngleToShowLabel: 10,
             },
             donut: {
@@ -39,14 +39,35 @@ export default {
                 show: true,
                 name: {
                   show: true,
-                  label: `안녕`,
                   fontSize: "22px",
                   fontFamily: "Helvetica, Arial, sans-serif",
                   fontWeight: 600,
                   color: undefined,
                   offsetY: -10,
-                  formatter: function () {
-                    return '총 공부시간';
+                  formatter: function (val) {
+                    if(val=="Total") return `총 공부 시간`
+                    else return val
+                  }
+                },
+                value: {
+                  show: true,
+                  fontSize: "18px",
+                  fontFamily: "Helvetica, Arial, sans-serif",
+                  fontWeight: 400,
+                  color: undefined,
+                  offsetY: 16,
+                  formatter: function (val) {
+                    var time = val/60;
+                    let hour =``
+                    let min = ``
+                    let sec = ``
+                    if(time/60 < 10) hour = `0${time/60}`
+                    else hour = `${time/60}`
+                    if(time%60 < 10) min = `0${time%60}`
+                    else min = `${time%60}`
+                    if(val%60 < 10) sec = `0${val%60}`
+                    else sec = `${val%60}`
+                    return `${hour}:${min}:${sec}`;
                   },
                 },
                 total: {
@@ -56,9 +77,22 @@ export default {
                   fontFamily: "Helvetica, Arial, sans-serif",
                   fontWeight: 600,
                   color: "#373d3f",
-                  formatter: function () {
-                    return `${n}`;
-                  },
+                  formatter: function (w) {
+                    let sum = w.globals.seriesTotals.reduce((a, b) => {
+                      return a + b
+                    }, 0)
+                    var time = sum/60;
+                    let hour =``
+                    let min = ``
+                    let sec = ``
+                    if(time/60 < 10) hour = `0${time/60}`
+                    else hour = `${time/60}`
+                    if(time%60 < 10) min = `0${time%60}`
+                    else min = `${time%60}`
+                    if(sum%60 < 10) sec = `0${sum%60}`
+                    else sec = `${sum%60}`
+                    return `${hour}:${min}:${sec}`;
+                  }
                 },
               },
             },

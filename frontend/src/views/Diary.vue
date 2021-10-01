@@ -42,11 +42,7 @@
           @value-changed="changeEvent"
       ></datepicker-lite>
 
-      <div>
-        <span v-on:click="onClickPrev(currentMonth)" class="mainColor">◀</span>
-        <Donut style="margin-left: 10px"></Donut>
-        <span v-on:click="onClickNext(currentMonth)" class="mainColor">▶</span>
-      </div>
+        <Donut style="margin-top: 20px"></Donut>
 
       <div class="navibar" data-id="61:31">
         <div class="overlap-group nanumbarungothic-regular-normal-black-15px" data-id="an|cuSnhCeW">
@@ -83,7 +79,13 @@ export default {
           startsWeeks: 0
         },
         changeEvent: (value) => {
-          console.log(value + " selected!");
+          let s = value.split('/')
+          let date = `${s[0]}-${s[1]}-${s[2]}`
+          console.log(date)
+          this.$store.dispatch('daily_diary/getDaily', {
+            day: date,
+            token: this.$store.state.login.userToken,
+          })
         },
       }
     },
@@ -403,7 +405,6 @@ export default {
   flex-shrink: 0;
   pointer-events: auto;
 }
-
 * {
   box-sizing: border-box;
 }
