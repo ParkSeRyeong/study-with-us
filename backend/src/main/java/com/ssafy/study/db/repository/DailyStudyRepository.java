@@ -35,6 +35,7 @@ public interface DailyStudyRepository extends JpaRepository<Daily_Study, Long> {
      @Query(value = "SELECT sum(othertime) FROM daily_study where day between :startDate and :endDate order by focustime desc", nativeQuery = true)
      BigDecimal getTotalOtherTime(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
+
 //    @Query("SELECT distinct m FROM Daily_Study m join fetch m.user")
 //    List<Daily_Study> findAllByUser();
 }

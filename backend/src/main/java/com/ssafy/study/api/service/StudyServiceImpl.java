@@ -50,9 +50,26 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     public MyStudyRes getStudyInfo(String token) {
+        System.out.println(" ====================== getStudyInfo 진입 ==========================");
         // alltime, focustime 뽑을 daily_study
         User user = getUser(token);
         Daily_Study today = dailyStudyRepository.findByUserAndDay(user, getToday());
+
+        Date now = getToday();
+        if (dailyStudyRepository.findByUserAndDay(user, now) == null) {
+            Daily_Study new_daily = Daily_Study.builder()
+                    .day(now)
+                    .user(user)
+                    .build();
+            dailyStudyRepository.save(new_daily);
+            logger.info("new daily_study save complete");
+
+            Daily_Other new_other = Daily_Other.builder()
+                    .dailyStudy(new_daily)
+                    .build();
+            dailyOtherRepository.save(new_other);
+            logger.info("new daily_other save complete");
+        }
 
         // to_do 뽑을 daily_todo
         List<Daily_Todo> todo_list = dailyTodoRepository.findByDailyStudy(today);
@@ -109,14 +126,28 @@ public class StudyServiceImpl implements StudyService {
             logger.info("new daily_other save complete");
         }
 
-        Daily_Study today = dailyStudyRepository.findByUserAndDay(user, now);
+        // 오늘 날짜에 해당하는 daily_study 엔티티 받아오기
+        Daily_Study today_study = dailyStudyRepository.findByUserAndDay(user, now);
+        Daily_Other today_other = dailyOtherRepository.findByDailyStudy(today_study);
 
-        today.updateTodayStudy(Time.valueOf(info.getAlltime()), Time.valueOf(info.getFocustime()));
-        dailyStudyRepository.save(today);
+        // 기존 공부/딴짓 시간
+        Time prevAlltime = today_study.getAlltime();
+        Time prevFocustime = today_study.getFocustime();
+        Time prevSleeptime = today_other.getSleeptime();
+        Time prevPhonetime = today_other.getPhonetime();
+
+        // info에서 현재 새로 공부한 시간들 받아오기
+        Time updateAlltime = Time.valueOf(info.getAlltime());
+        Time updateFocustime = Time.valueOf(info.getFocustime());
+        Time updateSleeptime = Time.valueOf(info.getSleeptime());
+        Time updatePhonetime = Time.valueOf(info.getPhonetime());
+
+        today_study.updateTodayStudy(Time.valueOf(info.getAlltime()), Time.valueOf(info.getFocustime()));
+        dailyStudyRepository.save(today_study);
         logger.debug("스터디 시간 업데이트 완료");
 
         // 2. to-do 업데이트
-        List<Daily_Todo> todo_list = dailyTodoRepository.findByDailyStudy(today);
+        List<Daily_Todo> todo_list = dailyTodoRepository.findByDailyStudy(today_study);
         HashMap<String, Boolean> update_todo = info.getTodo();
 
         for (Daily_Todo dt : todo_list) {
@@ -140,6 +171,25 @@ public class StudyServiceImpl implements StudyService {
             alarm.updateAlarm(info.isScreen(), info.isSound(), info.isMsg());
             userAlarmRepository.save(alarm);
         }
+
+    }
+
+    public void updateStudyTime(User user, Date now, MyStudyRes info){
+        Daily_Study today_study = dailyStudyRepository.findByUserAndDay(user, now);
+        Daily_Other today_other = dailyOtherRepository.findByDailyStudy(today_study);
+
+        // 기존 공부/딴짓 시간
+        Time prevAlltime = today_study.getAlltime();
+        Time prevFocustime = today_study.getFocustime();
+        Time prevSleeptime = today_other.getSleeptime();
+        Time prevPhonetime = today_other.getPhonetime();
+
+        // info에서 현재 새로 공부한 시간들 받아오기
+        Time updateAlltime = Time.valueOf(info.getAlltime());
+        Time updateFocustime = Time.valueOf(info.getFocustime());
+        Time updateSleeptime = Time.valueOf(info.getSleeptime());
+        Time updatePhonetime = Time.valueOf(info.getPhonetime());
+
 
     }
 }
