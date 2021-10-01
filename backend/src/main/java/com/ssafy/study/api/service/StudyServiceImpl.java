@@ -53,8 +53,6 @@ public class StudyServiceImpl implements StudyService {
         System.out.println(" ====================== getStudyInfo 진입 ==========================");
         // alltime, focustime 뽑을 daily_study
         User user = getUser(token);
-        Daily_Study today = dailyStudyRepository.findByUserAndDay(user, getToday());
-
         Date now = getToday();
         if (dailyStudyRepository.findByUserAndDay(user, now) == null) {
             Daily_Study new_daily = Daily_Study.builder()
@@ -62,14 +60,16 @@ public class StudyServiceImpl implements StudyService {
                     .user(user)
                     .build();
             dailyStudyRepository.save(new_daily);
-            logger.info("new daily_study save complete");
+            logger.info("new daily_study save complete.");
 
             Daily_Other new_other = Daily_Other.builder()
                     .dailyStudy(new_daily)
                     .build();
             dailyOtherRepository.save(new_other);
-            logger.info("new daily_other save complete");
+            logger.info("new daily_other save complete.");
         }
+
+        Daily_Study today = dailyStudyRepository.findByUserAndDay(user, getToday());
 
         // to_do 뽑을 daily_todo
         List<Daily_Todo> todo_list = dailyTodoRepository.findByDailyStudy(today);
