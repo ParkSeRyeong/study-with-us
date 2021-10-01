@@ -77,7 +77,7 @@ export default {
             loading : false,
             aiPage : false,
             webcamLoad : false,
-            behavior : ['공부', '핸드폰', '졸기'],
+            behavior : ['집중', '핸드폰', '졸기'],
             allElapseTime: 0,
             focusElapsedTime: 0,
             sleepElapsedTime: 0,
