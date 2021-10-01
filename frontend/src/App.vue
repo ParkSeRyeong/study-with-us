@@ -16,6 +16,7 @@ export default {
 
 
 <style>
+@import './assets/css/style.css';
 
 body {
   margin: 0px;
