@@ -1,29 +1,25 @@
-import { createStore } from 'vuex'
-import login from './modules/login'
+import { createStore } from "vuex";
+import login from "./modules/login";
+import diary from "./modules/diary";
 import daily_diary from './modules/daily_diary'
-import createPersistedState from 'vuex-persistedstate'
-
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
   plugins: [
     createPersistedState({
-      paths: ['login'],
+      paths: ["login"],
     }),
   ],
   state: {
     window_width: 0,
     window_height: 0,
   },
-  mutations: {
-  },
-  actions: {
-  },
-  getters: {
-    
-  },
+  mutations: {},
+  actions: {},
+  getters: {},
   modules: {
     login,
     daily_diary,
+    diary,
   },
-
-})
+});
