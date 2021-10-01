@@ -204,8 +204,31 @@
 
 <script>
 export default {
+  data() {
+    return {
+      currentYear: new Date().getFullYear(),
+      currentMonth: new Date().getMonth() + 1,
+      currentDay: new Date().getDate(),
+       };
+  },
+  mounted() {
+  //console.log(this.currentDay);
+  this.getWeeklyInfo();
+  },
+  methods: {
+      getWeeklyInfo() {
+      console.log("getWeeklyInfo - component");
+      let date =
+        this.currentYear + "-" + this.currentMonth + "-" + this.currentDay;
+      this.$store.dispatch("diary/getWeekly", {
+        day: date,
+        token: this.$store.state.login.userToken,
+      });
+    },
+  }
+  }
 
-}
+
 </script>
 
 <style>

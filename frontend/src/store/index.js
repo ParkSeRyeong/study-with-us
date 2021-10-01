@@ -1,7 +1,7 @@
-import { createStore } from 'vuex'
-import login from './modules/login'
-import createPersistedState from 'vuex-persistedstate'
-
+import { createStore } from 'vuex';
+import login from './modules/login';
+import diary from './modules/diary';
+import createPersistedState from 'vuex-persistedstate';
 
 export default createStore({
   plugins: [
@@ -13,15 +13,11 @@ export default createStore({
     window_width: 0,
     window_height: 0,
   },
-  mutations: {
-  },
-  actions: {
-  },
-  getters: {
-    
-  },
+  mutations: {},
+  actions: {},
+  getters: {},
   modules: {
     login,
+    diary,
   },
-
-})
+});
