@@ -7,7 +7,7 @@ import com.ssafy.study.api.response.WeeklyRes;
 import java.util.List;
 
 public interface DiaryService {
-    List<DailyRes> getDailyDiary(String token, String today);
+    DailyRes getDailyDiary(String token, String today);
     List<WeeklyRes> getWeeklyDiary(String inputDate, String token);
     MonthlyRes getMonthlyDiary(String inputDate, String token);
 
