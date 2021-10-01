@@ -6,7 +6,6 @@ import store from './store'
 createApp(App).use(store).use(router).mount('#app')
 
 
-
 // import Vue from 'vue'
 // import VCalendar from 'v-calendar'
 // import Calendar from 'v-calendar/lib/components/calendar.umd'
