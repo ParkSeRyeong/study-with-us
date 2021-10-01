@@ -80,7 +80,7 @@ public class DiaryServiceImpl implements DiaryService {
 
 
     /* daily 기록 가져오기*/
-    public List<DailyRes> getDailyDiary(String token, String today) {
+    public DailyRes getDailyDiary(String token, String today) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         // 1. 들어온 날짜 / 어제 / 내일 날짜 String으로 변환
@@ -104,12 +104,7 @@ public class DiaryServiceImpl implements DiaryService {
 
         // 2. 토큰에서 유저정보 뽑아온 후 각가에 맞는 DailyRes 생성 후 list에 add
         User user = getUser(token);
-        List<DailyRes> dailyDiary = new ArrayList<>();
-        dailyDiary.add(getDiaryByDay(user, yesterday));
-        dailyDiary.add(getDiaryByDay(user, today));
-        dailyDiary.add(getDiaryByDay(user, tomorrow));
-
-        return dailyDiary;
+        return getDiaryByDay(user, today);
     }
 
     /* string 형태로 들어온 날짜를 Date형으로 바꾸기 */
