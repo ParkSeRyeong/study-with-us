@@ -10,4 +10,6 @@ public interface DiaryService {
     List<DailyRes> getDailyDiary(String token, String today);
     List<WeeklyRes> getWeeklyDiary(String inputDate, String token);
     MonthlyRes getMonthlyDiary(String inputDate, String token);
+
+
 }

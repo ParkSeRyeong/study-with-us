@@ -1,6 +1,5 @@
 <template>
-    <div>지워도됨</div>
-
+  <h2>todoedit</h2>
 </template>
 
 <script>

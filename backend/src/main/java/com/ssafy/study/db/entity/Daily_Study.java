@@ -55,8 +55,9 @@ public class Daily_Study {
     }
 
     // 공부 완료시 공부한 시간 update
-    public void updateTodayStudy(Time alltime, Time focustime) {
+    public void updateTodayStudy(Time alltime, Time focustime, Time othertime) {
         this.alltime = alltime;
         this.focustime = focustime;
+        this.othertime = othertime;
     }
 }

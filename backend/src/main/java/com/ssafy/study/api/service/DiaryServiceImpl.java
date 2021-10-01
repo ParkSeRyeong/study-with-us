@@ -45,8 +45,8 @@ public class DiaryServiceImpl implements DiaryService {
                 .orElseThrow(() -> new IllegalArgumentException("ID not exisiting"));
         return user;
     }
-
-    // null 처리
+    /* 해당 날짜/유저에 맞는 DiaryRes 반환 :  */
+    /* 있으면 DiaryRes 반환, 없으면 null 반환 */
     public DailyRes getDiaryByDay(User user, String day) {
         // 1. 오늘 날짜 date형으로 다시 변환
         Date today = Date.valueOf(day);
@@ -65,11 +65,11 @@ public class DiaryServiceImpl implements DiaryService {
             }
 
             DailyRes res = DailyRes.builder()
-                    .alltime(today_study.getAlltime().toString())
-                    .focustime(today_study.getFocustime().toString())
-                    .othertime(today_study.getOthertime().toString())
-                    .sleeptime(today_other.getSleeptime().toString())
-                    .phonetime(today_other.getPhonetime().toString())
+                    .alltime(time2sec(today_study.getAlltime()))
+                    .focustime(time2sec(today_study.getFocustime()))
+                    .othertime(time2sec(today_study.getOthertime()))
+                    .sleeptime(time2sec(today_other.getSleeptime()))
+                    .phonetime(time2sec(today_other.getPhonetime()))
                     .todo(todo_items).build();
 
             return res;
@@ -79,6 +79,7 @@ public class DiaryServiceImpl implements DiaryService {
     }
 
 
+    /* daily 기록 가져오기*/
     public List<DailyRes> getDailyDiary(String token, String today) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -111,6 +112,7 @@ public class DiaryServiceImpl implements DiaryService {
         return dailyDiary;
     }
 
+    /* string 형태로 들어온 날짜를 Date형으로 바꾸기 */
     public String switchString2Date(String date) {
         // ex) 01:03:20 -> 10320
         String h = "0", m = "0", s = "0";
@@ -136,11 +138,12 @@ public class DiaryServiceImpl implements DiaryService {
         return sb.toString();
     }
 
-    public int getTotalTime(String date) {
-        String [] time = date.split(":");
-        int hour = Integer.valueOf(time[0]);
-        int min = Integer.valueOf(time[1]);
-        int second = Integer.valueOf(time[2]);
+    /* hh:MM:ss 형태의 시간을 sec 단위로 변환하기 */
+    public int time2sec(Time t) {
+        int[] time = Arrays.stream(String.valueOf(t).split(":")).mapToInt(Integer::parseInt).toArray();
+        int hour = time[0];
+        int min = time[1];
+        int second = time[2];
         System.out.println(hour + " : " + min + " : " + second);
 
         return hour * 3600 + min * 60 + second;
@@ -180,8 +183,8 @@ public class DiaryServiceImpl implements DiaryService {
         String total_focustime = switchString2Date(String.valueOf(getTotalFocus.intValue()));
         String total_othertime = switchString2Date(String.valueOf(getTotalOther.intValue()));
 
-        // double형 맥스 focustime : milisec로 변환 for 퍼센트 계산
-        double ftime = getTotalTime(hms.format(getMaxFocus));
+        // double형 맥스 focustime : sec로 변환 for 퍼센트 계산
+        double ftime = time2sec(getMaxFocus);
 
         // hash에 담아둔당
         HashMap<String, WeeklyRes> date_list = new HashMap<>();
@@ -253,14 +256,14 @@ public class DiaryServiceImpl implements DiaryService {
         String[] input = inputDate.split("-");
         int year = Integer.valueOf(input[0]);
         int month = Integer.valueOf(input[1]);
-        int date = Integer.valueOf(input[2]);
+        int date = 1;
 
         cal.set(year, month - 1, date);
         Date today = Date.valueOf(ymd.format(cal.getTime()));
 
-        cal.set(year, month-1, 1);
+        cal.set(year, month - 1, 1);
         Date first_day = Date.valueOf(ymd.format(cal.getTime()));
-        cal.set(year, month-1, cal.getActualMaximum(cal.DAY_OF_MONTH));
+        cal.set(year, month - 1, cal.getActualMaximum(cal.DAY_OF_MONTH));
         Date last_day = Date.valueOf(ymd.format(cal.getTime()));
 
         // Daily_study에서 목록이랑 전체 집중/딴짓 시간, 맥스 집중시간 가져옴
@@ -268,14 +271,40 @@ public class DiaryServiceImpl implements DiaryService {
         BigDecimal getTotalFocus = dailyStudyRepository.getTotalFocusTime(first_day, last_day);
         BigDecimal getTotalOther = dailyStudyRepository.getTotalOtherTime(first_day, last_day);
         Time getMaxFocus = dailyStudyRepository.getMaxFocusTime(first_day, last_day, user.getUserid());
-        System.out.println(hms.format(getMaxFocus));
 
+        // 이번 달에 공부를 하 나 도 안했어용
+        if (getTotalFocus == null || getTotalOther == null || getMaxFocus == null) {
+            List<Integer> dailyColor = new ArrayList<>();
+            // 다시 오늘부터 하루씩 지나가면서
+            cal.set(year, month - 1, 1);
+            cal.getTime();  // 얘를 한 번 호출 하고 안 하고에 따라 값이 이상하게 나온다..... 왜...?
+
+
+            for (int i = 0; i < cal.getActualMaximum(cal.DAY_OF_MONTH); i++) {
+                if (i != 0)
+                    cal.add(cal.DATE, 1);
+                System.out.println("현재 날짜 : " + ymd.format(cal.getTime()));
+                int daily_color = 0;
+                dailyColor.add(daily_color);
+            }
+            MonthlyRes mr = MonthlyRes.builder()
+                    .totalFocusTime("00:00:00")
+                    .totalOtherTime("00:00:00")
+                    .month(month)
+                    .dailyColor(dailyColor).build();
+
+            System.out.println("----------완성----------");
+            System.out.println(mr.getDailyColor().toString());
+
+            return mr;
+        }
         // res에 저장할 string형 전체 focus/other time
         String total_focustime = switchString2Date(String.valueOf(getTotalFocus.intValue()));
         String total_othertime = switchString2Date(String.valueOf(getTotalOther.intValue()));
 
-        // double형 맥스 focustime : milisec로 변환 for 퍼센트 계산
-        double ftime = getTotalTime(hms.format(getMaxFocus));
+
+        // double형 max focustime : milisec로 변환 for 퍼센트 계산
+        double ftime = time2sec(getMaxFocus);
 
         // hash에 담아둔당
         HashMap<String, Integer> date_list = new HashMap<>();
@@ -305,14 +334,14 @@ public class DiaryServiceImpl implements DiaryService {
         List<Integer> dailyColor = new ArrayList<>();
         // 다시 오늘부터 하루씩 지나가면서
         cal.set(year, month - 1, 1);
-        cal.getTime();  // 얘를 한 번 호출 하고 안 하고에 따라 값이 이상하게 나온다..... 왜...?
+        cal.getTime();
 
 
         for (int i = 0; i < cal.getActualMaximum(cal.DAY_OF_MONTH); i++) {
             if (i != 0)
                 cal.add(cal.DATE, 1);
             System.out.println("현재 날짜 : " + ymd.format(cal.getTime()));
-            int daily_color = date_list.get(ymd.format(cal.getTime()))==null ? 0 : date_list.get(ymd.format(cal.getTime()));
+            int daily_color = date_list.get(ymd.format(cal.getTime())) == null ? 0 : date_list.get(ymd.format(cal.getTime()));
             dailyColor.add(daily_color);
         }
         MonthlyRes mr = MonthlyRes.builder()
@@ -325,5 +354,6 @@ public class DiaryServiceImpl implements DiaryService {
         System.out.println(mr.getDailyColor().toString());
 
         return mr;
+
     }
 }
