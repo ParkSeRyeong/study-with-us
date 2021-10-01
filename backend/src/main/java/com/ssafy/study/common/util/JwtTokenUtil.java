@@ -33,7 +33,7 @@ import java.util.Date;
 public class JwtTokenUtil {
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
     private static String secretKey = "secretKey-authorization-jwt-manage-token-study-with-us";
-    private static Long tokenValidTime = 300 * 60 * 1000L;       // 토큰 유효 시간 나중에 바꾸기 : 지금 1초 * 60 * 300 = 300분, 5시간
+    private static Long tokenValidTime = 3000 * 60 * 1000L;       // 토큰 유효 시간 나중에 바꾸기 : 지금 1초 * 60 * 300 = 300분, 5시간
 //    private static Long tokenValidTime = 30 * 1000L;       // 만료되는지 보기 위한 30초따리 하루살이 토큰
     private final UserDetailsService userDetailsService;
     private final StringRedisTemplate redisTemplate;

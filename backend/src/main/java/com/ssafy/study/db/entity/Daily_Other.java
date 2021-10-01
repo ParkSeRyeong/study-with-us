@@ -38,4 +38,8 @@ public class Daily_Other {
         this.sleeptime = this.sleeptime == null? Time.valueOf("00:00:00"):this.sleeptime;
         this.phonetime = this.phonetime == null? Time.valueOf("00:00:00"):this.phonetime;
     }
+
+    public void update(){
+
+    }
 }

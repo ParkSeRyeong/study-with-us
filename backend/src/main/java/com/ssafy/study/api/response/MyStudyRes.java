@@ -32,6 +32,12 @@ public class MyStudyRes {
     @ApiModelProperty(name="focusTime", example="04:06:17")
     private String focustime;
 
+    @ApiModelProperty(name="sleepTime", example="02:00:18")
+    private String sleeptime;
+
+    @ApiModelProperty(name="phoneTime", example="02:05:59")
+    private String phonetime;
+
     @ApiModelProperty(name="to-do")
     private HashMap<String, Boolean> todo;
 

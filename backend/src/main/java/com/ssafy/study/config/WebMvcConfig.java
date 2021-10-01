@@ -18,7 +18,8 @@ import java.util.List;
 public class WebMvcConfig implements WebMvcConfigurer {
     private static final Logger logger = LoggerFactory.getLogger(WebMvcConfig.class);
 
-    public void addCorsMapping(CorsRegistry registry) {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
@@ -26,6 +27,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .exposedHeaders("Authorization")
                 .allowCredentials(true);
     }
+
 
 //    @Autowired
 //    private JwtInterceptor jwtInterceptor;

@@ -24,7 +24,7 @@ public class StudyController {
     StudyService studyService;
 
     @ApiOperation(value = "공부페이지 진입")
-    @GetMapping("/sidebar")
+    @GetMapping("/stop")
     public MyStudyRes getTodayInfo(HttpServletRequest request) {
         final String token = request.getHeader("Authorization");
         MyStudyRes res = studyService.getStudyInfo(token);
