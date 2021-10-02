@@ -3,13 +3,13 @@ import axios from "axios";
 
 const state = {
   isStudy: [],
+  othertime: "",
+  focustime: "",
 };
 
 // actions
 const actions = {
   getMonthly({ commit }, info) {
-    console.log("store - diary.js - getMonthly 진입");
-
     // back에서 monthly 정보를 가져오기?
     axios({
       method: "get",
@@ -21,7 +21,7 @@ const actions = {
     })
       .then((res) => {
         console.log(res);
-        commit("GET_MONTHLY_STUDY", res.data.dailyColor);
+        commit("GET_MONTHLY_STUDY", res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -33,7 +33,9 @@ const actions = {
 // mutations
 const mutations = {
   GET_MONTHLY_STUDY(state, data) {
-    state.isStudy = data;
+    state.isStudy = data.dailyColor;
+    state.othertime = data.totalOtherTime;
+    state.focustime = data.totalFocusTime;
   },
 };
 
