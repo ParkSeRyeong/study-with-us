@@ -10,8 +10,8 @@ export default {
   name: 'DonutExample',
   data: function() {
     return {
-      series: [3600,10800,7200],
-      //series: this.$store.state.daily_diary.Studytime,
+      //series: [3600,10800,7200],
+      series: this.$store.state.daily_diary.Studytime,
       options: {
         legend: { //하단 설정
           position: 'bottom',
@@ -57,17 +57,18 @@ export default {
                   color: undefined,
                   offsetY: 16,
                   formatter: function (val) {
-                    var time = val/60;
-                    let hour =``
-                    let min = ``
-                    let sec = ``
-                    if(time/60 < 10) hour = `0${time/60}`
-                    else hour = `${time/60}`
-                    if(time%60 < 10) min = `0${time%60}`
-                    else min = `${time%60}`
-                    if(val%60 < 10) sec = `0${val%60}`
-                    else sec = `${val%60}`
-                    return `${hour}:${min}:${sec}`;
+                    var hour = val/3600;
+                    val = val%3600;
+                    let h =``
+                    let m = ``
+                    let s = ``
+                    if(hour < 10) h = `0${parseInt(hour)}`
+                    else h = `${parseInt(hour)}`
+                    if(val/60 < 10) m = `0${parseInt(val/60)}`
+                    else m = `${parseInt(val/60)}`
+                    if(val%60 < 10) s = `0${val%60}`
+                    else s = `${val%60}`
+                    return `${h}:${m}:${s}`;
                   },
                 },
                 total: {
@@ -81,17 +82,18 @@ export default {
                     let sum = w.globals.seriesTotals.reduce((a, b) => {
                       return a + b
                     }, 0)
-                    var time = sum/60;
-                    let hour =``
-                    let min = ``
-                    let sec = ``
-                    if(time/60 < 10) hour = `0${time/60}`
-                    else hour = `${time/60}`
-                    if(time%60 < 10) min = `0${time%60}`
-                    else min = `${time%60}`
-                    if(sum%60 < 10) sec = `0${sum%60}`
-                    else sec = `${sum%60}`
-                    return `${hour}:${min}:${sec}`;
+                    var hour = sum/3600;
+                    sum = sum%3600;
+                    let h =``
+                    let m = ``
+                    let s = ``
+                    if(hour < 10) h = `0${parseInt(hour)}`
+                    else h = `${parseInt(hour)}`
+                    if(sum/60 < 10) m = `0${parseInt(sum/60)}`
+                    else m = `${parseInt(sum/60)}`
+                    if(sum%60 < 10) s = `0${sum%60}`
+                    else s = `${sum%60}`
+                    return `${h}:${m}:${s}`;
                   }
                 },
               },

@@ -42,7 +42,8 @@
           @value-changed="changeEvent"
       ></datepicker-lite>
 
-        <Donut style="margin-top: 20px"></Donut>
+      state값이 없으면 아직 공부한 값이 없습니다. 띄워줘야함
+      <Donut style="margin-top: 20px"></Donut>
 
       <div class="navibar" data-id="61:31">
         <div class="overlap-group nanumbarungothic-regular-normal-black-15px" data-id="an|cuSnhCeW">
@@ -89,6 +90,19 @@ export default {
         },
       }
     },
+  created() {
+    const current = new Date();
+    let nmonth = '';
+    var month = current.getMonth()+1;
+    if(month<10) {nmonth = `0${current.getMonth()+1}`;}
+    else nmonth = `${current.getMonth()+1}`;
+    const date = `${current.getFullYear()}-${nmonth}-${current.getDate()}`;
+
+    this.$store.dispatch('daily_diary/getDaily', {
+      day: date,
+      token: this.$store.state.login.userToken,
+    })
+  },
   methods: {
     currentDateTime() {
       const current = new Date();

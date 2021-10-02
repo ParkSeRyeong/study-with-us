@@ -8,7 +8,6 @@ const state = {
 // actions
 const actions = {
     getDaily({ commit }, info) {
-        console.log(info.day);
         axios({
             method: "get",
             url: `${SERVER.URL}/diary/daily/${info.day}`,
@@ -16,7 +15,6 @@ const actions = {
                 "Access-Control-Allow-Origin": "*",
                 Authorization: info.token,
             },
-            //day:info.day,
         })
             .then((res) => {
                 console.log(res);
@@ -32,7 +30,16 @@ const actions = {
 // mutations
 const mutations = {
     GET_DAILY_STUDY(state, data) {
-        state.Studytime = data;
+        if(state.Studytime.length === 0 ) {
+            state.Studytime.push(data.focustime);
+            state.Studytime.push(data.phonetime);
+            state.Studytime.push(data.sleeptime);
+        }
+        else{
+            state.Studytime[0] = data.focustime;
+            state.Studytime[1] = data.phonetime;
+            state.Studytime[2] = data.sleeptime;
+        }
     },
 };
 
