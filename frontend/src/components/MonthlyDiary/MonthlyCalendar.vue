@@ -1,9 +1,6 @@
 <template>
-  <div style="width:100%; background-color:#FAFFFE;">
-    <div
-      class="calendar calendarM flex justify-content-center monthlyDays"
-      style="text-align:center"
-    >
+  <div style="width:100%;">
+    <div class="calendar calendarM flex justify-content-center monthlyDays">
       <!-- 년 월 start -->
       <h1 class="monthHeader mt-5 mb-4">
         <span v-on:click="onClickPrev(currentMonth)" class="mainColor">◀</span>
@@ -14,8 +11,16 @@
       <table class="table table-hover pb-3">
         <thead>
           <tr>
-            <td v-for="(weekName, index) in weekNames" v-bind:key="index">
-              {{ weekName }}
+            <td
+              v-for="(weekName, index) in weekNames"
+              v-bind:key="index"
+              class="weekBolder"
+            >
+              <span v-if="index == 0" style="color:red;">{{ weekName }}</span>
+              <span v-else-if="index == 6" style="color:blue;">{{
+                weekName
+              }}</span>
+              <span v-else>{{ weekName }}</span>
             </td>
           </tr>
         </thead>
@@ -24,7 +29,8 @@
             <td v-for="(day, index2) in row" :key="index2" style="padding:4vw;">
               <span
                 v-if="
-                  isStudy(day) && this.$store.state.diary.isStudy[day - 1] == 4
+                  isStudy(day) &&
+                    this.$store.state.monthlydiary.isStudy[day - 1] == 4
                 "
                 class="rounded-4"
               >
@@ -32,7 +38,8 @@
               </span>
               <span
                 v-else-if="
-                  isStudy(day) && this.$store.state.diary.isStudy[day - 1] == 3
+                  isStudy(day) &&
+                    this.$store.state.monthlydiary.isStudy[day - 1] == 3
                 "
                 class="rounded-3"
               >
@@ -40,7 +47,8 @@
               </span>
               <span
                 v-else-if="
-                  isStudy(day) && this.$store.state.diary.isStudy[day - 1] == 2
+                  isStudy(day) &&
+                    this.$store.state.monthlydiary.isStudy[day - 1] == 2
                 "
                 class="rounded-2"
               >
@@ -48,7 +56,19 @@
               </span>
               <span
                 v-else-if="
-                  isStudy(day) && this.$store.state.diary.isStudy[day - 1] == 1
+                  isStudy(day) &&
+                    this.$store.state.monthlydiary.isStudy[day - 1] == 1 &&
+                    !isOne(day)
+                "
+                class="rounded-1"
+              >
+                {{ day }}
+              </span>
+              <span
+                v-else-if="
+                  isStudy(day) &&
+                    this.$store.state.monthlydiary.isStudy[day - 1] == 1 &&
+                    isOne(day)
                 "
                 class="rounded-1"
               >
@@ -61,6 +81,37 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <div
+    class="container-center-horizontal infoFont"
+    style="font-family:'nanumsquare';"
+  >
+    <div class="">
+      <div class="d-flex timeInfo">
+        <span class="highlightFocusFont">세령</span>
+        <span class="">님이 공부에 </span>
+        <span class="focusFont">집중한 순공 시간</span>
+        <span class="mt-3">은</span>
+      </div>
+
+      <!-- total focus time 넣기 -->
+      <div class="avg-time timeInfo timeCenter">
+        {{ this.$store.state.monthlydiary.focustime }}
+      </div>
+
+      <div class="d-flex timeInfo">
+        <span class="highlightOtherFont">세령</span>
+        <span class="">님이 공부에 </span>
+        <span class="otherFont">집중하지 못한 시간</span>
+        <span class="">은</span>
+      </div>
+
+      <!-- total other time 넣기 -->
+      <div class="avg-time timeInfo timeCenter">
+        {{ this.$store.state.monthlydiary.othertime }}
+      </div>
     </div>
   </div>
 </template>
@@ -84,11 +135,14 @@ export default {
 
       // study 데이터
       studyDay: [],
+      focustime: "",
+      othertime: "",
     };
   },
   mounted() {
     this.init();
     this.getMonthlyInfo();
+    this.getTimes();
   },
   methods: {
     init: function() {
@@ -106,7 +160,12 @@ export default {
           if (i == 0 && j < this.currentMonthStartWeekIndex) {
             calendarRow.push("");
           } else if (day <= this.endOfDay) {
-            calendarRow.push(day);
+            let a = String(day);
+            if (a.length == 1) {
+              calendarRow.push("0" + day);
+            } else {
+              calendarRow.push(day);
+            }
             day++;
           } else {
             calendarRow.push("");
@@ -171,8 +230,8 @@ export default {
         this.currentMonth -= 1;
       }
       this.getMonthlyInfo();
+      this.getTimes();
       this.init();
-      console.log(this.$store.state.diary.isStudy);
     },
     onClickNext: function(month) {
       month++;
@@ -183,8 +242,12 @@ export default {
         this.currentMonth += 1;
       }
       this.getMonthlyInfo();
+      this.getTimes();
       this.init();
-      console.log(this.$store.state.diary.isStudy);
+    },
+    isOne: function(day) {
+      let daystr = day.toString().length;
+      return daystr == 1;
     },
     isToday: function(year, month, day) {
       let date = new Date();
@@ -195,16 +258,20 @@ export default {
       );
     },
     isStudy: function(day) {
-      return this.$store.state.diary.isStudy[day - 1] != 0;
+      return this.$store.state.monthlydiary.isStudy[day - 1] != 0;
     },
     getMonthlyInfo() {
-      console.log("getMonthlyInfo - component");
       let date =
         this.currentYear + "-" + this.currentMonth + "-" + this.currentDay;
-      this.$store.dispatch("diary/getMonthly", {
+      this.$store.dispatch("monthlydiary/getMonthly", {
         day: date,
         token: this.$store.state.login.userToken,
       });
+    },
+    getTimes() {
+      console.log(this.$store.state.monthlydiary.focustime);
+      this.focustime = this.$store.state.monthlydiary.focustime;
+      this.othertime = this.$store.state.monthlydiary.othertime;
     },
   },
 };
@@ -218,7 +285,14 @@ export default {
   padding: 2vw;
   color: #ffffff;
 }
-.rounded .rounded-1 {
+.rounded {
+  -moz-border-radius: 100%;
+  border-radius: 100%;
+  background-color: #d2f3f5;
+  padding: 2vw;
+  color: #ffffff;
+}
+.rounded-1 {
   -moz-border-radius: 100%;
   border-radius: 100%;
   background-color: #d2f3f5;
@@ -252,19 +326,56 @@ export default {
   margin-right: 10%;
   margin-top: 10%;
   margin-bottom: 10%; */
-  margin: 5%;
+  margin: 1vw;
 }
 
 .monthHeader {
   font-size: 5vw;
   padding-bottom: 6vh;
+  padding-top: 6vh;
+  font-weight: bold;
 }
 
 .monthlyDays {
   font-size: 2.5vw;
+  text-align: center;
+  font-family: "nanumsquare";
+}
+
+.weekBolder {
+  font-weight: bolder;
 }
 
 .mainColor {
   color: #48d9df;
+}
+
+.infoFont {
+  font-size: 4vw;
+}
+.focusFont {
+  color: blue;
+  font-weight: bold;
+}
+.otherFont {
+  color: red;
+  /* font-size: 3.5vw; */
+  font-weight: bold;
+}
+.highlightFocusFont {
+  font-size: 6vw;
+  font-weight: bold;
+}
+.highlightOtherFont {
+  font-size: 6vw;
+  font-weight: bold;
+}
+.timeInfo {
+  padding-bottom: 3vh;
+}
+.timeCenter {
+  text-align: center;
+  font-size: 6vw;
+  font-family: "IM_Hyemin-Regular";
 }
 </style>
