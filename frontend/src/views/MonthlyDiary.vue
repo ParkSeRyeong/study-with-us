@@ -1,15 +1,20 @@
 <template>
-  <Monthly-calendar />
-  <MonthlyStudyInfo />
+  <DiaryNav />
+  <MonthlyCalendar />
+  <BottomMenu />
 </template>
 
 <script>
 import MonthlyCalendar from "@/components/MonthlyDiary/MonthlyCalendar";
-import MonthlyStudyInfo from "@/components/MonthlyDiary/MonthlyStudyInfo";
+// import MonthlyStudyInfo from "@/components/MonthlyDiary/MonthlyStudyInfo";
+import DiaryNav from "@/components/DiaryNav";
+import BottomMenu from "@/components/BottomMenu";
 export default {
   components: {
     MonthlyCalendar,
-    MonthlyStudyInfo,
+    // MonthlyStudyInfo,
+    BottomMenu,
+    DiaryNav,
   },
 };
 </script>
