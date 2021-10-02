@@ -29,7 +29,7 @@ export default {
 .navitem {
   display: flex;
   justify-content: space-around;
-  padding-top: 3vh;
+  padding-top: 4vh;
   font-family: nanumsquare;
   font-size: 4vw;
 }

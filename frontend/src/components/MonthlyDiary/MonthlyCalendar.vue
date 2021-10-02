@@ -26,7 +26,11 @@
         </thead>
         <tbody>
           <tr v-for="(row, index) in currentCalendarMatrix" :key="index">
-            <td v-for="(day, index2) in row" :key="index2" style="padding:4vw;">
+            <td
+              v-for="(day, index2) in row"
+              :key="index2"
+              style="padding:4vw 2vw;"
+            >
               <span
                 v-if="
                   isStudy(day) &&
@@ -322,17 +326,13 @@ export default {
 }
 
 .calendarM {
-  /* margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 10%;
-  margin-bottom: 10%; */
-  margin: 1vw;
+  margin: 7%;
 }
 
 .monthHeader {
   font-size: 5vw;
   padding-bottom: 4vh;
-  padding-top: 4vh;
+  padding-top: 3vh;
   font-weight: bold;
 }
 
