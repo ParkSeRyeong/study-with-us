@@ -331,8 +331,8 @@ export default {
 
 .monthHeader {
   font-size: 5vw;
-  padding-bottom: 6vh;
-  padding-top: 6vh;
+  padding-bottom: 4vh;
+  padding-top: 4vh;
   font-weight: bold;
 }
 
