@@ -1,6 +1,6 @@
 <template>
   <div>
-    <apexchart width="350" type="donut" :options="options" :series="series"></apexchart>
+    <apexchart width="350" type="donut" :options="options" :series="series" ></apexchart>
   </div>
 </template>
 
@@ -18,7 +18,9 @@ export default {
         dataLabels: {
           enabled: false
         },
-
+        tooltip:{
+          enabled:false,
+        },
         labels:['집중 시간','졸음 시간','핸드폰 시간'],
         plotOptions: {
           pie: {
@@ -101,6 +103,6 @@ export default {
         },
       },
     }
-  }
+  },
 }
 </script>
