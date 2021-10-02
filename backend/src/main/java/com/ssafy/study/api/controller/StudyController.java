@@ -1,6 +1,8 @@
 package com.ssafy.study.api.controller;
 
 import com.ssafy.study.api.response.MyStudyRes;
+import com.ssafy.study.api.response.TestRes;
+import com.ssafy.study.api.service.DiaryServiceImpl;
 import com.ssafy.study.api.service.UserServiceImpl;
 import com.ssafy.study.api.service.service.MainService;
 import com.ssafy.study.api.service.service.StudyService;
@@ -10,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Time;
 
 @RestController
 @RequestMapping("/api/study")
@@ -21,20 +26,27 @@ public class StudyController {
     @Autowired
     StudyService studyService;
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "공부페이지 진입")
-    @GetMapping("/sidebar")
-    public MyStudyRes getTodayInfo(@RequestHeader(value = "Authorization") String token) {
+    @GetMapping("/stop")
+    public MyStudyRes getTodayInfo(HttpServletRequest request) {
+        final String token = request.getHeader("Authorization");
         MyStudyRes res = studyService.getStudyInfo(token);
         return res;
     }
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "공부 완료 후 현재 정보 갱신")
     @PostMapping("/stop")
-    public BaseResponseBody getTodayInfo(@RequestHeader(value = "Authorization") String token, @RequestBody @ApiParam(value = "공부 완료 후 갱신", required = true) MyStudyRes updateInfo) {
+    public BaseResponseBody getTodayInfo(HttpServletRequest request, @RequestBody @ApiParam(value = "공부 완료 후 갱신", required = true) MyStudyRes updateInfo) {
+        final String token = request.getHeader("Authorization");
         studyService.saveTodayStudy(token, updateInfo);
         return BaseResponseBody.of(200, "Success");
     }
 
+    @ApiOperation(value = "시간 테스트")
+    @PostMapping("/")
+    public void timeTest(TestRes res) {
+        Time a = Time.valueOf(res.getA());
+        Time b = Time.valueOf(res.getB());
+        studyService.addTime(a, b);
+    }
 }

@@ -12,22 +12,22 @@ import java.util.HashMap;
 @Builder
 @ApiModel("Main, study page response")
 @ToString
-public class DiaryRes {
+public class DailyRes {
 
     @ApiModelProperty(name="allTime", example="07:17:17")
-    private String alltime;
+    private int alltime;
 
     @ApiModelProperty(name="focusTime", example="04:06:17")
-    private String focustime;
+    private int focustime;
 
     @ApiModelProperty(name="otherTime", example="03:11:00")
-    private String othertime;
+    private int othertime;
 
     @ApiModelProperty(name="sleepTime", example="03:11:00")
-    private String sleeptime;
+    private int sleeptime;
 
     @ApiModelProperty(name="phoneTime", example="03:11:00")
-    private String phonetime;
+    private int phonetime;
 
     @ApiModelProperty(name="to-do")
     private HashMap<String, Boolean> todo;
