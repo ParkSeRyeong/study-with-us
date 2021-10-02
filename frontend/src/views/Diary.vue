@@ -42,8 +42,9 @@
           @value-changed="changeEvent"
       ></datepicker-lite>
 
-      state값이 없으면 아직 공부한 값이 없습니다. 띄워줘야함
-      <Donut style="margin-top: 20px"></Donut>
+
+      <div style="margin-top: 20px" v-if="this.$store.state.daily_diary.Studytime[0]===-1" > 해당 날짜에 공부한 기록이 없습니다.</div>
+      <Donut style="margin-top: 20px" v-else></Donut>
 
       <div class="navibar" data-id="61:31">
         <div class="overlap-group nanumbarungothic-regular-normal-black-15px" data-id="an|cuSnhCeW">

@@ -10,7 +10,6 @@ export default {
   name: 'DonutExample',
   data: function() {
     return {
-      //series: [3600,10800,7200],
       series: this.$store.state.daily_diary.Studytime,
       options: {
         legend: { //하단 설정
@@ -101,9 +100,7 @@ export default {
           },
         },
       },
-
     }
-
   }
 }
 </script>

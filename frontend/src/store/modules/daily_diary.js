@@ -30,7 +30,9 @@ const actions = {
 // mutations
 const mutations = {
     GET_DAILY_STUDY(state, data) {
-        if(state.Studytime.length === 0 ) {
+        console.log("get")
+        if(data.length===0) state.Studytime[0]=-1;
+        else if(state.Studytime.length === 0 ) {
             state.Studytime.push(data.focustime);
             state.Studytime.push(data.phonetime);
             state.Studytime.push(data.sleeptime);
@@ -39,6 +41,7 @@ const mutations = {
             state.Studytime[0] = data.focustime;
             state.Studytime[1] = data.phonetime;
             state.Studytime[2] = data.sleeptime;
+            console.log(state.Studytime[0])
         }
     },
 };
