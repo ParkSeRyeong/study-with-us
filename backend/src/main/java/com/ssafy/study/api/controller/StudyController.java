@@ -1,6 +1,8 @@
 package com.ssafy.study.api.controller;
 
 import com.ssafy.study.api.response.MyStudyRes;
+import com.ssafy.study.api.response.TestRes;
+import com.ssafy.study.api.service.DiaryServiceImpl;
 import com.ssafy.study.api.service.UserServiceImpl;
 import com.ssafy.study.api.service.service.MainService;
 import com.ssafy.study.api.service.service.StudyService;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Time;
 
 @RestController
 @RequestMapping("/api/study")
@@ -39,4 +42,11 @@ public class StudyController {
         return BaseResponseBody.of(200, "Success");
     }
 
+    @ApiOperation(value = "시간 테스트")
+    @PostMapping("/")
+    public void timeTest(TestRes res) {
+        Time a = Time.valueOf(res.getA());
+        Time b = Time.valueOf(res.getB());
+        studyService.addTime(a, b);
+    }
 }

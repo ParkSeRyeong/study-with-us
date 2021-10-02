@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -95,20 +96,10 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     public void saveTodayStudy(String token, MyStudyRes info) {
-        /**
-         * {
-         * "alltime" : "99:99:99",
-         * "focustime" : "99:99:99",
-         * "to_do" : [[aaa,0],[bbb,1],[ccc,0]],
-         * "screen" : 0,
-         * "sound" : 0,
-         * "msg" : 1
-         * }
-         * */
         Date now = getToday();
         // 1. alltime, focustime 업데이트
         User user = getUser(token);
-       // Daily_Study today = dailyStudyRepository.findByUserAndDay(user, getToday());        // 근데 없으면? 새로 저장해야지
+        // Daily_Study today = dailyStudyRepository.findByUserAndDay(user, getToday());        // 근데 없으면? 새로 저장해야지
 
         // 2. 근데 오늘 Daily_Study 엔티티가 없다면? >> 새로 생성
         if (dailyStudyRepository.findByUserAndDay(user, now) == null) {
@@ -126,24 +117,26 @@ public class StudyServiceImpl implements StudyService {
             logger.info("new daily_other save complete");
         }
 
-        // 오늘 날짜에 해당하는 daily_study 엔티티 받아오기
+        // 오늘 날짜에 해당하는 daily_study / daily_other 엔티티 받아오기
         Daily_Study today_study = dailyStudyRepository.findByUserAndDay(user, now);
         Daily_Other today_other = dailyOtherRepository.findByDailyStudy(today_study);
 
-        // 기존 공부/딴짓 시간
-        Time prevAlltime = today_study.getAlltime();
-        Time prevFocustime = today_study.getFocustime();
-        Time prevSleeptime = today_other.getSleeptime();
-        Time prevPhonetime = today_other.getPhonetime();
+        // 1. daily_study 테이블의 alltime / focustime / othertime 더해서 추가하기
+        Time updateAlltime = addTime(today_study.getAlltime(), Time.valueOf(info.getAlltime()));
+        Time updateFocustime = addTime(today_study.getFocustime(), Time.valueOf(info.getFocustime()));
+        Time totalOthertime = addTime(Time.valueOf(info.getSleeptime()), Time.valueOf(info.getPhonetime()));
+        Time updateOthertime = addTime(today_study.getOthertime(), totalOthertime);
 
-        // info에서 현재 새로 공부한 시간들 받아오기
-        Time updateAlltime = Time.valueOf(info.getAlltime());
-        Time updateFocustime = Time.valueOf(info.getFocustime());
-        Time updateSleeptime = Time.valueOf(info.getSleeptime());
-        Time updatePhonetime = Time.valueOf(info.getPhonetime());
-
-        today_study.updateTodayStudy(Time.valueOf(info.getAlltime()), Time.valueOf(info.getFocustime()));
+        today_study.updateTodayStudy(updateAlltime, updateFocustime, updateOthertime);
         dailyStudyRepository.save(today_study);
+
+        // 2. daily_other 테이블의 sleeptime / phonetime 더해서 추가하기
+        Time updateSleeptime = addTime(today_other.getSleeptime(), Time.valueOf(info.getSleeptime()));
+        Time updatePhonetime = addTime(today_other.getPhonetime(), Time.valueOf(info.getPhonetime()));
+
+        today_other.updateTodayOther(updateSleeptime, updatePhonetime);
+        dailyOtherRepository.save(today_other);
+
         logger.debug("스터디 시간 업데이트 완료");
 
         // 2. to-do 업데이트
@@ -174,22 +167,33 @@ public class StudyServiceImpl implements StudyService {
 
     }
 
-    public void updateStudyTime(User user, Date now, MyStudyRes info){
-        Daily_Study today_study = dailyStudyRepository.findByUserAndDay(user, now);
-        Daily_Other today_other = dailyOtherRepository.findByDailyStudy(today_study);
+    @Override
+    public Time addTime(Time prev, Time update) {
+        int[] p = Arrays.stream(String.valueOf(prev).split(":")).mapToInt(Integer::parseInt).toArray();
+        int[] u = Arrays.stream(String.valueOf(update).split(":")).mapToInt(Integer::parseInt).toArray();
 
-        // 기존 공부/딴짓 시간
-        Time prevAlltime = today_study.getAlltime();
-        Time prevFocustime = today_study.getFocustime();
-        Time prevSleeptime = today_other.getSleeptime();
-        Time prevPhonetime = today_other.getPhonetime();
+        System.out.println("------------------------------");
+        System.out.println(Arrays.toString(p));
+        System.out.println(Arrays.toString(u));
+        int sec = p[2] + u[2];
+        int min = (p[1] + u[1]);
+        int hour = (p[0] + u[0]);
 
-        // info에서 현재 새로 공부한 시간들 받아오기
-        Time updateAlltime = Time.valueOf(info.getAlltime());
-        Time updateFocustime = Time.valueOf(info.getFocustime());
-        Time updateSleeptime = Time.valueOf(info.getSleeptime());
-        Time updatePhonetime = Time.valueOf(info.getPhonetime());
+        // 일단 전체 시간을 total에 저장 후!
+        int total = sec + min * 60 + hour * 3600;
 
+        // 다시 시간/분/초 단위로 나눈다
+        // 왜? 50분과 20분을 더하면 -> 70분이 되어, 1시간 10분으로 바꿔여하니까
+        int h = total / 3600;
+        total -= (3600 * h);
+        int m = total / 60;
+        total -= (60 * m);
+        int s = total;
 
+        StringBuilder sb = new StringBuilder();
+        // 한자릿수일 때는 0을 붙여서 : 4:3:25 -> 04:03:25
+        sb.append(h / 10 == 0 ? "0" + h : h).append(":").append(m / 10 == 0 ? "0" + m : m).append(":").append(s / 10 == 0 ? "0" + s : s);
+        Time res = Time.valueOf(sb.toString());
+        return res;
     }
 }
