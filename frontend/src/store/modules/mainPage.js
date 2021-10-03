@@ -1,5 +1,5 @@
-import axios from 'axios'
-import SERVER from '../../api/api'
+import axios from "axios";
+import SERVER from "../../api/api";
 
 const state = {
   userToken: null,
@@ -89,4 +89,4 @@ export default {
   state,
   actions,
   mutations,
-}
+};

@@ -1,15 +1,21 @@
 package com.ssafy.study.api.controller;
 
-import com.ssafy.study.api.response.MyStudyRes;
+import com.ssafy.study.api.request.TodoReq;
+import com.ssafy.study.api.response.DailyRes;
+import com.ssafy.study.api.response.MonthlyRes;
+import com.ssafy.study.api.response.WeeklyRes;
 import com.ssafy.study.api.service.UserServiceImpl;
 import com.ssafy.study.api.service.service.DiaryService;
-import com.ssafy.study.api.service.service.StudyService;
+import com.ssafy.study.api.service.service.MainService;
 import com.ssafy.study.common.response.BaseResponseBody;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/diary")
@@ -20,20 +26,38 @@ public class DiaryController {
 
     @Autowired
     DiaryService diaryService;
+    @Autowired
+    MainService mainService;
 
-   // @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
-    @ApiOperation(value = "공부페이지 진입")
-    @GetMapping("/sidebar")
-    public MyStudyRes getTodayInfo() {
-        diaryService.getDailyDiary();
-        return null;
+    @ApiOperation(value = "일간 공부 다이어리 : 3일치")
+    @GetMapping("/daily/{day}")
+    public DailyRes getDailyDiary(HttpServletRequest request, @PathVariable("day") String day) {
+        final String token = request.getHeader("Authorization");
+        DailyRes list = diaryService.getDailyDiary(token, day);
+
+        return list;
     }
 
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
-    @ApiOperation(value = "공부 완료 후 현재 정보 갱신")
-    @PostMapping("/stop")
-    public BaseResponseBody getTodayInfo(@RequestHeader(value = "Authorization") String token, @RequestBody @ApiParam(value = "공부 완료 후 갱신", required = true) MyStudyRes updateInfo) {
 
+    @GetMapping("/weekly/{day}")
+    public List<WeeklyRes> getWeeklyDiary(HttpServletRequest request, @PathVariable("day") String day) {
+        final String token = request.getHeader("Authorization");
+        List<WeeklyRes> res = diaryService.getWeeklyDiary(day, token);
+        return res;
+    }
+
+    @GetMapping("/monthly/{day}")
+    public MonthlyRes getMonthlyDiary(HttpServletRequest request, @PathVariable("day") String day) {
+        final String token = request.getHeader("Authorization");
+        MonthlyRes res = diaryService.getMonthlyDiary(day, token);
+        return res;
+    }
+
+    @ApiOperation(value = "todo 체크/해제")
+    @PostMapping("/toggleTodo")
+    public BaseResponseBody toggleTodo(HttpServletRequest request, @RequestBody TodoReq updateTodo){
+        final String token = request.getHeader("Authorization");
+        mainService.toggleTodo(token, updateTodo);
         return BaseResponseBody.of(200, "Success");
     }
 

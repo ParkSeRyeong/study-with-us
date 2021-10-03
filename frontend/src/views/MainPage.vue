@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar/>
+    <NavBar />
     <div class="main">
       <div class="wise-saying">
         <div class="text-2 nanumbarungothic-ultra-light-black-50px">“</div>
@@ -9,11 +9,14 @@
         </div>
         <div class="text-3 nanumbarungothic-ultra-light-black-50px">”</div>
       </div>
-      <div class="study-time" :style="{ 'min-height': 0.8 * this.$store.state.window_width + 'px' }">
+      <div
+        class="study-time"
+        :style="{ 'min-height': 0.8 * this.$store.state.window_width + 'px' }"
+      >
         <div class="time-area" style="margin:auto;">
           <img
             class="playbtn animate-enter"
-            :style="{ 'width': 0.15 * this.$store.state.window_width + 'px' }"
+            :style="{ width: 0.15 * this.$store.state.window_width + 'px' }"
             src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/play-btn@2x.svg"
           />
           <div class="todaydate animate-enter1" :style="{ 'font-size': 0.06 * this.$store.state.window_width + 'px', 'margin-top': 0.02 * this.$store.state.window_width + 'px' }">
@@ -31,7 +34,7 @@
           </div>
         </div>
       </div>
-      <br>
+      <br />
       <div class="todolist">
         <MainPageToDo />
       </div>
@@ -56,7 +59,7 @@ export default {
   },
   components: {
     NavBar,
-    MainPageToDo
+    MainPageToDo,
   },
   created() {
     this.$store.dispatch('mainPage/getJWT', this.$store.state.login.userToken)
@@ -79,7 +82,7 @@ export default {
 
 .study-time {
   text-align: center;
-  background-image: url(https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/blob1@2x.svg); 
+  background-image: url(https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/blob1@2x.svg);
   background-size: contain;
   background-repeat: no-repeat;
   width: 100%;
@@ -102,19 +105,21 @@ export default {
 }
 
 .playbtn.animate-enter {
-  animation: animate-enter-frames 0.40s ease-in-out 0.00s 1 normal forwards;
+  animation: animate-enter-frames 0.4s ease-in-out 0s 1 normal forwards;
   display: block;
   opacity: 0;
   transform: translate(0, 25px);
 }
 
 @keyframes animate-enter-frames {
-  from{opacity: 0;
-transform: translate(0, 25px);
-}
-to{opacity: 1;
-transform: translate(0,0);
-}
+  from {
+    opacity: 0;
+    transform: translate(0, 25px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
 .todaydate {
@@ -126,22 +131,24 @@ transform: translate(0,0);
   min-height: 25px;
   min-width: 118px;
   opacity: 0;
-transform: translate(0, 25px);
+  transform: translate(0, 25px);
 }
 
 .todaydate.animate-enter1 {
-  animation: animate-enter1-frames 0.40s ease-in-out 0.00s 1 normal forwards;
+  animation: animate-enter1-frames 0.4s ease-in-out 0s 1 normal forwards;
   opacity: 0;
-transform: translate(0, 25px);
+  transform: translate(0, 25px);
 }
 
 @keyframes animate-enter1-frames {
-  from{opacity: 0;
-transform: translate(0, 25px);
-}
-to{opacity: 1;
-transform: translate(0,0);
-}
+  from {
+    opacity: 0;
+    transform: translate(0, 25px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
 .focusstudytime {
@@ -154,22 +161,24 @@ transform: translate(0,0);
   min-width: 202px;
   text-align: center;
   opacity: 0;
-transform: translate(0, 25px);
+  transform: translate(0, 25px);
 }
 
 .focusstudytime.animate-enter2 {
-  animation: animate-enter2-frames 0.40s ease-in-out 0.30s 1 normal forwards;
+  animation: animate-enter2-frames 0.4s ease-in-out 0.3s 1 normal forwards;
   opacity: 0;
-transform: translate(0, 25px);
+  transform: translate(0, 25px);
 }
 
 @keyframes animate-enter2-frames {
-  from{opacity: 0;
-transform: translate(0, 25px);
-}
-to{opacity: 1;
-transform: translate(0,0);
-}
+  from {
+    opacity: 0;
+    transform: translate(0, 25px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
 .line-1 {
@@ -178,23 +187,25 @@ transform: translate(0,0);
   margin: auto;
   width: 180px;
   opacity: 0;
-transform: translate(0, 25px);
+  transform: translate(0, 25px);
 }
 
 .line-1.animate-enter4 {
-  animation: animate-enter4-frames 0.40s ease-in-out 0.30s 1 normal forwards;
+  animation: animate-enter4-frames 0.4s ease-in-out 0.3s 1 normal forwards;
   display: block;
   opacity: 0;
-transform: translate(0, 25px);
+  transform: translate(0, 25px);
 }
 
 @keyframes animate-enter4-frames {
-  from{opacity: 0;
-transform: translate(0, 25px);
-}
-to{opacity: 1;
-transform: translate(0,0);
-}
+  from {
+    opacity: 0;
+    transform: translate(0, 25px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
 .totalstudytime {
@@ -209,14 +220,16 @@ transform: translate(0,0);
 }
 
 .totalstudytime.animate-enter3 {
-  animation: animate-enter3-frames 0.40s ease-in-out 0.30s 1 normal forwards;
+  animation: animate-enter3-frames 0.4s ease-in-out 0.3s 1 normal forwards;
   opacity: 0;
 }
 
 @keyframes animate-enter3-frames {
-  from{opacity: 0;
+  from {
+    opacity: 0;
   }
-  to{opacity: 1;
+  to {
+    opacity: 1;
   }
 }
 
