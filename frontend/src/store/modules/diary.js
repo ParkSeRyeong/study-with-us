@@ -32,7 +32,7 @@ const actions = {
 
 // mutations
 const mutations = {
-  GET_MONTHLY_STUDY(state, data) {
+  GET_Weekly_STUDY(state, data) {
     state.isStudy = data;
   },
 };
