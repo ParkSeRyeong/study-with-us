@@ -14,14 +14,14 @@ const routes = [
     component: BottomMenu,
     children: [
       {
-        path: "/signup",
-        name: "Signup",
-        component: Signup,
-      },
-      {
         path: "/main",
         name: "MainPage",
         component: MainPage,
+      },
+      {
+        path: "/monthlyDiary",
+        name: "MonthlyDiary",
+        component: MonthlyDiary,
       },
       {
         path: "/selfstudy",
