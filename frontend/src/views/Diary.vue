@@ -1,124 +1,106 @@
 <template>
+  <DiaryNav />
   <div class="container-center-horizontal">
-    <div class="study-diary-daily screen" data-id="61:3" :style="{ width: this.$store.state.window_width + 'px', height: this.$store.state.window_height + 'px' }">
-      <div class="flex-row" data-id="an|0GvgCTye">
-        <div class="daily" data-id="61:28">
-          <div class="daily-1 nanumbarungothic-bold-bondi-blue-18px" data-id="61:30">일간</div>
-          <img
-              class="lyline"
-              data-id="61:29"
-              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/daily-line@2x.svg"
-          />
-        </div>
-        <div class="weekly" data-id="61:25">
-          <div class="weekly-1 nanumbarungothic-ultra-light-black-18px" data-id="61:27">주간</div>
-          <img
-              class="lyline"
-              data-id="61:26"
-              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/monthly-line@2x.svg"
-          />
-        </div>
-        <div class="monthly" data-id="61:22">
-          <div class="monthly-1 nanumbarungothic-ultra-light-black-18px" data-id="61:24">월간</div>
-          <img
-              class="lyline"
-              data-id="61:23"
-              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/monthly-line@2x.svg"
-          />
-        </div>
-      </div>
-
+    <div
+      class="study-diary-daily screen"
+      data-id="61:3"
+      :style="{
+        width: this.$store.state.window_width + 'px',
+        height: this.$store.state.window_height + 'px',
+      }"
+    >
       <datepicker-lite
-          :value-attr="currentDateTime()"
-          :placeholder-attr="dplaceholder"
-          :is-button-type="disButtonType"
-          :year-minus="dyearMinus"
-          :years-range="100"
-          :to="dtoDate"
-          :locale="dlocale"
-          :disableInput="false"
-          :show-bottom-button="false"
-          style="margin-top: 20px"
-          @value-changed="changeEvent"
+        :value-attr="currentDateTime()"
+        :placeholder-attr="dplaceholder"
+        :is-button-type="disButtonType"
+        :year-minus="dyearMinus"
+        :years-range="100"
+        :to="dtoDate"
+        :locale="dlocale"
+        :disableInput="false"
+        :show-bottom-button="false"
+        style="margin-top: 20px"
+        @value-changed="changeEvent"
       ></datepicker-lite>
 
-      state값이 없으면 아직 공부한 값이 없습니다. 띄워줘야함
-      <Donut style="margin-top: 20px"></Donut>
-
-      <div class="navibar" data-id="61:31">
-        <div class="overlap-group nanumbarungothic-regular-normal-black-15px" data-id="an|cuSnhCeW">
-          <img
-              class="x3"
-              data-id="61:35"
-              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/--3@2x.png"
-          />
-          <div class="x2" data-id="61:36">기록</div>
-          <div class="x4" data-id="61:34">스터디</div>
-          <div class="x5" data-id="61:33">마이페이지</div>
-        </div>
+      <div
+        v-if="this.$store.state.daily_diary.Studytime[0] === -1"
+        class="notstudy"
+      >
+        해당 날짜에 공부한 기록이 없습니다.
       </div>
+      <Donut style="margin-top: 20px" v-else></Donut>
     </div>
   </div>
+  <Donut style="margin-top: 20px"></Donut>
+  <BottomMenu />
 </template>
 
 <script>
-import DatepickerLite from 'vue3-datepicker-lite'
-import Donut from '../components/diary/donut'
+import DatepickerLite from "vue3-datepicker-lite";
+import Donut from "../components/diary/donut";
+import DiaryNav from "@/components/DiaryNav";
+import BottomMenu from "@/components/BottomMenu";
 export default {
-  components : { Donut, DatepickerLite },
-    data() {
-      return {
-        dclass: "myDateInput",
-        dplaceholder: "Select",
-        disButtonType: true,
-        dyearMinus: 0,
-        dtoDate: "2030/12/10",
-        dlocale: {
-          format: "YYYY/MM/DD",
-          weekday: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-          months: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-          startsWeeks: 0
-        },
-        changeEvent: (value) => {
-          let s = value.split('/')
-          let date = `${s[0]}-${s[1]}-${s[2]}`
-          console.log(date)
-          this.$store.dispatch('daily_diary/getDaily', {
-            day: date,
-            token: this.$store.state.login.userToken,
-          })
-        },
-      }
-    },
+  components: { Donut, DatepickerLite, DiaryNav, BottomMenu },
+  data() {
+    return {
+      dclass: "myDateInput",
+      dplaceholder: "Select",
+      disButtonType: true,
+      dyearMinus: 0,
+      dtoDate: "2030/12/10",
+      dlocale: {
+        format: "YYYY/MM/DD",
+        weekday: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        months: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+        startsWeeks: 0,
+      },
+      changeEvent: (value) => {
+        let s = value.split("/");
+        let date = `${s[0]}-${s[1]}-${s[2]}`;
+        console.log(date);
+        this.$store.dispatch("daily_diary/getDaily", {
+          day: date,
+          token: this.$store.state.login.userToken,
+        });
+      },
+    };
+  },
   created() {
     const current = new Date();
-    let nmonth = '';
-    var month = current.getMonth()+1;
-    if(month<10) {nmonth = `0${current.getMonth()+1}`;}
-    else nmonth = `${current.getMonth()+1}`;
+    let nmonth = "";
+    var month = current.getMonth() + 1;
+    if (month < 10) {
+      nmonth = `0${current.getMonth() + 1}`;
+    } else nmonth = `${current.getMonth() + 1}`;
     const date = `${current.getFullYear()}-${nmonth}-${current.getDate()}`;
 
-    this.$store.dispatch('daily_diary/getDaily', {
+    this.$store.dispatch("daily_diary/getDaily", {
       day: date,
       token: this.$store.state.login.userToken,
-    })
+    });
   },
   methods: {
     currentDateTime() {
       const current = new Date();
-      let nmonth = '';
-      var month = current.getMonth()+1;
-      if(month<10) {nmonth = `0${current.getMonth()+1}`;}
-      else nmonth = `${current.getMonth()+1}`;
+      let nmonth = "";
+      var month = current.getMonth() + 1;
+      if (month < 10) {
+        nmonth = `0${current.getMonth() + 1}`;
+      } else nmonth = `${current.getMonth() + 1}`;
       const date = `${current.getFullYear()}/${nmonth}/${current.getDate()}`;
       return date;
-    }
-  }
-  }
-
+    },
+  },
+};
 </script>
 
 <style>
+.notstudy {
+  margin-top: 20px;
+  font-family: nanumsquare;
+}
 .study-diary-daily {
   align-items: center;
   background-color: White;
@@ -134,7 +116,7 @@ export default {
   align-items: flex-start;
   display: flex;
   height: 26px;
-  margin-left: 3.0px;
+  margin-left: 3px;
   min-width: 298px;
 }
 
@@ -155,7 +137,7 @@ export default {
 
 .study-diary-daily .lyline {
   height: 2px;
-  margin-right: 2.0px;
+  margin-right: 2px;
   margin-top: 4px;
   width: 45px;
 }
@@ -196,7 +178,7 @@ export default {
   align-items: center;
   display: flex;
   height: 38px;
-  margin-left: 2.0px;
+  margin-left: 2px;
   margin-top: 36px;
   min-width: 159px;
 }
@@ -238,7 +220,7 @@ export default {
 
 .study-diary-daily .percentage {
   letter-spacing: 0;
-  margin-left: 9.0px;
+  margin-left: 9px;
   margin-top: 4px;
   min-height: 34px;
   width: 64px;
@@ -270,7 +252,7 @@ export default {
 
 .study-diary-daily .totalstudytime-1 {
   letter-spacing: 0;
-  margin-left: 6.0px;
+  margin-left: 6px;
   margin-top: 7px;
   min-height: 20px;
   text-align: center;
@@ -289,17 +271,19 @@ export default {
 }
 
 .study-diary-daily .to-do.animate-enter {
-  animation: animate-enter-frames 0.40s ease-in-out 0.40s 1 normal forwards;
+  animation: animate-enter-frames 0.4s ease-in-out 0.4s 1 normal forwards;
   opacity: 0;
   transform: translate(0, 25px);
 }
 
 @keyframes animate-enter-frames {
-  from{opacity: 0;
+  from {
+    opacity: 0;
     transform: translate(0, 25px);
   }
-  to{opacity: 1;
-    transform: translate(0,0);
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
   }
 }
 
@@ -331,7 +315,7 @@ export default {
 .study-diary-daily .navibar {
   align-items: flex-start;
   display: flex;
-  margin-left: 6.0px;
+  margin-left: 6px;
   margin-top: 240px;
   min-width: 381px;
 }
@@ -383,24 +367,39 @@ export default {
   font-family: "NanumBarunGothic-Regular";
   font-style: normal;
   font-weight: 400;
-  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot');
-  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype');
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix")
+      format("embedded-opentype"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff")
+      format("woff"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf")
+      format("truetype");
 }
 
 @font-face {
   font-family: "NanumBarunGothic-Bold";
   font-style: normal;
   font-weight: 700;
-  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot');
-  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf') format('truetype')
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix")
+      format("embedded-opentype"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff")
+      format("woff"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf")
+      format("truetype");
 }
 
 @font-face {
-  font-family: 'NanumBarunGothic-Light';
+  font-family: "NanumBarunGothic-Light";
   font-style: normal;
   font-weight: 300;
-  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot');
-  src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype');
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix")
+      format("embedded-opentype"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff")
+      format("woff"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf")
+      format("truetype");
 }
 .screen a {
   display: contents;
@@ -421,5 +420,9 @@ export default {
 }
 * {
   box-sizing: border-box;
+}
+
+.testCSS {
+  border: 1px solid red;
 }
 </style>

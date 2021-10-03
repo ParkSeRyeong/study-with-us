@@ -25,6 +25,7 @@
     "vue3-datepicker-lite": "^1.9.1",
     "v-calendar": "^2.3.2",
     "vue": "^3.2.19",
+    "sass-loader": "^10.2.0",
     "vuex": "^4.0.0-0",
     "vuex-persistedstate": "^4.1.0"
   },
