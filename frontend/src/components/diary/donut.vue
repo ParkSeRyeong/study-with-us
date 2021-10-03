@@ -46,7 +46,7 @@ export default {
                 name: {
                   show: true,
                   fontSize: "22px",
-                  fontFamily: "Helvetica, Arial, sans-serif",
+                  fontFamily: "nanumsquare",
                   fontWeight: 600,
                   color: undefined,
                   offsetY: -10,
@@ -58,7 +58,7 @@ export default {
                 value: {
                   show: true,
                   fontSize: "18px",
-                  fontFamily: "Helvetica, Arial, sans-serif",
+                  fontFamily: "nanumsquare",
                   fontWeight: 400,
                   color: undefined,
                   offsetY: 16,
@@ -81,7 +81,7 @@ export default {
                   show: true,
                   showAlways: false,
                   fontSize: "22px",
-                  fontFamily: "Helvetica, Arial, sans-serif",
+                  fontFamily: "nanumsquare",
                   fontWeight: 600,
                   color: "#373d3f",
                   formatter: function(w) {
