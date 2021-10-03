@@ -61,24 +61,14 @@
               <span
                 v-else-if="
                   isStudy(day) &&
-                    this.$store.state.monthlydiary.isStudy[day - 1] == 1 &&
-                    !isOne(day)
+                    this.$store.state.monthlydiary.isStudy[day - 1] == 1
                 "
                 class="rounded-1"
               >
                 {{ day }}
               </span>
-              <span
-                v-else-if="
-                  isStudy(day) &&
-                    this.$store.state.monthlydiary.isStudy[day - 1] == 1 &&
-                    isOne(day)
-                "
-                class="rounded-1"
-              >
-                {{ day }}
-              </span>
-              <span v-else>
+
+              <span v-else class="notstudy">
                 {{ day }}
               </span>
             </td>
@@ -161,7 +151,11 @@ export default {
       for (let i = 0; i < 6; i++) {
         let calendarRow = [];
         for (let j = 0; j < 7; j++) {
-          if (i == 0 && j < this.currentMonthStartWeekIndex) {
+          if (
+            i == 0 &&
+            j < this.currentMonthStartWeekIndex &&
+            this.currentMonthStartWeekIndex != 7
+          ) {
             calendarRow.push("");
           } else if (day <= this.endOfDay) {
             let a = String(day);
@@ -249,10 +243,6 @@ export default {
       this.getTimes();
       this.init();
     },
-    isOne: function(day) {
-      let daystr = day.toString().length;
-      return daystr == 1;
-    },
     isToday: function(year, month, day) {
       let date = new Date();
       return (
@@ -282,19 +272,8 @@ export default {
 </script>
 
 <style type="text/css">
-.rounded {
-  -moz-border-radius: 100%;
-  border-radius: 100%;
-  background-color: #d2f3f5;
+.notstudy {
   padding: 2vw;
-  color: #ffffff;
-}
-.rounded {
-  -moz-border-radius: 100%;
-  border-radius: 100%;
-  background-color: #d2f3f5;
-  padding: 2vw;
-  color: #ffffff;
 }
 .rounded-1 {
   -moz-border-radius: 100%;
