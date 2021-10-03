@@ -1,4 +1,5 @@
 <template>
+  <DiaryNav />
   <div class="container-center-horizontal">
     <div
       class="study-diary-daily screen"
@@ -31,13 +32,17 @@
       <Donut style="margin-top: 20px" v-else></Donut>
     </div>
   </div>
+  <Donut style="margin-top: 20px"></Donut>
+  <BottomMenu />
 </template>
 
 <script>
 import DatepickerLite from "vue3-datepicker-lite";
 import Donut from "../components/diary/donut";
+import DiaryNav from "@/components/DiaryNav";
+import BottomMenu from "@/components/BottomMenu";
 export default {
-  components: { Donut, DatepickerLite },
+  components: { Donut, DatepickerLite, DiaryNav, BottomMenu },
   data() {
     return {
       dclass: "myDateInput",

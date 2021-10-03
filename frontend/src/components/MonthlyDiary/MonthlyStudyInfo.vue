@@ -1,5 +1,8 @@
 <template>
-  <div class="container-center-horizontal infoFont">
+  <div
+    class="container-center-horizontal infoFont"
+    style="font-family:'nanumsquare';"
+  >
     <div class="">
       <div class="d-flex timeInfo">
         <span class="highlightFocusFont">세령</span>
@@ -9,8 +12,8 @@
       </div>
 
       <!-- total focus time 넣기 -->
-      <div class="flex justify-content-center avg-time timeInfo">
-        15 : 23 : 21
+      <div class="avg-time timeInfo timeCenter">
+        {{ this.$store.state.diary.focustime }}
       </div>
 
       <div class="d-flex timeInfo">
@@ -21,7 +24,7 @@
       </div>
 
       <!-- total other time 넣기 -->
-      <div class="flex justify-content-center avg-time timeInfo">
+      <div class="avg-time timeInfo timeCenter">
         15 : 23 : 21
       </div>
     </div>
@@ -29,12 +32,29 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      focustime: "",
+      othertime: "",
+    };
+  },
+  mounted() {
+    this.getTimes();
+  },
+  methods: {
+    getTimes() {
+      console.log(this.$store.state.diary.focustime);
+      this.focustime = this.$store.state.diary.focustime;
+      this.othertime = this.$store.state.diary.othertime;
+    },
+  },
+};
 </script>
 
 <style>
 .infoFont {
-  font-size: 3vw;
+  font-size: 4vw;
 }
 .focusFont {
   color: blue;
@@ -46,14 +66,19 @@ export default {};
   font-weight: bold;
 }
 .highlightFocusFont {
-  font-size: 5vw;
+  font-size: 6vw;
   font-weight: bold;
 }
 .highlightOtherFont {
-  font-size: 5vw;
+  font-size: 6vw;
   font-weight: bold;
 }
 .timeInfo {
   padding-bottom: 3vh;
+}
+.timeCenter {
+  text-align: center;
+  font-size: 6vw;
+  font-family: "IM_Hyemin-Regular";
 }
 </style>
