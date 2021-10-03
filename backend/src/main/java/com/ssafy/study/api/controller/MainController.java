@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/main")
 @Api("Main Controller API V1")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MainController {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -28,7 +28,7 @@ public class MainController {
     // @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "메인페이지 진입")
     @GetMapping("/")
-    public MyStudyRes getTodayInfo(HttpServletRequest request){
+    public MyStudyRes getTodayInfo(HttpServletRequest request) {
         // 총 공부시간, 순공부시간, todolist, 명언 가져오기
         final String token = request.getHeader("Authorization");
         System.out.println(token);
@@ -38,7 +38,7 @@ public class MainController {
 
     @ApiOperation(value = "todo 리스트 수정")
     @PutMapping("/update")
-    public BaseResponseBody updateTodo(HttpServletRequest request, @RequestBody @ApiParam(value = "update할 todo", required = true) MyStudyRes updateInfo){
+    public BaseResponseBody updateTodo(HttpServletRequest request, @RequestBody @ApiParam(value = "update할 todo", required = true) MyStudyRes updateInfo) {
         final String token = request.getHeader("Authorization");
         mainService.updateTodo(token, updateInfo.getTodo());
         return BaseResponseBody.of(200, "Success");
@@ -46,9 +46,9 @@ public class MainController {
 
     @ApiOperation(value = "todo 체크/해제")
     @PostMapping("/toggleTodo")
-    public BaseResponseBody toggleTodo(HttpServletRequest request, @RequestBody TodoReq updateTodo){
+    public BaseResponseBody toggleTodo(HttpServletRequest request, @RequestBody TodoReq updateToggle) {
         final String token = request.getHeader("Authorization");
-        mainService.toggleTodo(token, updateTodo);
+        mainService.toggleTodo(token, updateToggle);
         return BaseResponseBody.of(200, "Success");
     }
 

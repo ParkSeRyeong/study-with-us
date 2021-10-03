@@ -30,13 +30,11 @@ public class DiaryController {
     MainService mainService;
 
     @ApiOperation(value = "일간 공부 다이어리 : 3일치")
-    @PostMapping("/daily")
-    public List<DailyRes> getDailyDiary(HttpServletRequest request, @RequestBody String day) {
+    @GetMapping("/daily/{day}")
+    public DailyRes getDailyDiary(HttpServletRequest request, @PathVariable("day") String day) {
         final String token = request.getHeader("Authorization");
-        List<DailyRes> list = diaryService.getDailyDiary(token, day);
-        for(DailyRes dr : list) {
-            System.out.println(dr);
-        }
+        DailyRes list = diaryService.getDailyDiary(token, day);
+
         return list;
     }
 

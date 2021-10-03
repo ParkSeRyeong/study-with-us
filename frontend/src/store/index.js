@@ -1,12 +1,16 @@
 import { createStore } from 'vuex';
 import login from './modules/login';
-import diary from './modules/diary';
-import createPersistedState from 'vuex-persistedstate';
+import weeklydiary from './modules/weeklydiary';
+import monthlydiary from "./modules/monthlydiary";
+import mainPage from "./modules/mainPage";
+// import diary from "./modules/diary";
+import daily_diary from "./modules/daily_diary";
+import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
   plugins: [
     createPersistedState({
-      paths: ['login'],
+      paths: ["login"],
     }),
   ],
   state: {
@@ -18,6 +22,10 @@ export default createStore({
   getters: {},
   modules: {
     login,
-    diary,
+    weeklydiary,
+    monthlydiary,
+    mainPage,
+    daily_diary,
+    // diary,
   },
 });

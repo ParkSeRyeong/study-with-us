@@ -1,0 +1,25 @@
+<template>
+  <div style="padding-bottom:12vh">
+    <DiaryNav />
+    <MonthlyCalendar />
+  </div>
+
+  <BottomMenu />
+</template>
+
+<script>
+import MonthlyCalendar from "@/components/MonthlyDiary/MonthlyCalendar";
+// import MonthlyStudyInfo from "@/components/MonthlyDiary/MonthlyStudyInfo";
+import DiaryNav from "@/components/DiaryNav";
+import BottomMenu from "@/components/BottomMenu";
+export default {
+  components: {
+    MonthlyCalendar,
+    // MonthlyStudyInfo,
+    BottomMenu,
+    DiaryNav,
+  },
+};
+</script>
+
+<style></style>
