@@ -1,6 +1,9 @@
 <template>
-  <DiaryNav />
-  <MonthlyCalendar />
+  <div style="padding-bottom:12vh">
+    <DiaryNav />
+    <MonthlyCalendar />
+  </div>
+
   <BottomMenu />
 </template>
 

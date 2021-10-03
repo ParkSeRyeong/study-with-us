@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import EntrancePage from "@/views/EntrancePage.vue";
 import Signup from "@/views/Signup.vue";
 import MainPage from "@/views/MainPage.vue";
+import Diary from "@/views/Diary.vue";
 import MonthlyDiary from "@/views/MonthlyDiary.vue";
 import BottomMenu from "@/components/BottomMenu.vue";
 
@@ -13,14 +14,14 @@ const routes = [
     component: BottomMenu,
     children: [
       {
-        path: "/signup",
-        name: "Signup",
-        component: Signup,
-      },
-      {
         path: "/main",
         name: "MainPage",
         component: MainPage,
+      },
+      {
+        path: "/monthlyDiary",
+        name: "MonthlyDiary",
+        component: MonthlyDiary,
       },
       {
         path: "/selfstudy",
@@ -43,6 +44,11 @@ const routes = [
     path: "/selfstudy",
     name: "SelfStudy",
     component: () => import("@/views/SelfStudy.vue"),
+  },
+  {
+    path: "/diary",
+    name: "Diary",
+    component: Diary,
   },
   {
     path: "/monthly",

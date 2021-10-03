@@ -2,6 +2,8 @@ import { createStore } from "vuex";
 import login from "./modules/login";
 import monthlydiary from "./modules/monthlydiary";
 import mainPage from "./modules/mainPage";
+// import diary from "./modules/diary";
+import daily_diary from "./modules/daily_diary";
 import createPersistedState from "vuex-persistedstate";
 
 export default createStore({
@@ -21,5 +23,7 @@ export default createStore({
     login,
     monthlydiary,
     mainPage,
+    daily_diary,
+    // diary,
   },
 });

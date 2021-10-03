@@ -1,31 +1,56 @@
 <template>
     <div>
-        <div  id="init" v-if="!loading && !aiPage">
-            <h1 class="m-5" style="font-size : 50px">Self Study</h1>
-            <h5>손과 얼굴이 나오도록 각도를 조정해주세요</h5>
-            <div class="m-5">
-                <a @click="clickStart()" class="btn2 m-3">START</a>
+        <TitleBar>SELF STUDY</TitleBar>
+        
+        <div>
+            <div id= 'wrap'>
+                <div id="init" v-if="!loading && !aiPage" @click="clickStart()">
+                    <br><br><br><br><br><br><br>
+                    <p class='top'>손과 얼굴이 나오도록 각도를 조정하고</p>
+                    <br><br><br>
+                    <img src='@/assets/images/pencil.png'>
+                    <br><br><br><br>
+                    <p>아무곳이나 터치 해주세요!</p>
+                </div>    
+
+                <div id="loading m-5" v-if="loading" class="y-border">
+                    <br><br><br><br><br><br><br>
+                    <p class="top">SELF STUDY를 시작합니다</p>
+                    <br><br><br>
+                    <img src='@/assets/images/pencil.png'>
+                    <br><br><br><br>
+                    <p>카메라 준비중...</p>
+                </div>
             </div>
-        </div>    
 
-        <div id="loading m-5" v-if="loading" class="y-border">
-            <h1 class="m-5">SELF STUDY를 시작합니다</h1>
-            <h5>카메라 준비중</h5>
-    
-            <i class="fa fa-spinner fa-pulse fa-5x fa-fw m-5" ></i>
-            <h6>Loading...</h6>
-        </div>
-
-        <div v-if="aiPage">
-            <p align='middle' id='webcam-container'></p>
-            <div v-if="webcamLoad">
-                <h2 id="studying" style="color:green">공부중...</h2>
-                <h2 id='phone' style="color:red" class="blink">휴대폰 그만...!</h2>
-                <h2 id="snoozing" style="color:red" class="blink">일어나서 공부 합시다!</h2>
+            <div v-if="aiPage">
+                
+                <div id='webcam-container'></div>
+                <br>
+                <div v-if="webcamLoad" id='stopwatch'>
+                    
+                    <div>
+                        <p class="top">집중 시간 : {{formattedFocusElapsedTime}}</p>
+                        <p class="bottom">졸은 시간 : {{formattedSleepElapsedTime}}</p>
+                        <p class="bottom">폰한 시간 : {{formattedPhoneElapsedTime}}</p>
+                    </div>  
+                    <div id='btn'>
+                        
+                        <div @click="stop"><img class='icon' src='@/assets/images/stop.png'></div>
+                        <div v-if="toggle" @click="start"><img class='icon' src='@/assets/images/play.png'></div>
+                        <div v-else @click="pause"><img class='icon' src='@/assets/images/pause.png'></div>
+                    </div>  
+                    
+                    
+                    <div>
+                        <h2 id="studying" style="color:green">공부중...</h2>
+                        <h2 id='phone' style="color:red" class="blink">휴대폰 그만...!</h2>
+                        <h2 id="snoozing" style="color:red" class="blink">일어나서 공부 합시다!</h2>
+                    </div>
+                </div>
+                <br><br><br><br>
+                <div id="label-container"></div>
             </div>
-
-
-            <div id="label-container"></div>
         </div>
     </div>
 </template>
@@ -35,24 +60,76 @@
 // the link to your model provided by Teachable Machine export panel
 import * as tf from'@tensorflow/tfjs';  // eslint-disable-line no-unused-vars
 import * as tmImage from '@teachablemachine/image';
+import TitleBar from '@/components/TitleBar';
+import axios from "axios";
+import SERVER from "@/api/api";
 
 let model, webcam, labelContainer, maxPredictions;
 
 export default {
+    el:'#ai',
+    components: {
+    TitleBar
+    },
+
     data() {
         return{
             loading : false,
             aiPage : false,
             webcamLoad : false,
-            behavior : ['공부', '핸드폰', '엎드려 자기']
+            behavior : ['집중', '핸드폰', '졸기'],
+            allElapseTime: 0,
+            focusElapsedTime: 0,
+            sleepElapsedTime: 0,
+            phoneElapsedTime: 0,
+            focusTimer: undefined,
+            sleepTimer: undefined,
+            phoneTimer: undefined,
+            focusCheck : false,
+            sleepCheck : false,
+            phoneCheck : false,
+            toggle : false,
+            pauseToggle : false
 
         }
     },
 
     mounted() {
+        console.log(this.$store.state.login.userToken);
+        axios({
+                method: 'get',
+                url: `${SERVER.URL}/study/sidebar`,
+                headers: {
+                    'Access-Control-Allow-Origin': "*",
+                    Authorization: this.$store.state.login.userToken
+                }
+            }).then(res => {
+                console.log(res)
+            })
+    },
+    computed: {
+        formattedFocusElapsedTime() {
+        const date = new Date(null);
+        date.setSeconds(this.focusElapsedTime / 1000);
+        const utc = date.toUTCString();
+        return utc.substr(utc.indexOf(":") - 2, 8);
+        },
+        formattedSleepElapsedTime() {
+        const date = new Date(null);
+        date.setSeconds(this.sleepElapsedTime / 1000);
+        const utc = date.toUTCString();
+        return utc.substr(utc.indexOf(":") - 2, 8);
+        },
+        formattedPhoneElapsedTime() {
+        const date = new Date(null);
+        date.setSeconds(this.phoneElapsedTime / 1000);
+        const utc = date.toUTCString();
+        return utc.substr(utc.indexOf(":") - 2, 8);
+        },
 
         
     },
+
 
     methods: {
         clickStart() {
@@ -79,7 +156,7 @@ export default {
             
             this.aiPage = true;
             // Convenience function to setup a webcam
-            webcam = new tmImage.Webcam(350, 350, flip); // width, height, flip
+            webcam = new tmImage.Webcam(360, 360, flip); // width, height, flip
             await webcam.setup(); // request access to the webcam
             await webcam.play();
             window.requestAnimationFrame(this.loop);
@@ -112,27 +189,99 @@ export default {
                 const classPrediction = prediction[i].className + ': ' + prediction[i].probability.toFixed(2);
                 labelContainer.childNodes[i].innerHTML = classPrediction;
                 
-                if (prediction[i].probability.toFixed(2) >= 0.9){
-                    if(prediction[i].className === this.behavior[0]){
-                        document.getElementById('studying').style.display = 'inline'
-                        document.getElementById('phone').style.display = 'none'
-                        document.getElementById('snoozing').style.display = 'none'
-                        document.getElementById('webcam-container').classList.remove('blink')
+                    if ((prediction[i].probability.toFixed(2) >= 0.9 && !this.toggle) || this.pauseToggle){
+                        if(prediction[i].probability.toFixed(2) >= 0.9){
+                            this.pauseToggle = false;
+                        }
+                        if(prediction[i].className === this.behavior[0]){
+                            document.getElementById('studying').style.display = 'inline'
+                            document.getElementById('phone').style.display = 'none'
+                            document.getElementById('snoozing').style.display = 'none'
+                            document.getElementById('webcam-container').classList.remove('blink')
+                            if(!this.focusCheck){
+                                this.startFocus();
+                                this.pauseSleep();
+                                this.pausePhone();
+                                this.focusCheck = true;
+                                this.sleepCheck = false;
+                                this.phoneCheck = false;
+                            }
+                        }
+                        
+                        else if(prediction[i].className === this.behavior[1]){
+                            document.getElementById('studying').style.display = 'none'
+                            document.getElementById('phone').style.display = 'inline'
+                            document.getElementById('snoozing').style.display = 'none'
+                            document.getElementById('webcam-container').classList.add('blink')
+                            if(!this.phoneCheck){
+                                this.startPhone();
+                                this.pauseFocus();
+                                this.pauseSleep();
+                                this.focusCheck = false;
+                                this.sleepCheck = false;
+                                this.phoneCheck = true;
+                            }
+                        }
+                        else{
+                            document.getElementById('studying').style.display = 'none'
+                            document.getElementById('phone').style.display = 'none'
+                            document.getElementById('snoozing').style.display = 'inline'
+                            document.getElementById('webcam-container').classList.add('blink')
+                            if(!this.sleepCheck){
+                                this.startSleep();
+                                this.pauseFocus();
+                                this.pausePhone();
+                                this.focusCheck = false;
+                                this.sleepCheck = true;
+                                this.phoneCheck = false;
+                            }
+                        }
                     }
-                    else if(prediction[i].className === this.behavior[1]){
-                        document.getElementById('studying').style.display = 'none'
-                        document.getElementById('phone').style.display = 'inline'
-                        document.getElementById('snoozing').style.display = 'none'
-                        document.getElementById('webcam-container').classList.add('blink')
-                    }
-                    else{
-                        document.getElementById('studying').style.display = 'none'
-                        document.getElementById('phone').style.display = 'none'
-                        document.getElementById('snoozing').style.display = 'inline'
-                        document.getElementById('webcam-container').classList.add('blink')
-                    }
-                }
+                
             }
+            
+        },
+        startFocus() {
+            this.focusTimer = setInterval(() => {
+                this.focusElapsedTime += 1000;
+            }, 1000);
+        },
+        pauseFocus() {
+            clearInterval(this.focusTimer);  
+        },
+        startSleep() {
+            this.sleepTimer = setInterval(() => {
+                this.sleepElapsedTime += 1000;
+            }, 1000);
+        },
+        pauseSleep() {
+            clearInterval(this.sleepTimer);  
+        },
+        startPhone() {
+            this.phoneTimer = setInterval(() => {
+                this.phoneElapsedTime += 1000;
+            }, 1000);
+        },
+        pausePhone() {
+            clearInterval(this.phoneTimer);  
+        },
+        start(){
+            this.toggle = false;
+            this.pauseToggle = true;
+        },
+        pause(){
+            this.toggle = true;
+            clearInterval(this.focusTimer);
+            clearInterval(this.sleepTimer);
+            clearInterval(this.phoneTimer);
+            document.getElementById('studying').style.display = 'none'
+            document.getElementById('phone').style.display = 'none'
+            document.getElementById('snoozing').style.display = 'none'
+            document.getElementById('webcam-container').classList.remove('blink')
+        },
+        stop() {
+            this.elapsedTime = 0;
+
         }
     }
 }
@@ -147,24 +296,58 @@ export default {
 </script>
 
 <style>
-    * {
-        text-align: center; 
+    #wrap *{
+        text-align: center;
     }
+
+    #init {
+        height: 100vh;
+    }
+
+    img {
+        width:50vw;
+        vertical-align: middle;
+    }
+    
     .blink{
         animation: blink 1s linear infinite;
     }
-
     @keyframes blink{
         0%{opacity: 1;}
         50%{opacity: 0.5;}
         100%{opacity: 1;}
     }
+    #stopwatch * {
+        font-family: 'NanumBarunGothic-Bold';
+    }
 
+    p{
+        font-family: 'NanumBarunGothic-Light';
+    }
+
+    #stopwatch {
+        position: relative;
+    }
+
+    .top {
+        font-size: 20px;
+    }
+
+    .bottom {
+        font-size: 15px;
+    }
+
+    #btn *{
+        float: right;
+        right: 5px;
+    }
+
+    #touch {
+        color: #cdd835;
+        margin-bottom: 10px;
+    }
 
     #label-container{
-        position: absolute;
-        bottom: 5%;
-        left: 50%;
-        transform: translate(-50%, 0);
+        font-size: 5px;
     }
 </style>

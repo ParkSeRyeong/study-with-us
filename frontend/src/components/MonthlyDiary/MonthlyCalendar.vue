@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%;">
+  <div style="width:100%;" class="effect">
     <div class="calendar calendarM flex justify-content-center monthlyDays">
       <!-- 년 월 start -->
       <h1 class="monthHeader mt-5 mb-4">
@@ -26,7 +26,11 @@
         </thead>
         <tbody>
           <tr v-for="(row, index) in currentCalendarMatrix" :key="index">
-            <td v-for="(day, index2) in row" :key="index2" style="padding:4vw;">
+            <td
+              v-for="(day, index2) in row"
+              :key="index2"
+              style="padding:4vw 2vw;"
+            >
               <span
                 v-if="
                   isStudy(day) &&
@@ -297,7 +301,7 @@ export default {
   border-radius: 100%;
   background-color: #d2f3f5;
   padding: 2vw;
-  color: #ffffff;
+  color: #000000;
 }
 .rounded-2 {
   -moz-border-radius: 100%;
@@ -322,18 +326,28 @@ export default {
 }
 
 .calendarM {
-  /* margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 10%;
-  margin-bottom: 10%; */
-  margin: 1vw;
+  margin: 7%;
 }
 
 .monthHeader {
   font-size: 5vw;
-  padding-bottom: 6vh;
-  padding-top: 6vh;
+  padding-bottom: 4vh;
+  padding-top: 3vh;
   font-weight: bold;
+}
+
+.blinkColon {
+  animation: blink 0.1s 20 alternate;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  from {
+    color: black;
+  }
+  to {
+    color: white;
+  }
 }
 
 .monthlyDays {
@@ -377,5 +391,8 @@ export default {
   text-align: center;
   font-size: 6vw;
   font-family: "IM_Hyemin-Regular";
+}
+.effect {
+  transition: opacity 0.5s;
 }
 </style>
