@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import EntrancePage from '@/views/EntrancePage.vue';
 import Signup from '@/views/Signup.vue';
 import MainPage from '@/views/MainPage.vue';
-import Diary from '@/views/Diary.vue';
+import Diary from '@/views/WeeklyDiary.vue';
 
 const routes = [
   {
