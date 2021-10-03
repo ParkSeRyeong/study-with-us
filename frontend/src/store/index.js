@@ -1,6 +1,6 @@
 import { createStore } from 'vuex';
 import login from './modules/login';
-import diary from './modules/diary';
+import weeklydiary from './modules/weeklydiary';
 import createPersistedState from 'vuex-persistedstate';
 
 export default createStore({
@@ -18,6 +18,6 @@ export default createStore({
   getters: {},
   modules: {
     login,
-    diary,
+    weeklydiary,
   },
 });

@@ -220,7 +220,7 @@ export default {
       console.log("getWeeklyInfo - component");
       let date =
         this.currentYear + "-" + this.currentMonth + "-" + this.currentDay;
-      this.$store.dispatch("diary/getWeekly", {
+      this.$store.dispatch("weeklydiary/getWeekly", {
         day: date,
         token: this.$store.state.login.userToken,
       });

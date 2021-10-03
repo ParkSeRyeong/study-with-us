@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import EntrancePage from '@/views/EntrancePage.vue';
 import Signup from '@/views/Signup.vue';
 import MainPage from '@/views/MainPage.vue';
-import Diary from '@/views/WeeklyDiary.vue';
+import WeeklyDiary from '@/views/WeeklyDiary.vue';
 
 const routes = [
   {
@@ -26,9 +26,9 @@ const routes = [
     component: () => import('@/views/SelfStudy.vue'),
   },
   {
-    path: '/diary',
-    name: 'Diary',
-    component: Diary,
+    path: '/weeklydiary',
+    name: 'WeeklyDiary',
+    component: WeeklyDiary,
   },
 ];
 
