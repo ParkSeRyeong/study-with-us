@@ -24,8 +24,8 @@
       ></datepicker-lite>
 
       <div
-        style="margin-top: 20px"
         v-if="this.$store.state.daily_diary.Studytime[0] === -1"
+        class="notstudy"
       >
         해당 날짜에 공부한 기록이 없습니다.
       </div>
@@ -97,6 +97,10 @@ export default {
 </script>
 
 <style>
+.notstudy {
+  margin-top: 20px;
+  font-family: nanumsquare;
+}
 .study-diary-daily {
   align-items: center;
   background-color: White;
@@ -416,5 +420,9 @@ export default {
 }
 * {
   box-sizing: border-box;
+}
+
+.testCSS {
+  border: 1px solid red;
 }
 </style>
