@@ -14,33 +14,18 @@
       style="margin-top: 20px"
       @value-changed="changeEvent"
     ></datepicker-lite>
-
-    <Donut style="margin-top: 20px"></Donut>
-
-    <div class="navibar" data-id="61:31">
-      <div
-        class="overlap-group nanumbarungothic-regular-normal-black-15px"
-        data-id="an|cuSnhCeW"
-      >
-        <img
-          class="x3"
-          data-id="61:35"
-          src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/--3@2x.png"
-        />
-        <div class="x2" data-id="61:36">기록</div>
-        <div class="x4" data-id="61:34">스터디</div>
-        <div class="x5" data-id="61:33">마이페이지</div>
-      </div>
-    </div>
   </div>
+  <Donut style="margin-top: 20px"></Donut>
+  <BottomMenu />
 </template>
 
 <script>
 import DatepickerLite from "vue3-datepicker-lite";
 import Donut from "../components/diary/donut";
 import DiaryNav from "@/components/DiaryNav";
+import BottomMenu from "@/components/BottomMenu";
 export default {
-  components: { Donut, DatepickerLite, DiaryNav },
+  components: { Donut, DatepickerLite, DiaryNav, BottomMenu },
   data() {
     return {
       dclass: "myDateInput",
