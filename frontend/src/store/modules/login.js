@@ -14,7 +14,7 @@ const actions = {
       data: credentials,
     })
       .then((res) => {
-        console.log(res.data.jwt)
+        console.log(res)
         context.commit('saveJWT', res.data.jwt)
       })
       .catch((err) => {
