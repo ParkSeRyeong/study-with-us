@@ -36,7 +36,7 @@ const mutations = {
 };
 
 const getters = {
-  // decodedToken: function(state) {
+  // decodedToken: function (state) {
   //   if (state.userToken) {
   //     console.log(state.userToken);
   //     return jwt_decode(state.userToken);
