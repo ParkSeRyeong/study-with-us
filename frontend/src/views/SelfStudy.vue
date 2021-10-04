@@ -3,59 +3,96 @@
     <TitleBar>SELF STUDY</TitleBar>
 
     <div>
-      <div id="wrap">
-        <div id="init" v-if="!loading && !aiPage" @click="clickStart()">
-          <br /><br /><br /><br /><br /><br /><br />
-          <p class="top">손과 얼굴이 나오도록 각도를 조정하고</p>
-          <br /><br /><br />
-          <img src="@/assets/images/pencil.png" />
-          <br /><br /><br /><br />
-          <p>아무곳이나 터치 해주세요!</p>
+      <TitleBar>SELF STUDY</TitleBar>
+
+      <div>
+        <div id="wrap">
+          <div id="init" v-if="!loading && !aiPage" @click="clickStart()">
+            <br /><br /><br /><br /><br /><br /><br />
+            <p class="top">손과 얼굴이 나오도록 각도를 조정하고</p>
+            <br /><br /><br />
+            <img id="pencil1" src="@/assets/images/pencil.png" />
+            <br /><br /><br /><br />
+            <p>아무곳이나 터치 해주세요!</p>
+          </div>
+
+          <div id="loading m-5" v-if="loading" class="y-border">
+            <br /><br /><br /><br /><br /><br /><br />
+            <p class="top">SELF STUDY를 시작합니다</p>
+            <br /><br /><br />
+            <img id="pencil1" src="@/assets/images/pencil.png" />
+            <br /><br /><br /><br />
+            <p>카메라 준비중...</p>
+          </div>
         </div>
 
-        <div id="loading m-5" v-if="loading" class="y-border">
-          <br /><br /><br /><br /><br /><br /><br />
-          <p class="top">SELF STUDY를 시작합니다</p>
-          <br /><br /><br />
-          <img src="@/assets/images/pencil.png" />
+        <div v-if="aiPage">
+          <div id="webcam-container"></div>
+          <br />
+          <div v-if="webcamLoad" id="stopwatch">
+            <div>
+              <p class="top">
+                <img class="pencil2" src="@/assets/images/연필.png" />집중 시간
+                : {{ formattedFocusElapsedTime
+                }}<img class="pencil2" src="@/assets/images/연필.png" />
+              </p>
+              <br />
+              <p class="bottom">
+                <img class="pencil2" src="@/assets/images/zzz.png" /> 졸은 시간
+                : {{ formattedSleepElapsedTime }}
+                <img class="pencil2" src="@/assets/images/zzz.png" />
+              </p>
+              <br />
+              <p class="bottom">
+                <img class="pencil2" src="@/assets/images/폰.png" />폰 시간 :
+                {{ formattedPhoneElapsedTime
+                }}<img class="pencil2" src="@/assets/images/폰.png" />
+              </p>
+              <br />
+            </div>
+            <div id="btn">
+              <div @click="stop">
+                <img class="icon" src="@/assets/images/stop.png" />
+              </div>
+              <div v-if="toggle" @click="start">
+                <img class="icon" src="@/assets/images/play.png" />
+              </div>
+              <div v-else @click="pause">
+                <img class="icon" src="@/assets/images/pause.png" />
+              </div>
+            </div>
+
+            <div>
+              <h2 id="studying" style="color:green">공부중...</h2>
+              <h2 id="phone" style="color:red" class="blink">
+                휴대폰 그만...!
+              </h2>
+              <h2 id="snoozing" style="color:red" class="blink">
+                일어나서 공부 합시다!
+              </h2>
+            </div>
+          </div>
           <br /><br /><br /><br />
-          <p>카메라 준비중...</p>
+          <div id="label-container"></div>
+        </div>
+        <div v-if="toggle" @click="start">
+          <img class="icon" src="@/assets/images/play.png" />
+        </div>
+        <div v-else @click="pause">
+          <img class="icon" src="@/assets/images/pause.png" />
         </div>
       </div>
 
-      <div v-if="aiPage">
-        <div id="webcam-container"></div>
-        <br />
-        <div v-if="webcamLoad" id="stopwatch">
-          <div>
-            <p class="top">집중 시간 : {{ formattedFocusElapsedTime }}</p>
-            <p class="bottom">졸은 시간 : {{ formattedSleepElapsedTime }}</p>
-            <p class="bottom">폰한 시간 : {{ formattedPhoneElapsedTime }}</p>
-          </div>
-          <div id="btn">
-            <div @click="stop">
-              <img class="icon" src="@/assets/images/stop.png" />
-            </div>
-            <div v-if="toggle" @click="start">
-              <img class="icon" src="@/assets/images/play.png" />
-            </div>
-            <div v-else @click="pause">
-              <img class="icon" src="@/assets/images/pause.png" />
-            </div>
-          </div>
-
-          <div>
-            <h2 id="studying" style="color:green">공부중...</h2>
-            <h2 id="phone" style="color:red" class="blink">휴대폰 그만...!</h2>
-            <h2 id="snoozing" style="color:red" class="blink">
-              일어나서 공부 합시다!
-            </h2>
-          </div>
-        </div>
-        <br /><br /><br /><br />
-        <div id="label-container"></div>
+      <div>
+        <h2 id="studying" style="color:green">공부중...</h2>
+        <h2 id="phone" style="color:red" class="blink">휴대폰 그만...!</h2>
+        <h2 id="snoozing" style="color:red" class="blink">
+          일어나서 공부 합시다!
+        </h2>
       </div>
     </div>
+    <br /><br /><br /><br />
+    <div id="label-container"></div>
   </div>
 </template>
 
@@ -134,7 +171,6 @@ export default {
     clickStart() {
       this.init();
     },
-
     async init() {
       this.loading = true;
 
@@ -288,6 +324,11 @@ export default {
 </script>
 
 <style>
+.pencil1 {
+  width: 50vw;
+  vertical-align: middle;
+}
+
 #wrap * {
   text-align: center;
 }
@@ -347,5 +388,9 @@ p {
 
 #label-container {
   font-size: 5px;
+}
+.pencil2 {
+  width: 6vw;
+  vertical-align: middle;
 }
 </style>

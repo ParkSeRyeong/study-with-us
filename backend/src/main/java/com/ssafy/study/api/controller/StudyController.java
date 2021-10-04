@@ -31,7 +31,7 @@ public class StudyController {
     public MyStudyRes getTodayInfo(HttpServletRequest request) {
         final String token = request.getHeader("Authorization");
         MyStudyRes res = studyService.getStudyInfo(token);
-        res.setStatusCode(200);
+         res.setStatusCode(200);
         res.setMessage("OK");
         return res;
     }
