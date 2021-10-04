@@ -100,7 +100,7 @@ export default {
     console.log(this.$store.state.login.userToken);
     axios({
       method: "get",
-      url: `${SERVER.URL}/study/sidebar`,
+      url: `${SERVER.URL}/study/stop`,
       headers: {
         "Access-Control-Allow-Origin": "*",
         Authorization: this.$store.state.login.userToken,
