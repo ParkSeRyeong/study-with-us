@@ -8,7 +8,7 @@
                     <br><br><br><br><br><br><br>
                     <p class='top'>손과 얼굴이 나오도록 각도를 조정하고</p>
                     <br><br><br>
-                    <img src='@/assets/images/pencil.png'>
+                    <img id="pencil1" src='@/assets/images/pencil.png'>
                     <br><br><br><br>
                     <p>아무곳이나 터치 해주세요!</p>
                 </div>    
@@ -17,7 +17,7 @@
                     <br><br><br><br><br><br><br>
                     <p class="top">SELF STUDY를 시작합니다</p>
                     <br><br><br>
-                    <img src='@/assets/images/pencil.png'>
+                    <img id="pencil1" src='@/assets/images/pencil.png'>
                     <br><br><br><br>
                     <p>카메라 준비중...</p>
                 </div>
@@ -30,9 +30,9 @@
                 <div v-if="webcamLoad" id='stopwatch'>
                     
                     <div>
-                        <p class="top">집중 시간 : {{formattedFocusElapsedTime}}</p>
-                        <p class="bottom">졸은 시간 : {{formattedSleepElapsedTime}}</p>
-                        <p class="bottom">폰한 시간 : {{formattedPhoneElapsedTime}}</p>
+                        <p class="top"><img class="pencil2" src="@/assets/images/연필.png"/>집중 시간 : {{formattedFocusElapsedTime}}<img class="pencil2" src="@/assets/images/연필.png"/></p><br>
+                        <p class="bottom"><img class="pencil2" src="@/assets/images/zzz.png"/> 졸은 시간 : {{formattedSleepElapsedTime}} <img class="pencil2" src="@/assets/images/zzz.png"/></p><br>
+                        <p class="bottom"><img class="pencil2" src="@/assets/images/폰.png"/>폰한 시간 : {{formattedPhoneElapsedTime}}<img class="pencil2" src="@/assets/images/폰.png"/></p><br>
                     </div>  
                     <div id='btn'>
                         
@@ -296,6 +296,11 @@ export default {
 </script>
 
 <style>
+.pencil1{
+        width:50vw;
+        vertical-align: middle;
+}
+
     #wrap *{
         text-align: center;
     }
@@ -304,10 +309,7 @@ export default {
         height: 100vh;
     }
 
-    img {
-        width:50vw;
-        vertical-align: middle;
-    }
+    
     
     .blink{
         animation: blink 1s linear infinite;
@@ -349,5 +351,9 @@ export default {
 
     #label-container{
         font-size: 5px;
+    }
+    .pencil2{
+        width:2vw;
+        vertical-align: middle;
     }
 </style>
