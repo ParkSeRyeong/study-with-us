@@ -28,6 +28,7 @@
         </div>
       </div>
 
+      <div style="margin-top: 30px">
       <datepicker-lite
           :value-attr="currentDateTime()"
           :placeholder-attr="dplaceholder"
@@ -38,26 +39,13 @@
           :locale="dlocale"
           :disableInput="false"
           :show-bottom-button="false"
-          style="margin-top: 20px"
           @value-changed="changeEvent"
       ></datepicker-lite>
-
-
-      <div style="margin-top: 20px" v-if="this.$store.state.daily_diary.Studytime[0]===-1" > 해당 날짜에 공부한 기록이 없습니다.</div>
-      <Donut style="margin-top: 20px" v-else></Donut>
-
-      <div class="navibar" data-id="61:31">
-        <div class="overlap-group nanumbarungothic-regular-normal-black-15px" data-id="an|cuSnhCeW">
-          <img
-              class="x3"
-              data-id="61:35"
-              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/--3@2x.png"
-          />
-          <div class="x2" data-id="61:36">기록</div>
-          <div class="x4" data-id="61:34">스터디</div>
-          <div class="x5" data-id="61:33">마이페이지</div>
-        </div>
       </div>
+
+      <div style="margin-top: 50px" v-if="this.$store.state.daily_diary.Studytime[0]===-1" > 해당 날짜에 공부한 기록이 없습니다.</div>
+      <Donut style="margin-top: 10px" v-else></Donut>
+
     </div>
   </div>
 </template>
@@ -65,8 +53,9 @@
 <script>
 import DatepickerLite from 'vue3-datepicker-lite'
 import Donut from '../components/diary/donut'
+
 export default {
-  components : { Donut, DatepickerLite },
+  components : { Donut, DatepickerLite},
     data() {
       return {
         dclass: "myDateInput",
@@ -422,5 +411,29 @@ export default {
 }
 * {
   box-sizing: border-box;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 </style>
