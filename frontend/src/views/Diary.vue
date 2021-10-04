@@ -22,16 +22,12 @@
         style="margin-top: 20px"
         @value-changed="changeEvent"
       ></datepicker-lite>
-
-      <div
-        v-if="this.$store.state.daily_diary.Studytime[0] === -1"
-        class="notstudy"
-      >
-        해당 날짜에 공부한 기록이 없습니다.
       </div>
-      <Donut style="margin-top: 20px" v-else></Donut>
+
+      <div style="margin-top: 50px" v-if="this.$store.state.daily_diary.Studytime[0]===-1" > 해당 날짜에 공부한 기록이 없습니다.</div>
+      <Donut style="margin-top: 10px" v-else></Donut>
+
     </div>
-  </div>
   <Donut style="margin-top: 20px"></Donut>
   <BottomMenu />
 </template>
@@ -420,9 +416,5 @@ export default {
 }
 * {
   box-sizing: border-box;
-}
-
-.testCSS {
-  border: 1px solid red;
 }
 </style>
