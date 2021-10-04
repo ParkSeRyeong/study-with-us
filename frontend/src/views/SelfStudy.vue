@@ -353,7 +353,7 @@ export default {
         font-size: 5px;
     }
     .pencil2{
-        width:2vw;
+        width:6vw;
         vertical-align: middle;
     }
 </style>
