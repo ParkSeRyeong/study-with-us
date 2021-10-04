@@ -131,6 +131,7 @@ public class MainServiceImpl implements MainService {
         // 오늘의 Daily_Study 엔티티 = today
         Daily_Study today = dailyStudyRepository.findByUserAndDay(user, now);
         logger.info(today.getDaily_pk() + " / " + today.getDay());
+        deleteTodayTodo(user, getToday());
 
         // todo_list 의 todo와 체크여부done을 iterator로 돌리면서 todo엔티티에 저장.
         Iterator<String> it = todo_list.keySet().iterator();

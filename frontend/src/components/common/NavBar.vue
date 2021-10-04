@@ -3,19 +3,23 @@
     <a href="#home" class="active">Home</a>
     <a href="#news">News</a>
     <a href="#contact">Contact</a>
+    <button @click="logout()">logout</button>
 
   </div>
-
 </template>
 
 <script>
 export default {
-
+  methods: {
+    logout () {
+      this.$store.dispatch('login/deleteJWT')
+      this.$router.push({ name: 'EntrancePage' })
+    } 
+  }
 }
 </script>
 
 <style>
-
 .navbar {
   overflow: hidden;
   background-color: #333;
@@ -40,9 +44,7 @@ export default {
 }
 
 .navbar a.active {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
 }
-
-
 </style>
