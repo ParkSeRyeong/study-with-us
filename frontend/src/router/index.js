@@ -41,11 +41,7 @@ const routes = [
     name: 'MainPage',
     component: MainPage,
   },
-  {
-    path: '/selfstudy',
-    name: 'SelfStudy',
-    component: () => import('@/views/SelfStudy.vue'),
-  },
+
   {
     path: '/diary',
     name: 'Diary',

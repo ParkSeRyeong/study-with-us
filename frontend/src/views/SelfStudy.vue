@@ -32,7 +32,7 @@
                     <div>
                         <p class="top"><img class="pencil2" src="@/assets/images/연필.png"/>집중 시간 : {{formattedFocusElapsedTime}}<img class="pencil2" src="@/assets/images/연필.png"/></p><br>
                         <p class="bottom"><img class="pencil2" src="@/assets/images/zzz.png"/> 졸은 시간 : {{formattedSleepElapsedTime}} <img class="pencil2" src="@/assets/images/zzz.png"/></p><br>
-                        <p class="bottom"><img class="pencil2" src="@/assets/images/폰.png"/>폰한 시간 : {{formattedPhoneElapsedTime}}<img class="pencil2" src="@/assets/images/폰.png"/></p><br>
+                        <p class="bottom"><img class="pencil2" src="@/assets/images/폰.png"/>폰 시간 : {{formattedPhoneElapsedTime}}<img class="pencil2" src="@/assets/images/폰.png"/></p><br>
                     </div>  
                     <div id='btn'>
                         
@@ -98,7 +98,7 @@ export default {
         console.log(this.$store.state.login.userToken);
         axios({
                 method: 'get',
-                url: `${SERVER.URL}/study/sidebar`,
+                url: `${SERVER.URL}/study/stop`,
                 headers: {
                     'Access-Control-Allow-Origin': "*",
                     Authorization: this.$store.state.login.userToken
@@ -309,7 +309,10 @@ export default {
         height: 100vh;
     }
 
-    
+    img {
+        width:50vw;
+        vertical-align: middle;
+    }
     
     .blink{
         animation: blink 1s linear infinite;
