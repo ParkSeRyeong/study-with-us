@@ -1,32 +1,7 @@
 <template>
+  <DiaryNav />
   <div class="container-center-horizontal">
     <div class="study-diary-weekly screen" data-id="26:315">
-      <div class="flex-row" data-id="an|15cRb3iB">
-        <div class="daily" data-id="26:355">
-          <div class="daily-1 nanumbarungothic-ultra-light-black-18px" data-id="26:357">일간</div>
-          <img
-            class="lyline"
-            data-id="26:356"
-            src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/monthly-line@2x.svg"
-          />
-        </div>
-        <div class="weekly" data-id="26:352">
-          <div class="weekly-1 nanumbarungothic-bold-bondi-blue-18px" data-id="26:354">주간</div>
-          <img
-            class="lyline"
-            data-id="26:353"
-            src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/daily-line@2x.svg"
-          />
-        </div>
-        <div class="monthly" data-id="26:349">
-          <div class="monthly-1 nanumbarungothic-ultra-light-black-18px" data-id="26:351">월간</div>
-          <img
-            class="lyline"
-            data-id="26:350"
-            src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/monthly-line@2x.svg"
-          />
-        </div>
-      </div>
       <div class="today" data-id="26:343">
         <img
           class="prev"
@@ -42,7 +17,9 @@
       </div>
 
       <div class="sun" data-id="51:46">
-        <div class="text nanumbarungothic-light-black-15px" data-id="51:2">09.05&nbsp;&nbsp;일</div>
+        <div class="text nanumbarungothic-light-black-15px" data-id="51:2">
+          09.05&nbsp;&nbsp;일
+        </div>
 
         <div class="group" data-id="51:33">
           <div class="overlap-group" data-id="an|9V21PrxO">
@@ -80,7 +57,9 @@
       </div>
 
       <div class="study-diary-weekly-item" data-id="51:45">
-        <div class="text nanumbarungothic-light-black-15px" data-id="51:8">09.06&nbsp;&nbsp;월</div>
+        <div class="text nanumbarungothic-light-black-15px" data-id="51:8">
+          09.06&nbsp;&nbsp;월
+        </div>
 
         <div class="group-2" data-id="51:34">
           <div class="rectangle-19" data-id="51:7"></div>
@@ -306,53 +285,23 @@
           </div>
         </div>
       </div>
-      <div class="group-8" data-id="59:249">
-        <div class="text-1 nanumbarungothic-ultra-light-black-25px" data-id="59:243">세령</div>
-        <div class="flex-col" data-id="an|MQYm5oV2">
-          <p class="text-9 nanumbarungothic-light-white-15px" data-id="59:244">
-            <span class="nanumbarungothic-light-black-15px">님이 공부에 </span
-            ><span class="nanumbarungothic-regular-normal-blue-ribbon-15px">집중한 순공 시간</span
-            ><span class="nanumbarungothic-light-black-15px">은</span>
-          </p>
-          <div class="avg-time nanumbarungothic-ultra-light-black-23px" data-id="59:245">
-            15 : 23 : 21
-          </div>
-        </div>
-      </div>
-      <div class="group-9" data-id="59:250">
-        <div class="text-1 nanumbarungothic-ultra-light-black-25px" data-id="59:247">세령</div>
-        <div class="flex-col-1" data-id="an|MFWEPmV4">
-          <p class="text-11 nanumbarungothic-light-white-15px" data-id="59:248">
-            <span class="nanumbarungothic-light-black-15px">님이 공부에 </span
-            ><span class="nanumbarungothic-regular-normal-red-15px">집중하지 못한 시간</span
-            ><span class="nanumbarungothic-light-black-15px">은</span>
-          </p>
-          <div class="avg-time-1 nanumbarungothic-ultra-light-black-23px" data-id="59:246">
-            08 : 17 : 34
-          </div>
-        </div>
-      </div>
-      <div class="navibar" data-id="59:125">
-        <div
-          class="overlap-group1 nanumbarungothic-regular-normal-black-15px"
-          data-id="an|Cs4oddNM"
-        >
-          <img
-            class="x3"
-            data-id="59:129"
-            src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/--3@2x.png"
-          />
-          <div class="x2" data-id="59:130">기록</div>
-          <div class="x4" data-id="59:128">스터디</div>
-          <div class="x5" data-id="59:127">마이페이지</div>
-        </div>
-      </div>
+
+      <MonthlyStudyInfo />
+      <BottomMenu />
     </div>
   </div>
 </template>
 
 <script>
+import DiaryNav from "@/components/DiaryNav";
+import BottomMenu from "@/components/BottomMenu";
+import MonthlyStudyInfo from "@/components/MonthlyDiary/MonthlyStudyInfo";
 export default {
+  components: {
+    BottomMenu,
+    DiaryNav,
+    MonthlyStudyInfo,
+  },
   data() {
     return {
       currentYear: new Date().getFullYear(),
@@ -361,14 +310,14 @@ export default {
     };
   },
   mounted() {
-    //console.log(this.currentDay);
     this.getWeeklyInfo();
   },
   methods: {
     getWeeklyInfo() {
-      console.log('getWeeklyInfo - component');
-      let date = this.currentYear + '-' + this.currentMonth + '-' + this.currentDay;
-      this.$store.dispatch('weeklydiary/getWeekly', {
+      console.log("getWeeklyInfo - component");
+      let date =
+        this.currentYear + "-" + this.currentMonth + "-" + this.currentDay;
+      this.$store.dispatch("weeklydiary/getWeekly", {
         day: date,
         token: this.$store.state.login.userToken,
       });
@@ -748,31 +697,35 @@ export default {
   min-width: 69px;
 }
 
-@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
 
 @font-face {
-  font-family: 'NanumBarunGothic-Light';
+  font-family: "NanumBarunGothic-Light";
   font-style: normal;
   font-weight: 300;
-  src: url('https://fonts.animaapp.com/NanumBarunGothic-Light') format('truetype');
+  src: url("https://fonts.animaapp.com/NanumBarunGothic-Light")
+    format("truetype");
 }
 @font-face {
-  font-family: 'NanumBarunGothic-Regular';
+  font-family: "NanumBarunGothic-Regular";
   font-style: normal;
   font-weight: 400;
-  src: url('https://fonts.animaapp.com/NanumBarunGothic-Regular') format('truetype');
+  src: url("https://fonts.animaapp.com/NanumBarunGothic-Regular")
+    format("truetype");
 }
 @font-face {
-  font-family: 'NanumBarunGothic-UltraLight';
+  font-family: "NanumBarunGothic-UltraLight";
   font-style: normal;
   font-weight: 300;
-  src: url('https://fonts.animaapp.com/NanumBarunGothic-UltraLight') format('truetype');
+  src: url("https://fonts.animaapp.com/NanumBarunGothic-UltraLight")
+    format("truetype");
 }
 @font-face {
-  font-family: 'NanumBarunGothic-Bold';
+  font-family: "NanumBarunGothic-Bold";
   font-style: normal;
   font-weight: 700;
-  src: url('https://fonts.animaapp.com/NanumBarunGothic-Bold') format('truetype');
+  src: url("https://fonts.animaapp.com/NanumBarunGothic-Bold")
+    format("truetype");
 }
 .screen a {
   display: contents;

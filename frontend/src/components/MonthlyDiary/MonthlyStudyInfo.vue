@@ -1,31 +1,32 @@
 <template>
-  <div
-    class="container-center-horizontal infoFont"
-    style="font-family:'nanumsquare';"
-  >
-    <div class="">
-      <div class="d-flex timeInfo">
-        <span class="highlightFocusFont">세령</span>
-        <span class="">님이 공부에 </span>
-        <span class="focusFont">집중한 순공 시간</span>
-        <span class="mt-3">은</span>
-      </div>
+  <div style="width:100%;">
+    <div class="box infoFont" style="font-family:'nanumsquare';">
+      <div>{{ test }}</div>
 
-      <!-- total focus time 넣기 -->
-      <div class="avg-time timeInfo timeCenter">
-        {{ this.$store.state.diary.focustime }}
-      </div>
+      <div class="">
+        <div class="d-flex timeInfo box">
+          <span class="highlightFocusFont">시은</span>
+          <span class="">&nbsp;님이 공부에 </span>
+          <span class="focusFont">&nbsp;집중한 순공 시간</span>
+          <span>은</span>
+        </div>
 
-      <div class="d-flex timeInfo">
-        <span class="highlightOtherFont">세령</span>
-        <span class="">님이 공부에 </span>
-        <span class="otherFont">집중하지 못한 시간</span>
-        <span class="">은</span>
-      </div>
+        <!-- total focus time 넣기 -->
+        <div class="avg-time timeInfo timeCenter box">
+          {{ focustime }}
+        </div>
 
-      <!-- total other time 넣기 -->
-      <div class="avg-time timeInfo timeCenter">
-        15 : 23 : 21
+        <div class="d-flex timeInfo box">
+          <span class="highlightOtherFont">시은</span>
+          <span class="">&nbsp;님이 공부에 </span>
+          <span class="otherFont">&nbsp;집중하지 못한 시간</span>
+          <span class="">은</span>
+        </div>
+
+        <!-- total other time 넣기 -->
+        <div class="avg-time timeInfo timeCenter">
+          {{ othertime }}
+        </div>
       </div>
     </div>
   </div>
@@ -35,24 +36,76 @@
 export default {
   data() {
     return {
-      focustime: "",
-      othertime: "",
+      isWeekly: false,
     };
   },
-  mounted() {
-    this.getTimes();
-  },
-  methods: {
-    getTimes() {
-      console.log(this.$store.state.diary.focustime);
-      this.focustime = this.$store.state.diary.focustime;
-      this.othertime = this.$store.state.diary.othertime;
+
+  computed: {
+    monthly: function() {
+      return this.$store.state.monthlydiary.isWeekly;
+    },
+    weekly: function() {
+      return this.$store.state.weeklydiary.isWeekly;
+    },
+    focustime: function() {
+      if (this.isWeekly) {
+        return this.$store.state.weeklydiary.focustime;
+      } else {
+        return this.$store.state.monthlydiary.focustime;
+      }
+    },
+    othertime: function() {
+      if (this.isWeekly) {
+        return this.$store.state.weeklydiary.othertime;
+      } else {
+        return this.$store.state.monthlydiary.othertime;
+      }
     },
   },
+  watch: {
+    monthly() {
+      this.isWeekly = false;
+    },
+    weekly() {
+      this.isWeekly = true;
+    },
+  },
+
+  methods: {},
 };
 </script>
 
-<style>
+<style scoped type="text/css">
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.calendarM {
+  margin: 7%;
+}
+
+.monthHeader {
+  font-size: 5vw;
+  padding-bottom: 4vh;
+  padding-top: 3vh;
+  font-weight: bold;
+}
+
+.monthlyDays {
+  font-size: 2.5vw;
+  text-align: center;
+  font-family: "nanumsquare";
+}
+
+.weekBolder {
+  font-weight: bolder;
+}
+
+.mainColor {
+  color: #48d9df;
+}
+
 .infoFont {
   font-size: 4vw;
 }
@@ -80,5 +133,8 @@ export default {
   text-align: center;
   font-size: 6vw;
   font-family: "IM_Hyemin-Regular";
+}
+.effect {
+  transition: opacity 0.5s;
 }
 </style>

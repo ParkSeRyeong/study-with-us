@@ -1,22 +1,18 @@
 <template>
-<div id="app">
+  <div id="app">
     <diary-weekly />
   </div>
 </template>
 
 <script>
-import DiaryWeekly from '@/components/diary/DiaryWeekly';
+import DiaryWeekly from "@/components/WeeklyDiary/DiaryWeekly";
 
 export default {
-name: 'App',
+  name: "App",
   components: {
-    
     DiaryWeekly,
-    
   },
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
