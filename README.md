@@ -1,4 +1,4 @@
-![logo.png](https://user-images.githubusercontent.com/18321002/98944158-f772fc80-2533-11eb-8e2e-422cbc851612.png)
+![logo.png](logo.png)
 
 ## 🎈 프로젝트 이름 : 푸드메이트
 
