@@ -82,9 +82,9 @@
   - CI/CD 자동화를 통해 개발 생산성을 높이기 위하여 Jenkins를 도입하였습니다.
 - Docker 19.03.13
   - 배포에서의 용이성을 위하여 Docker를 도입하였습니다.
+  
 
-
-  ## 📜 기획
+## 📜 기획
 
 ### [WireFrame](https://ovenapp.io/view/HkXw7fQzT5sWEsQSC6LzFuYMTqb4bMGu#64AM9)
 
