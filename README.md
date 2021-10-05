@@ -101,7 +101,7 @@
 
 ## 🔌 Contributing
 
-### [프로젝트 기능 API 명세서](https://docs.google.com/spreadsheets/d/1ie8E6G0lYDcWueaEh44aiWQ_lkphggbpnxSamp6uFsA/edit#gid=0)
+### [API 명세서](https://docs.google.com/spreadsheets/d/1ie8E6G0lYDcWueaEh44aiWQ_lkphggbpnxSamp6uFsA/edit#gid=0)
 
 
 
