@@ -15,9 +15,7 @@
                 <router-link to="/studygroup"><img class='icon' src="@/assets/images/4.png"></router-link>
             </div>
             <div>
-                <button @click="logout()">logout</button>
-
-                <!-- <router-link to="/mypage"><img class='icon' src="@/assets/images/5.png"></router-link> -->
+                <router-link to="/mypage"><img class='icon' src="@/assets/images/5.png"></router-link>
             </div>
         </div>
     </div>
