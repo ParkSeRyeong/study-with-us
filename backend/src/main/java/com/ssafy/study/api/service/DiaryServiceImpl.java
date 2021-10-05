@@ -22,7 +22,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class DiaryServiceImpl implements DiaryService {
+public class    DiaryServiceImpl implements DiaryService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final JwtTokenUtil jwtTokenProvider;
@@ -218,7 +218,7 @@ public class DiaryServiceImpl implements DiaryService {
                     .totalOtherTime(total_othertime)
                     .dayAndWeek(sb.toString())
                     .day(ymd.format(ds.getDay()))
-                    .focusPercent(cur_focus_percentage)
+                    .focusPercent(cur_focus_percentage - cur_other_percentage)
                     .otherPercent(cur_other_percentage)
                     .build();
             date_list.put(ymd.format(ds.getDay()), res);
