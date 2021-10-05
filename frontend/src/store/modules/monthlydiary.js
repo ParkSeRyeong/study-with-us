@@ -5,6 +5,7 @@ const state = {
   isStudy: [],
   othertime: "",
   focustime: "",
+  isWeekly: false,
 };
 
 // actions
@@ -33,6 +34,7 @@ const actions = {
 // mutations
 const mutations = {
   GET_MONTHLY_STUDY(state, data) {
+    state.isWeekly = !state.isWeekly;
     state.isStudy = data.dailyColor;
     state.othertime = data.totalOtherTime;
     state.focustime = data.totalFocusTime;

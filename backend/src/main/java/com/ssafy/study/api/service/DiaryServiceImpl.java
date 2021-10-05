@@ -110,7 +110,7 @@ public class    DiaryServiceImpl implements DiaryService {
     /* string 형태로 들어온 날짜를 Date형으로 바꾸기 */
     public String switchString2Date(String date) {
         // ex) 01:03:20 -> 10320
-        String h = "0", m = "0", s = "0";
+        String h = "00", m = "00", s = "00";
         if (date.length() > 4) {
             // length =5 -> 0 12 34 -> 0 ~ 1/ 1 ~ 3 / 3 ~
             h = date.substring(0, date.length() - 4);
@@ -125,7 +125,9 @@ public class    DiaryServiceImpl implements DiaryService {
         }
         // ex) 00:00:04 -> 4
         else {
-            s = date;
+            if(!date.equals("0")){
+                s = date;
+            }
         }
 
         StringBuilder sb = new StringBuilder();
@@ -172,7 +174,22 @@ public class    DiaryServiceImpl implements DiaryService {
         BigDecimal getTotalFocus = dailyStudyRepository.getTotalFocusTime(first_day, today);
         BigDecimal getTotalOther = dailyStudyRepository.getTotalOtherTime(first_day, today);
         Time getMaxFocus = dailyStudyRepository.getMaxFocusTime(first_day, today, user.getUserid());
-        System.out.println(hms.format(getMaxFocus));
+
+
+        // 이번 달에 공부를 하 나 도 안했어용
+        if (getTotalFocus == null || getTotalOther == null || getMaxFocus == null) {
+            // 반환할 list = res
+            List<WeeklyRes> res = new ArrayList<>();
+            WeeklyRes nothing = WeeklyRes.builder()
+                    .totalFocusTime("00:00:00")
+                    .totalOtherTime("00:00:00")
+                    .dayAndWeek(sb.toString())
+                    .day(inputDate)
+                    .focusPercent(0)
+                    .otherPercent(0).build();
+            res.add(nothing);
+            return res;
+        }
 
         // res에 저장할 string형 전체 focus/other time
         String total_focustime = switchString2Date(String.valueOf(getTotalFocus.intValue()));
