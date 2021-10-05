@@ -8,6 +8,8 @@
           {{ DayAndWeek }}
           <span v-on:click="onClickNext(currentDay)" class="mainColor">▶</span>
         </h1>
+
+        <Bar></Bar>
       </div>
     </div>
   </div>
@@ -19,11 +21,14 @@
 import DiaryNav from "@/components/DiaryNav";
 import BottomMenu from "@/components/BottomMenu";
 import MonthlyStudyInfo from "@/components/MonthlyDiary/MonthlyStudyInfo";
+import Bar from '../../components/diary/bar'
 export default {
+
   components: {
     BottomMenu,
     DiaryNav,
     MonthlyStudyInfo,
+    Bar,
   },
   data() {
     return {
