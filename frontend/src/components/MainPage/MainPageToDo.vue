@@ -96,8 +96,8 @@
       },
       addTodo () {
         if (this.newTodo) {
-          this.todos[this.newTodo] = false
           console.log(this.todos)
+          this.todos[this.newTodo] = false
           this.newTodo = null
         }
       },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NavBar />
+    <BottomMenu />
     <div class="main">
       <div class="wise-saying">
         <div class="text-2 nanumbarungothic-ultra-light-black-50px">“</div>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import NavBar from '@/components/common/NavBar.vue'
+import BottomMenu from '@/components/BottomMenu.vue'
 import MainPageToDo from '@/components/MainPage/MainPageToDo.vue'
 
 export default {
@@ -58,7 +58,7 @@ export default {
     }
   },
   components: {
-    NavBar,
+    BottomMenu,
     MainPageToDo,
   },
   created() {
@@ -67,7 +67,7 @@ export default {
     console.log('state/login'+this.$store.state.login)
     console.log(localStorage.vuex)
     console.log(localStorage.vuex.slice(23,-3))
-    this.$store.dispatch('mainPage/getJWT', localStorage.vuex.slice(23,-3))
+    this.$store.dispatch('mainPage/getJWT', this.$store.state.login.userToken)
   }, 
   mounted() {
     this.$store.dispatch('mainPage/getMainData')

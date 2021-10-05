@@ -14,27 +14,41 @@
         </h1>
       </div>
       <div class="login">
-        <input
-          class="form-control login-form"
-          type="text"
-          placeholder="ID"
-          v-model="credentials.userid"
-        />
-        <input
-          class="form-control login-form"
-          type="password"
-          placeholder="PASSWORD"
-          v-model="credentials.password"
-          @keyup.enter="userLogin"
-        />
-        <button
-          class="btn login-btn"
-          type="button"
-          style="width: 100%"
-          @click="userLogin"
-        >
-          로그인
-        </button>
+        <div v-if="!this.login_state">
+          <input
+            class="form-control login-form"
+            type="text"
+            placeholder="ID"
+            v-model="credentials.userid"
+          />
+          <input
+            class="form-control login-form"
+            type="password"
+            placeholder="PASSWORD"
+            v-model="credentials.password"
+            @keyup.enter="userLogin"
+          />
+          <button
+            class="btn login-btn"
+            type="button"
+            style="width: 100%"
+            @click="userLogin"
+          >
+            로그인
+          </button>
+        </div>
+        <div v-else>
+          <div class="welcome-ment">{{ this.login_id }}님 어서오세요!</div>
+          <button
+            class="btn login-btn"
+            type="button"
+            style="width: 100%"
+            @click="pushToMain"
+          >
+            메인페이지로
+          </button>
+        </div>
+
         <div class="container">
           <div class="row justify-content-between">
             <div class="col below-btn-left">회원가입</div>
@@ -63,6 +77,11 @@
 <script>
 export default {
   name: 'EntrancePage',
+  computed: {
+      login_id: function () {
+        return this.$store.state.login.userid
+      }
+    },
   data: function () {
     return {
       width: 0,
@@ -71,6 +90,7 @@ export default {
       title_right: 0,
       title_top: 0,
       login_top: 0,
+      login_state: false,
       credentials: {
         userid: null,
         password: null,
@@ -78,15 +98,16 @@ export default {
     };
   },
   created() {
+    this.login_state = false
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     this.title_fontsize = window.innerHeight * 0.074;
     this.title_top = window.innerHeight * 0;
     this.login_top = window.innerHeight * 0.5;
     // console.log(this.$store.getters["login/decodedToken"]);
-    // if (this.$store.getters['login/decodedToken']) {
-    //   this.$router.push({ name: 'MainPage' })
-    // }
+    if (this.$store.getters['login/decodedToken']) {
+      this.$router.push({ name: 'MainPage' })
+    }
   },
   methods: {
     pushToMain() {
@@ -94,18 +115,21 @@ export default {
     },
     userLogin() {
       this.$store.dispatch("login/getJWT", this.credentials);
-      console.log("component_userLogin");
-      setTimeout(function() {
-        console.log('Works!');
-      }, 1000);
-      console.log('hi!')
+      this.login_state = true
+
     },
 
   },
 };
 </script>
 
-<style>
+<style scoped>
+.welcome-ment {
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: "NanumBarunGothic-Regular";
+}
+
 .login {
   position: fixed;
   bottom: 30px;
