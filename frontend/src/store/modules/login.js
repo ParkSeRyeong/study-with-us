@@ -1,5 +1,5 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
 import SERVER from "../../api/api";
 
 const state = {
@@ -37,14 +37,14 @@ const mutations = {
 };
 
 const getters = {
-  decodedToken: function (state) {
-    if (state.userToken) {
-      console.log(state.userToken);
-      return jwt_decode(state.userToken);
-    } else {
-      return null;
-    }
-  },
+  // decodedToken: function (state) {
+  //   if (state.userToken) {
+  //     console.log(state.userToken);
+  //     return jwt_decode(state.userToken);
+  //   } else {
+  //     return null;
+  //   }
+  // },
 };
 
 export default {
