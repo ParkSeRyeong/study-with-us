@@ -15,7 +15,9 @@
                 <router-link to="/studygroup"><img class='icon' src="@/assets/images/4.png"></router-link>
             </div>
             <div>
-                <router-link to="/mypage"><img class='icon' src="@/assets/images/5.png"></router-link>
+                <button @click="logout()">logout</button>
+
+                <!-- <router-link to="/mypage"><img class='icon' src="@/assets/images/5.png"></router-link> -->
             </div>
         </div>
     </div>
@@ -23,7 +25,12 @@
 
 <script>
 export default {
-    
+  methods: {
+    logout () {
+      this.$store.dispatch('login/deleteJWT')
+      this.$router.push({ name: 'EntrancePage' })
+    } 
+  }
 }
 </script>
 
