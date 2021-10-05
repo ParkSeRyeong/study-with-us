@@ -49,7 +49,7 @@
         ></i>
       </li>
     </ul>
-    <h4 v-if="todos == null">할 일을 추가해주세요</h4>
+    <h4 v-if="Object.keys(todos).length == 0">할 일을 추가해주세요</h4>
   </div>
 </template>
 
@@ -57,11 +57,15 @@
 	// import { ref } from 'vue';
 	export default {
 		name: 'todo',
+    computed: {
+      todos: function () {
+        return this.$store.state.mainPage.todos
+      }
+    },
     data: function () {
       return {
         editState: false,
         newTodo: null,
-        todos: {},
         today: null,
         todayYear: null,
         todayMonth: null,
@@ -70,17 +74,11 @@
       }
     },
     created() {
-      console.log(this.$store.state.mainPage)
-      this.todos = this.$store.state.mainPage.todos
-      console.log(this.todos)
       this.today = new Date()
       this.todayYear = this.today.getFullYear()
       this.todayMonth = ("0" + (this.today.getMonth() + 1)).slice(-2)
       this.todayDate = ("0" + this.today.getDate()).slice(-2)
       this.todayText = this.todayYear + '-' + this.todayMonth + '-' + this.todayDate
-    },
-    mounted() {
-
     },
     methods: {
       editTodo () {
@@ -98,8 +96,8 @@
       },
       addTodo () {
         if (this.newTodo) {
-          this.todos[this.newTodo] = false
           console.log(this.todos)
+          this.todos[this.newTodo] = false
           this.newTodo = null
         }
       },

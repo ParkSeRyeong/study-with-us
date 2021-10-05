@@ -1,8 +1,8 @@
 <template>
-  <div style="width:100%;" class="effect">
-    <div class="calendar calendarM flex justify-content-center monthlyDays">
+  <div style="width:100%;">
+    <div class="calendarM flex justify-content-center monthlyDays">
       <!-- 년 월 start -->
-      <h1 class="monthHeader mt-5 mb-4">
+      <h1 class="monthHeader">
         <span v-on:click="onClickPrev(currentMonth)" class="mainColor">◀</span>
         {{ currentYear }}년 {{ currentMonth }}월
         <span v-on:click="onClickNext(currentMonth)" class="mainColor">▶</span>
@@ -34,18 +34,18 @@
               <span
                 v-if="
                   isStudy(day) &&
-                    this.$store.state.monthlydiary.isStudy[day - 1] == 4
+                    this.$store.state.monthlydiary.isStudy[day - 1] == 3
                 "
-                class="rounded-4"
+                class="colored-3"
               >
                 {{ day }}
               </span>
               <span
                 v-else-if="
                   isStudy(day) &&
-                    this.$store.state.monthlydiary.isStudy[day - 1] == 3
+                    this.$store.state.monthlydiary.isStudy[day - 1] == 4
                 "
-                class="rounded-3"
+                class="colored-4"
               >
                 {{ day }}
               </span>
@@ -54,68 +54,27 @@
                   isStudy(day) &&
                     this.$store.state.monthlydiary.isStudy[day - 1] == 2
                 "
-                class="rounded-2"
+                class="colored-2"
               >
                 {{ day }}
               </span>
               <span
                 v-else-if="
                   isStudy(day) &&
-                    this.$store.state.monthlydiary.isStudy[day - 1] == 1 &&
-                    !isOne(day)
+                    this.$store.state.monthlydiary.isStudy[day - 1] == 1
                 "
-                class="rounded-1"
+                class="colored-1"
               >
                 {{ day }}
               </span>
-              <span
-                v-else-if="
-                  isStudy(day) &&
-                    this.$store.state.monthlydiary.isStudy[day - 1] == 1 &&
-                    isOne(day)
-                "
-                class="rounded-1"
-              >
-                {{ day }}
-              </span>
-              <span v-else>
+
+              <span v-else class="notstudy">
                 {{ day }}
               </span>
             </td>
           </tr>
         </tbody>
       </table>
-    </div>
-  </div>
-
-  <div
-    class="container-center-horizontal infoFont"
-    style="font-family:'nanumsquare';"
-  >
-    <div class="">
-      <div class="d-flex timeInfo">
-        <span class="highlightFocusFont">세령</span>
-        <span class="">님이 공부에 </span>
-        <span class="focusFont">집중한 순공 시간</span>
-        <span class="mt-3">은</span>
-      </div>
-
-      <!-- total focus time 넣기 -->
-      <div class="avg-time timeInfo timeCenter">
-        {{ this.$store.state.monthlydiary.focustime }}
-      </div>
-
-      <div class="d-flex timeInfo">
-        <span class="highlightOtherFont">세령</span>
-        <span class="">님이 공부에 </span>
-        <span class="otherFont">집중하지 못한 시간</span>
-        <span class="">은</span>
-      </div>
-
-      <!-- total other time 넣기 -->
-      <div class="avg-time timeInfo timeCenter">
-        {{ this.$store.state.monthlydiary.othertime }}
-      </div>
     </div>
   </div>
 </template>
@@ -161,7 +120,11 @@ export default {
       for (let i = 0; i < 6; i++) {
         let calendarRow = [];
         for (let j = 0; j < 7; j++) {
-          if (i == 0 && j < this.currentMonthStartWeekIndex) {
+          if (
+            i == 0 &&
+            j < this.currentMonthStartWeekIndex &&
+            this.currentMonthStartWeekIndex != 7
+          ) {
             calendarRow.push("");
           } else if (day <= this.endOfDay) {
             let a = String(day);
@@ -249,10 +212,6 @@ export default {
       this.getTimes();
       this.init();
     },
-    isOne: function(day) {
-      let daystr = day.toString().length;
-      return daystr == 1;
-    },
     isToday: function(year, month, day) {
       let date = new Date();
       return (
@@ -281,43 +240,33 @@ export default {
 };
 </script>
 
-<style type="text/css">
-.rounded {
-  -moz-border-radius: 100%;
-  border-radius: 100%;
-  background-color: #d2f3f5;
+<style scoped type="text/css">
+.notstudy {
   padding: 2vw;
-  color: #ffffff;
 }
-.rounded {
-  -moz-border-radius: 100%;
-  border-radius: 100%;
-  background-color: #d2f3f5;
-  padding: 2vw;
-  color: #ffffff;
-}
-.rounded-1 {
+
+.colored-1 {
   -moz-border-radius: 100%;
   border-radius: 100%;
   background-color: #d2f3f5;
   padding: 2vw;
   color: #000000;
 }
-.rounded-2 {
+.colored-2 {
   -moz-border-radius: 100%;
   border-radius: 100%;
   background-color: #48d9df;
   padding: 2vw;
   color: #ffffff;
 }
-.rounded-3 {
+.colored-3 {
   -moz-border-radius: 100%;
   border-radius: 100%;
   background-color: #39b6bb;
   padding: 2vw;
   color: #ffffff;
 }
-.rounded-4 {
+.colored-4 {
   -moz-border-radius: 100%;
   border-radius: 100%;
   background-color: #218d93;
@@ -336,20 +285,6 @@ export default {
   font-weight: bold;
 }
 
-.blinkColon {
-  animation: blink 0.1s 20 alternate;
-  animation-iteration-count: infinite;
-}
-
-@keyframes blink {
-  from {
-    color: black;
-  }
-  to {
-    color: white;
-  }
-}
-
 .monthlyDays {
   font-size: 2.5vw;
   text-align: center;
@@ -362,37 +297,5 @@ export default {
 
 .mainColor {
   color: #48d9df;
-}
-
-.infoFont {
-  font-size: 4vw;
-}
-.focusFont {
-  color: blue;
-  font-weight: bold;
-}
-.otherFont {
-  color: red;
-  /* font-size: 3.5vw; */
-  font-weight: bold;
-}
-.highlightFocusFont {
-  font-size: 6vw;
-  font-weight: bold;
-}
-.highlightOtherFont {
-  font-size: 6vw;
-  font-weight: bold;
-}
-.timeInfo {
-  padding-bottom: 3vh;
-}
-.timeCenter {
-  text-align: center;
-  font-size: 6vw;
-  font-family: "IM_Hyemin-Regular";
-}
-.effect {
-  transition: opacity 0.5s;
 }
 </style>

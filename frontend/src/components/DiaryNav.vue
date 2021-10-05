@@ -1,12 +1,21 @@
 <template>
   <div class="navitem">
-    <router-link :to="{ path: `/diary` }" routerLinkActive="active"
+    <router-link
+      :to="{ path: `/diary` }"
+      routerLinkActive="active"
+      class="turnblack"
       >일간</router-link
     >
-    <router-link :to="{ path: `/monthly` }" routerLinkActive="active"
+    <router-link
+      :to="{ path: `/weeklydiary` }"
+      routerLinkActive="active"
+      class="turnblack"
       >주간</router-link
     >
-    <router-link :to="{ path: `/monthly` }" routerLinkActive="active"
+    <router-link
+      :to="{ path: `/monthly` }"
+      routerLinkActive="active"
+      class="turnblack"
       >월간</router-link
     >
   </div>
@@ -19,6 +28,11 @@ export default {
 </script>
 
 <style type="text/css">
+.turnblack {
+  color: black;
+  text-decoration: none;
+}
+
 .router-link-active {
   color: #00b3b9;
   text-decoration: none;
