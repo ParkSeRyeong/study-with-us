@@ -49,7 +49,7 @@
         ></i>
       </li>
     </ul>
-    <h4 v-if="todos == null">할 일을 추가해주세요</h4>
+    <h4 v-if="Object.keys(todos).length == 0">할 일을 추가해주세요</h4>
   </div>
 </template>
 

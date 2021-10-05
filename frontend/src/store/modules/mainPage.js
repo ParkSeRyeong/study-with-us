@@ -73,7 +73,10 @@ const mutations = {
   GET_MAIN_DATA: function (state, data) {
     state.mainData = data
     console.log(state.mainData.todo)
-    state.todos = state.mainData.todo
+    if (!(state.mainData.todo == null)) {
+      state.todos = state.mainData.todo
+      console.log(Object.keys(state.todos).length)
+    }
   },
   TODO_CHECK: function (state, data) {
     state.todos[data.todo] = data.done

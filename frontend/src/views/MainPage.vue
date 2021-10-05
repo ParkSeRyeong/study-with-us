@@ -62,11 +62,6 @@ export default {
     MainPageToDo,
   },
   created() {
-    console.log('store'+this.$store)
-    console.log('state'+this.$store.state)
-    console.log('state/login'+this.$store.state.login)
-    console.log(localStorage.vuex)
-    console.log(localStorage.vuex.slice(23,-3))
     this.$store.dispatch('mainPage/getJWT', this.$store.state.login.userToken)
   }, 
   mounted() {
