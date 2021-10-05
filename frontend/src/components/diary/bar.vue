@@ -11,16 +11,19 @@ export default {
     return {
       series: [{
         name: '순 공부 시간',
-        data: [13, 50, 41, 37, 22, 43, 21]
+        data: this.$store.state.weeklydiary.studyInfo,
       }, {
         name: '딴짓 시간',
-        data: [12, 50, 33, 52, 13, 43, 32]
+        data: this.$store.state.weeklydiary.otherInfo,
       }],
       chartOptions: {
         chart: {
           type: 'bar',
           height: 350,
           stacked: true,
+          toolbar:{
+            show:false,
+          }
         },
         plotOptions: {
           bar: {
@@ -28,11 +31,18 @@ export default {
           },
         },
         xaxis: {
+          show: false,
           categories: ['일','월','화','수','목','금','토'],
           labels: {
-            formatter: function (val) {
-              return val + "분"
-            }
+            show: false,
+          },
+          axisBorder:{
+            show:false,
+          }
+        },
+        yaxis:{
+          axisBorder: {
+            show:false,
           }
         },
         fill: {

@@ -9,7 +9,7 @@
           <span v-on:click="onClickNext(currentDay)" class="mainColor">▶</span>
         </h1>
 
-        <Bar></Bar>
+        <Bar style="margin-top: -20px"></Bar>
       </div>
     </div>
   </div>

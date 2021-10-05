@@ -3,6 +3,7 @@ import axios from "axios";
 
 const state = {
   studyInfo: [],
+  otherInfo:[],
   isWeekly: true,
   focustime: "",
   othertime: "",
@@ -36,10 +37,23 @@ const actions = {
 const mutations = {
   GET_Weekly_Study(state, data) {
     state.isWeekly = !state.isWeekly;
-    state.studyInfo = data;
     state.focustime = data[0].totalFocusTime;
     state.othertime = data[0].totalOtherTime;
     state.DayAndWeek = data[0].dayAndWeek;
+    if(state.studyInfo.length===0) {
+      for (var i = 0; i < 7; i++) {
+        state.studyInfo.push(data[i].focusPercent);
+        state.otherInfo.push(data[i].otherPercent);
+      }
+    }
+    else{
+      for (var j = 0; j < 7; j++) {
+        state.studyInfo[j] = data[j].focusPercent;
+        state.otherInfo[j] = data[i].otherPercent;
+      }
+    }
+    console.log(state.studyInfo)
+    console.log(state.otherInfo)
   },
 };
 
