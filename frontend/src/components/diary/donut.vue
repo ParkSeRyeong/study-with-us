@@ -1,17 +1,23 @@
 <template>
   <div>
-    <apexchart
-      width="350"
-      type="donut"
-      :options="options"
-      :series="series"
-    ></apexchart>
+    <tooltip style="margin-left: 280px"
+        text="각 그래프 영역 클릭시 상세 시간을 알 수 있습니다."
+    >
+      <img src="../../assets/images/img.png">
+    </tooltip>
+    <apexchart width="350" type="donut" :options="options" :series="series" ></apexchart>
+    <div class="todolist">
+      <MainPageToDo style="margin-top: 50px" />
+    </div>
   </div>
 </template>
 
 <script>
+import tooltip from './tooltip'
+import MainPageToDo from "@/components/MainPage/MainPageToDo";
 export default {
-  name: "DonutExample",
+  name: 'DonutExample',
+  components : {tooltip, MainPageToDo},
   data: function() {
     return {
       series: this.$store.state.daily_diary.Studytime,

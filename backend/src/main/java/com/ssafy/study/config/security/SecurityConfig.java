@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-//
+    
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .httpBasic().disable()      // httpBasic: REST API를 인증할 때 username, password로 인증을 하는 방법. 이걸 disable해야 자격증명이 안 뜸.

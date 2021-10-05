@@ -19,20 +19,16 @@
         :locale="dlocale"
         :disableInput="false"
         :show-bottom-button="false"
-        style="margin-top: 20px"
         @value-changed="changeEvent"
       ></datepicker-lite>
 
-      <div
-        v-if="this.$store.state.daily_diary.Studytime[0] === -1"
-        class="notstudy"
-      >
-        해당 날짜에 공부한 기록이 없습니다.
+
+      <div style="margin-top: 50px" v-if="this.$store.state.daily_diary.Studytime[0]===-1" >
+        <img src="../assets/images/daily_null.png" style="width: 100%; margin-top: -10px">
       </div>
-      <Donut style="margin-top: 20px" v-else></Donut>
+      <Donut style="margin-top: 10px" v-else></Donut>
     </div>
-  </div>
-  <Donut style="margin-top: 20px"></Donut>
+    </div>
   <BottomMenu />
 </template>
 
@@ -420,9 +416,5 @@ export default {
 }
 * {
   box-sizing: border-box;
-}
-
-.testCSS {
-  border: 1px solid red;
 }
 </style>
