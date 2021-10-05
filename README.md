@@ -1,13 +1,13 @@
 ![logo.png](logo.png)
 
-## 🎈 프로젝트 이름 : 푸드메이트
+## 🎈 프로젝트 이름 : 스터디 위드 미
 
 ## 👨‍👩‍👦‍👦  팀원소개
 
 |NAME|ROLE|EMAIL|
 |------|---|---|
-|:crown:김호영|JIRA & Front-End|[milkcat1994@gmail.com](https://github.com/milkcat1994)|
-|🧑문명기|AWS & Data processing|myunggi_moon@naver.com|
-|🧔김지효|Git & Backend|ptoooool@naver.com|
-|🧑정세린|Data processing|tpfls410@gmail.com|
-|🧒윤희문|Back-End|yhm721@naver.com|
+|👑김호영|Distribution & Front-End||
+|🧒박세령|Backend & Front-End||
+|🧑안상훈|AI & Front-End||
+|🧑김상재|Frontend Tech Leader||
+|🧔이현송|AI & Front-End|lhs7615@naver.com|
