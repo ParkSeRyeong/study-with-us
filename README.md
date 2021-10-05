@@ -86,7 +86,7 @@
 
 ## 📜 기획
 
-### [WireFrame](https://ovenapp.io/view/HkXw7fQzT5sWEsQSC6LzFuYMTqb4bMGu#64AM9)
+### [WireFrame](https://www.figma.com/file/2MsgYMOiJ8pfkabvcmoWnX/Study-With-Us-%ED%99%94%EB%A9%B4%EC%84%A4%EA%B3%84?node-id=0%3A1)
 
 ### [ERD](https://user-images.githubusercontent.com/18321002/98944352-3dc85b80-2534-11eb-975c-a57c9555baf3.png)
 
@@ -103,7 +103,7 @@
 
 ## 🔌 Contributing
 
-### [프로젝트 기능 API 명세서](https://docs.google.com/spreadsheets/d/1Zj3AKI43KN5bLikKdRs0Bb7s1tu8InjISAucA24TgTU/edit?usp=sharing)
+### [프로젝트 기능 API 명세서](https://docs.google.com/spreadsheets/d/1ie8E6G0lYDcWueaEh44aiWQ_lkphggbpnxSamp6uFsA/edit#gid=0)
 
 
 
