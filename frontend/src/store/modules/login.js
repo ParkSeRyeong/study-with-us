@@ -11,7 +11,10 @@ const actions = {
     axios({
       method: "post",
       url: `${SERVER.URL}/user/login`,
-      data: credentials
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+      data: credentials,
     })
       .then((res) => {
         console.log(res.data.jwt)
