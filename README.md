@@ -92,12 +92,14 @@
 
 
 
+
 ## 📱 페이지 기능 소개
 ### 1. 메인페이지 (사람들이 많이 찾는 궁합 Top3를 보여줌)
 ### 2. 프로필 (회원정보 뿐만 아니라 영양정보관리와 식단등록, 목표체중관리등을 할 수 있다.)
 ### 3. 커뮤니티 (회원들간의 자신의 궁합음식 경험을 토대로 정보를 공유)
 ### 4. 취향지도 (회원이 자신이 등록한 취향에 대해서 그에 맞는 음식점 추천서비스)
 ### 5. 영양관리 (자신이 목표로 세운 체중 및 체형에 대해 날짜별 관리서비스)
+
 
 
 
@@ -108,23 +110,41 @@
 
 
 
+
 ## ⭐  Develop Rules
 ### branch
 ```
-master -> develop -> frontend -> feat/기능이름
-master -> develop -> backend -> feat/기능이름
-master -> develop -> dataprocessing -> feat/기능이름
+master -> develop -> FEdevelop -> feat/기능이름
+master -> develop -> BEdevelop -> feat/기능이름
 ```
-### merge
+
+### branch name
 ```
-merge 하기 전에 서로 코드 리뷰하기
-merge 후 브랜치 지우기
+ex)
+
+BE_register
+
+FE_login
 ```
 
 ### commit 메시지
 
 ```
-Add / 커밋등록내용(영문,70자 미만)
-Edit / 커밋수정내용(영문,70자 미만)
-Fix / 커밋핫픽스내용(영문,70자 미만)
+feat : 새로운 기능에 대한 커밋
+
+fix : 버그 수정에 대한 커밋
+
+build : 빌드 관련 파일 수정에 대한 커밋
+
+chore : 그 외 자잘한 수정에 대한 커밋
+
+ci : CI관련 설정 수정에 대한 커밋
+
+docs : 문서 수정에 대한 커밋
+
+style : 코드 스타일 혹은 포맷 등에 관한 커밋
+
+refactor :  코드 리팩토링에 대한 커밋
+
+test : 테스트 코드 수정에 대한 커밋
 ```
