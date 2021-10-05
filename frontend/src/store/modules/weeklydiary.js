@@ -55,7 +55,7 @@ const mutations = {
     }
     else{
       for (var j = 0; j < 7; j++) {
-        let d = data[i].day.split("-");
+        let d = data[j].day.split("-");
         let date = `${d[1]}-${d[2]}`
         state.studyDay[j] = date;
         state.studyInfo[j] = data[j].focusPercent;
