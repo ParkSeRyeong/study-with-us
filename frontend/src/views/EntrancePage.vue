@@ -83,17 +83,24 @@ export default {
     this.title_fontsize = window.innerHeight * 0.074;
     this.title_top = window.innerHeight * 0;
     this.login_top = window.innerHeight * 0.5;
-    console.log(this.$store.getters["login/decodedToken"]);
+    // console.log(this.$store.getters["login/decodedToken"]);
     // if (this.$store.getters['login/decodedToken']) {
     //   this.$router.push({ name: 'MainPage' })
     // }
   },
   methods: {
-    userLogin() {
-      console.log("component_userLogin");
-      this.$store.dispatch("login/getJWT", this.credentials);
+    pushToMain() {
       this.$router.push({ name: "MainPage" });
     },
+    userLogin() {
+      this.$store.dispatch("login/getJWT", this.credentials);
+      console.log("component_userLogin");
+      setTimeout(function() {
+        console.log('Works!');
+      }, 1000);
+      console.log('hi!')
+    },
+
   },
 };
 </script>

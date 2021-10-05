@@ -62,7 +62,14 @@ export default {
     MainPageToDo,
   },
   created() {
-    this.$store.dispatch('mainPage/getJWT', this.$store.state.login.userToken)
+    console.log('store'+this.$store)
+    console.log('state'+this.$store.state)
+    console.log('state/login'+this.$store.state.login)
+    console.log(localStorage.vuex)
+    console.log(localStorage.vuex.slice(23,-3))
+    this.$store.dispatch('mainPage/getJWT', localStorage.vuex.slice(23,-3))
+  }, 
+  mounted() {
     this.$store.dispatch('mainPage/getMainData')
     this.today = new Date()
     this.todayYear = this.today.getFullYear()
