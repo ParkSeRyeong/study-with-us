@@ -182,12 +182,12 @@ export default {
       //console.log(prediction);
       for (let i = 0; i < maxPredictions; i++) {
         const classPrediction =
-          prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+            prediction[i].className + ": " + prediction[i].probability.toFixed(2);
         labelContainer.childNodes[i].innerHTML = classPrediction;
 
         if (
-          (prediction[i].probability.toFixed(2) >= 0.9 && !this.toggle) ||
-          this.pauseToggle
+            (prediction[i].probability.toFixed(2) >= 0.9 && !this.toggle) ||
+            this.pauseToggle
         ) {
           if (prediction[i].probability.toFixed(2) >= 0.9) {
             this.pauseToggle = false;
@@ -197,8 +197,8 @@ export default {
             document.getElementById("phone").style.display = "none";
             document.getElementById("snoozing").style.display = "none";
             document
-              .getElementById("webcam-container")
-              .classList.remove("blink");
+                .getElementById("webcam-container")
+                .classList.remove("blink");
             if (!this.focusCheck) {
               this.startFocus();
               this.pauseSleep();

@@ -1,12 +1,15 @@
 <template>
   <div id="chart">
     <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+    <MonthlyStudyInfo style="margin-top: 20px"/>
   </div>
 </template>
 
 <script>
+import MonthlyStudyInfo from "../../components/MonthlyDiary/MonthlyStudyInfo";
 export default {
   name: "bar",
+  components:{MonthlyStudyInfo},
   data: function () {
     return {
       series: [{
@@ -17,6 +20,15 @@ export default {
         data: this.$store.state.weeklydiary.otherInfo,
       }],
       chartOptions: {
+        tooltip: {
+          enabled: false,
+        },
+        dataLabels:{
+          enabled: false,
+          formatter: function (val) {
+            return val + '%'
+          },
+        },
         chart: {
           type: 'bar',
           height: 350,
@@ -32,7 +44,7 @@ export default {
         },
         xaxis: {
           show: false,
-          categories: ['일','월','화','수','목','금','토'],
+          categories: this.$store.state.weeklydiary.studyDay,
           labels: {
             show: false,
           },
@@ -41,6 +53,11 @@ export default {
           }
         },
         yaxis:{
+          labels: {
+            style: {
+              fontSize: '15px',
+            },
+          },
           axisBorder: {
             show:false,
           }
