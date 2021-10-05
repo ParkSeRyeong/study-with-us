@@ -11,6 +11,9 @@ const actions = {
     axios({
       method: "post",
       url: `${SERVER.URL}/user/login`,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
       data: credentials,
     })
       .then((res) => {
