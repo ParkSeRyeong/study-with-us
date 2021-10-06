@@ -1,7 +1,12 @@
 <template>
   <div id="chart">
-    <apexchart type="bar" height="300" :options="chartOptions" :series="series"></apexchart>
-    <MonthlyStudyInfo style="margin-top: 20px"/>
+    <apexchart
+      type="bar"
+      height="300"
+      :options="chartOptions"
+      :series="series"
+    ></apexchart>
+    <MonthlyStudyInfo style="margin-top: 20px" />
   </div>
 </template>
 
@@ -9,33 +14,36 @@
 import MonthlyStudyInfo from "../../components/MonthlyDiary/MonthlyStudyInfo";
 export default {
   name: "bar",
-  components:{MonthlyStudyInfo},
-  data: function () {
+  components: { MonthlyStudyInfo },
+  data: function() {
     return {
-      series: [{
-        name: '순 공부 시간',
-        data: this.$store.state.weeklydiary.studyInfo,
-      }, {
-        name: '딴짓 시간',
-        data: this.$store.state.weeklydiary.otherInfo,
-      }],
+      series: [
+        {
+          name: "순 공부 시간",
+          data: this.$store.state.weeklydiary.studyInfo,
+        },
+        {
+          name: "딴짓 시간",
+          data: this.$store.state.weeklydiary.otherInfo,
+        },
+      ],
       chartOptions: {
         tooltip: {
           enabled: false,
         },
-        dataLabels:{
+        dataLabels: {
           enabled: false,
-          formatter: function (val) {
-            return val + '%'
+          formatter: function(val) {
+            return val + "%";
           },
         },
         chart: {
-          type: 'bar',
+          type: "bar",
           height: 350,
           stacked: true,
-          toolbar:{
-            show:false,
-          }
+          toolbar: {
+            show: false,
+          },
         },
         plotOptions: {
           bar: {
@@ -48,34 +56,39 @@ export default {
           labels: {
             show: false,
           },
-          axisBorder:{
-            show:false,
-          }
+          axisBorder: {
+            show: false,
+          },
         },
-        yaxis:{
+        yaxis: {
           labels: {
             style: {
-              fontSize: '15px',
+              fontSize: "15px",
             },
           },
           axisBorder: {
-            show:false,
-          }
+            show: false,
+          },
         },
         fill: {
-          opacity: 1
+          opacity: 1,
+          colors: ["#21B2BA", "#A1E6EB"],
         },
         legend: {
-          position: 'bottom',
-          horizontalAlign: 'left',
-          offsetX: 50
-        }
+          position: "bottom",
+          horizontalAlign: "left",
+          offsetX: 50,
+        },
+        pattern: {
+          style: "verticalLines",
+          width: 6,
+          height: 6,
+          strokeWidth: 2,
+        },
       },
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
