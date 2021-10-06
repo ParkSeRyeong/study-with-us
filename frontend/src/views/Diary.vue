@@ -1,38 +1,40 @@
 <template>
-  <DiaryNav />
-  <div class="container-center-horizontal">
-    <div
-      class="study-diary-daily screen"
-      data-id="61:3"
-      :style="{
-        width: this.$store.state.window_width + 'px',
-        height: this.$store.state.window_height + 'px',
-      }"
-    >
-      <datepicker-lite
-        :value-attr="currentDateTime()"
-        :placeholder-attr="dplaceholder"
-        :is-button-type="disButtonType"
-        :year-minus="dyearMinus"
-        :years-range="100"
-        :to="dtoDate"
-        :locale="dlocale"
-        :disableInput="false"
-        :show-bottom-button="false"
-        @value-changed="changeEvent"
-      ></datepicker-lite>
-
+  <div style="padding: 16px; margin-bottom:50px">
+    <DiaryNav />
+    <div class="container-center-horizontal">
       <div
-        style="margin-top: 50px"
-        v-if="this.$store.state.daily_diary.Studytime[0] === -1"
+        class="study-diary-daily screen"
+        data-id="61:3"
+        :style="{
+          width: this.$store.state.window_width + 'px',
+        }"
       >
-        <img
-          src="../assets/images/daily_null.png"
-          style="width: 100%; margin-top: -10px"
-        />
+        <datepicker-lite
+          :value-attr="currentDateTime()"
+          :placeholder-attr="dplaceholder"
+          :is-button-type="disButtonType"
+          :year-minus="dyearMinus"
+          :years-range="100"
+          :to="dtoDate"
+          :locale="dlocale"
+          :disableInput="false"
+          :show-bottom-button="false"
+          @value-changed="changeEvent"
+        ></datepicker-lite>
+
+        <div
+          style="margin-top: 50px"
+          v-if="this.$store.state.daily_diary.Studytime[0] === -1"
+        >
+          <img
+            src="../assets/images/daily_null.png"
+            style="width: 100%; margin-top: -10px"
+          />
+        </div>
+        <Donut style="margin-top: 10px" v-else></Donut>
       </div>
-      <Donut style="margin-top: 10px" v-else></Donut>
     </div>
+    <DiaryTodo />
   </div>
   <BottomMenu />
 </template>
@@ -41,9 +43,10 @@
 import DatepickerLite from "vue3-datepicker-lite";
 import Donut from "../components/diary/donut";
 import DiaryNav from "@/components/DiaryNav";
+import DiaryTodo from "@/components/diary/DiaryTodo";
 import BottomMenu from "@/components/BottomMenu";
 export default {
-  components: { Donut, DatepickerLite, DiaryNav, BottomMenu },
+  components: { Donut, DatepickerLite, DiaryNav, BottomMenu, DiaryTodo },
   data() {
     return {
       dclass: "myDateInput",
@@ -107,7 +110,6 @@ export default {
   background-color: White;
   display: flex;
   flex-direction: column;
-  height: 812px;
   overflow: hidden;
   padding: 33px 0;
   width: 375px;

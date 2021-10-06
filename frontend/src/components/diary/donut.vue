@@ -7,17 +7,15 @@
     </tooltip>
     <apexchart width="350" type="donut" :options="options" :series="series" ></apexchart>
     <div class="todolist">
-      <MainPageToDo style="margin-top: 50px" />
     </div>
   </div>
 </template>
 
 <script>
 import tooltip from './tooltip'
-import MainPageToDo from "@/components/MainPage/MainPageToDo";
 export default {
   name: 'DonutExample',
-  components : {tooltip, MainPageToDo},
+  components : {tooltip},
   data: function() {
     return {
       series: this.$store.state.daily_diary.Studytime,

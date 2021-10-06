@@ -3,6 +3,8 @@ import axios from "axios";
 
 const state = {
   Studytime: [],
+  todos: {},
+  date: null,
 };
 
 // actions
@@ -19,6 +21,7 @@ const actions = {
       .then((res) => {
         console.log(res);
         commit("GET_DAILY_STUDY", res.data);
+        commit("GET_DATE", info.day)
       })
       .catch((err) => {
         console.log(err);
@@ -42,7 +45,14 @@ const mutations = {
       state.Studytime[2] = data.sleeptime;
       console.log(state.Studytime[0]);
     }
+
+    if (!(data.todo == null)) {
+      state.todos = data.todo
+    }
   },
+  GET_DATE (state, data) {
+    state.date = data
+  }
 };
 
 export default {
