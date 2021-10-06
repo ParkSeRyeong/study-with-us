@@ -71,7 +71,6 @@ export default {
     components: {
     TitleBar
     },
-
     data() {
         return{
             loading : false,
@@ -145,7 +144,8 @@ export default {
             
             this.aiPage = true;
             // Convenience function to setup a webcam
-            webcam = new tmImage.Webcam(360, 360, flip); // width, height, flip
+
+            webcam = new tmImage.Webcam(window.outerWidth, 360, flip); // width, height, flip
             await webcam.setup(); // request access to the webcam
             await webcam.play();
             window.requestAnimationFrame(this.loop);
