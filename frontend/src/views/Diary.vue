@@ -1,4 +1,5 @@
 <template>
+  <TitleBar v-if="loading || !aiPage">&nbsp;&nbsp;DIARY</TitleBar>
   <DiaryNav />
   <div class="diary">
     <div class="container-center-horizontal">
@@ -33,7 +34,9 @@
         </div>
         <div v-else>
           <Donut style="margin-top: 10px"></Donut>
-          <DiaryTodo style="margin-left: 30px; margin-right: 30px; margin-top: 30px" />
+          <DiaryTodo
+            style="margin-left: 30px; margin-right: 30px; margin-top: 30px"
+          />
         </div>
       </div>
     </div>
@@ -47,8 +50,16 @@ import Donut from "../components/diary/donut";
 import DiaryNav from "@/components/DiaryNav";
 import DiaryTodo from "@/components/diary/DiaryTodo";
 import BottomMenu from "@/components/BottomMenu";
+import TitleBar from "@/components/TitleBar";
 export default {
-  components: { Donut, DatepickerLite, DiaryNav, BottomMenu, DiaryTodo },
+  components: {
+    Donut,
+    DatepickerLite,
+    DiaryNav,
+    BottomMenu,
+    DiaryTodo,
+    TitleBar,
+  },
   data() {
     return {
       dclass: "myDateInput",
