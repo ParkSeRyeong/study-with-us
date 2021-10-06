@@ -1,6 +1,6 @@
 <template>
-  <div style="padding: 16px; margin-bottom:50px">
-    <DiaryNav />
+  <DiaryNav />
+  <div class="diary">
     <div class="container-center-horizontal">
       <div
         class="study-diary-daily screen"
@@ -31,10 +31,12 @@
             style="width: 100%; margin-top: -10px"
           />
         </div>
-        <Donut style="margin-top: 10px" v-else></Donut>
+        <div v-else>
+          <Donut style="margin-top: 10px"></Donut>
+          <DiaryTodo style="margin-left: 30px; margin-right: 30px; margin-top: 30px" />
+        </div>
       </div>
     </div>
-    <DiaryTodo />
   </div>
   <BottomMenu />
 </template>
@@ -100,7 +102,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.diary {
+  padding: 0px 16px;
+  margin-bottom: 50px;
+}
+
 .notstudy {
   margin-top: 20px;
   font-family: nanumsquare;
