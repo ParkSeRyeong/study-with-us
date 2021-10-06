@@ -51,22 +51,10 @@
 
         <div class="container">
           <div class="row justify-content-between">
-            <div @click="pushToSignup()" class="col below-btn-left">회원가입</div>
+            <div @click="pushToSignup()" class="col below-btn-left">
+              회원가입
+            </div>
             <div class="col below-btn-right">아이디/비밀번호 찾기</div>
-          </div>
-        </div>
-        <div class="container">
-          <div class="row justify-content-evenly flex-row-1">
-            <div class="col"></div>
-            <img
-              class="googlelogo col"
-              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/google-logo@2x.png"
-            />
-            <img
-              class="kakaologo col"
-              src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429912d2a048cf6bf13594/img/kakao-logo@2x.png"
-            />
-            <div class="col"></div>
           </div>
         </div>
       </div>
@@ -76,13 +64,13 @@
 
 <script>
 export default {
-  name: 'EntrancePage',
+  name: "EntrancePage",
   computed: {
-      login_id: function () {
-        return this.$store.state.login.userid
-      }
+    login_id: function() {
+      return this.$store.state.login.userid;
     },
-  data: function () {
+  },
+  data: function() {
     return {
       width: 0,
       height: 0,
@@ -98,30 +86,28 @@ export default {
     };
   },
   created() {
-    this.login_state = false
+    this.login_state = false;
     this.width = window.innerWidth;
     this.height = window.innerHeight;
     this.title_fontsize = window.innerHeight * 0.074;
     this.title_top = window.innerHeight * 0;
     this.login_top = window.innerHeight * 0.5;
     // console.log(this.$store.getters["login/decodedToken"]);
-    if (this.$store.getters['login/decodedToken']) {
-      this.$router.push({ name: 'MainPage' })
+    if (this.$store.getters["login/decodedToken"]) {
+      this.$router.push({ name: "MainPage" });
     }
   },
   methods: {
     pushToMain() {
       this.$router.push({ name: "MainPage" });
     },
-    userLogin() {
-      this.$store.dispatch("login/getJWT", this.credentials);
-      this.login_state = true
-
+    async userLogin() {
+      await this.$store.dispatch("login/getJWT", this.credentials);
+      this.$router.push({ name: "MainPage" });
     },
     pushToSignup() {
-      this.$router.push({ name: "Signup" })
-    }
-
+      this.$router.push({ name: "Signup" });
+    },
   },
 };
 </script>

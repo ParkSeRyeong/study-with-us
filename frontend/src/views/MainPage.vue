@@ -6,14 +6,20 @@
       <div class="quote cafeFont d-flex justify-content-centers">
         <h1>“</h1>
         <span
-          v-if="quoteLen(this.$store.state.mainPage.mainData.quote) == 1"
+          v-if="
+            this.$store.state.mainPage.mainData.quote != null &&
+              quoteLen(this.$store.state.mainPage.mainData.quote) == 1
+          "
           class="highlightQuote"
           style="font-size:6vw"
         >
           {{ this.$store.state.mainPage.mainData.quote }}
         </span>
         <span
-          v-else-if="quoteLen(this.$store.state.mainPage.mainData.quote) == 2"
+          v-else-if="
+            this.$store.state.mainPage.mainData.quote != null &&
+              quoteLen(this.$store.state.mainPage.mainData.quote) == 2
+          "
           class="highlightQuote"
           style="font-size:4.5vw"
         >
@@ -41,7 +47,7 @@
             {{ this.todayText }}
           </div>
           <h1
-            class="focusstudytime animate-enter2"
+            class="focusstudytime fontHyemin animate-enter2"
             :style="{
               'font-size': 0.11 * this.$store.state.window_width + 'px',
               'margin-top': 0.03 * this.$store.state.window_width + 'px',
@@ -54,7 +60,7 @@
             src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/line-1@2x.svg"
           />
           <div
-            class="totalstudytime animate-enter3"
+            class="totalstudytime fontHyemin animate-enter3"
             :style="{
               'font-size': 0.06 * this.$store.state.window_width + 'px',
               'margin-top': 0.05 * this.$store.state.window_width + 'px',
@@ -121,7 +127,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .main {
   padding: 16px;
   margin-bottom: 30px;
@@ -130,6 +136,7 @@ export default {
 
 /* blob */
 .study-time {
+  font-family: "IM_Hyemin-Regular";
   display: flex;
   justify-content: center;
   align-items: center;
@@ -177,7 +184,9 @@ export default {
 
 .todaydate {
   color: var(--black);
-  font-family: "nanumsquare";
+  /* font-family: "nanumsquare"; */
+
+  font-family: "IM_Hyemin-Regular";
   font-weight: 300;
   letter-spacing: 0;
   margin-right: 1.95px;
@@ -185,6 +194,10 @@ export default {
   min-width: 118px;
   opacity: 0;
   transform: translate(0, 25px);
+}
+
+.fontHyemin {
+  font-family: "IM_Hyemin-Regular";
 }
 
 .todaydate.animate-enter1 {
@@ -207,7 +220,6 @@ export default {
 .focusstudytime {
   align-self: flex-end;
   color: var(--black);
-  font-family: "NanumBarunGothic-Light";
   font-weight: 300;
   letter-spacing: 0;
   min-height: 46px;
@@ -263,7 +275,6 @@ export default {
 
 .totalstudytime {
   color: var(--black);
-  font-family: "NanumBarunGothic-Light";
   font-weight: 300;
   letter-spacing: 0;
   min-height: 29px;

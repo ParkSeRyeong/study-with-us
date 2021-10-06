@@ -1,43 +1,66 @@
 <template>
-  <div class="maintodo">
+  <div
+    class="maintodo"
+    style="overflow-y:auto; overflow-x:hidden; width:100%; height:150px;"
+  >
     <div class="container">
-      <div class="row justify-content-between">
-        <h1>TO-DO LIST</h1>
-        <i
-          v-if="!this.editState"
-          @click="editTodo()"
-          class="icon fas fa-edit"
-        ></i>
-        <i v-else @click="editTodo()" class="icon far fa-save"></i>
+      <div class="row justify-content-between hyemin pb-2">
+        <div class="d-flex">
+          <h1 class="highlightTodo">TO-DO LIST</h1>
+          <img src="@/assets/images/check.png" class="checkIcon" />
+          <i
+            id="editIcon"
+            v-if="!this.editState"
+            @click="editTodo()"
+            class="icon fas fa-pencil-alt editIcon"
+          ></i>
+          <i v-else @click="editTodo()" class="icon fas fa-times"></i>
+        </div>
       </div>
     </div>
+
+    <!-- todo edit start -->
     <form v-if="this.editState" @submit.prevent="addTodo()">
       <div class="container">
-        <div class="row justify-content-between">
+        <div class="row justify-content-between align-items-center pb-1 pt-1">
           <div class="col-10">
             <input
               v-model="newTodo"
               name="newTodo"
               autocomplete="off"
               placeholder="할 일을 입력하세요."
-              class="col-9-1"
+              class="col-9-1 nanum"
             />
           </div>
           <div class="col-2 todo-add-btn">
-            <i @click="addTodo()" class="far fa-plus-square"></i>
+            <i @click="addTodo()" class="fas fa-plus addIcon"></i>
           </div>
         </div>
       </div>
     </form>
+    <!-- todo edit end -->
+
     <ul>
-      <li v-for="(todo, index) in this.todos" :key="index">
-        <div>
-          <i v-if="!todo" @click="doneTodo(index)" class="far fa-square"></i>
-          <i v-else @click="doneTodo(index)" class="far fa-check-square"></i>
+      <!-- todo item start -->
+      <li v-for="(todo, index) in this.todos" :key="index" class="nanum">
+        <div class="d-flex">
+          <i
+            v-if="!todo"
+            @click="doneTodo(index)"
+            class="far fa-square checkItem"
+          ></i>
+          <i
+            v-else
+            @click="doneTodo(index)"
+            class="far fa-check-square checkItem"
+          ></i>
           <span style="color: white"> .</span>
-          <span :class="{ done: todo }" @click="doneTodo(index)">{{
-            index
-          }}</span>
+          <span
+            :class="{ done: todo }"
+            @click="doneTodo(index)"
+            class="makeCenter"
+            >{{ index }}</span
+          >
         </div>
         <i
           v-if="this.editState"
@@ -45,13 +68,13 @@
           class="fas fa-trash-alt"
         ></i>
       </li>
+      <!-- todo item end -->
     </ul>
     <h4 v-if="Object.keys(todos).length == 0">할 일을 추가해주세요</h4>
   </div>
 </template>
 
 <script>
-// import { ref } from 'vue';
 export default {
   name: "todo",
   computed: {
@@ -116,13 +139,49 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.addIcon {
+  color: #48d9df;
+  font-size: 4vw;
+  display: flex;
+  align-items: center;
+  margin-left: 4vw;
+}
+.checkIcon {
+  height: 4vh;
+  margin-left: 4vw;
+  display: flex;
+  align-items: center;
+}
+.makeCenter {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+.checkItem {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  font-size: 6vw;
+  padding-right: 2vw;
+}
+.hyemin {
+  font-family: "IM_Hyemin-Regular";
+  font-weight: 600;
+  font-size: 4vw;
+}
 .maintodo h1 {
-  font-weight: bold;
+  font-weight: 900;
   font-size: 28px;
+  font-size: 8vw;
   text-align: left;
+  font-family: "IM_Hyemin-Regular";
   flex: 0 0 auto;
   width: auto;
+  align-items: center;
+}
+.highlightTodo {
+  background: linear-gradient(to top, #a4f9fc 40%, transparent 30%);
 }
 
 .maintodo .icon {
@@ -131,6 +190,9 @@ export default {
   text-align: left;
   flex: 0 0 auto;
   width: auto;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 25vw;
 }
 
 .maintodo form {
@@ -183,6 +245,7 @@ export default {
   outline: none;
   border-radius: 6px;
 }
+
 .maintodo h2 {
   font-size: 22px;
   border-bottom: 2px solid rgba(255, 255, 255, 0.35);
