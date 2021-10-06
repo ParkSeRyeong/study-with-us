@@ -1,5 +1,5 @@
 <template>
-  <div style="padding-bottom:12vh">
+  <div>
     <DiaryNav />
     <MonthlyCalendar />
     <MonthlyStudyInfo />
