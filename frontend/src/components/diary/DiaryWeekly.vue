@@ -1,6 +1,6 @@
 <template>
   <DiaryNav />
-  <div style="width:100%;">
+  <div style="width:100%; margin-bottom: 50px;">
     <div class="calendarM flex justify-content-center">
       <div class="study-diary-weekly screen" data-id="26:315">
         <h1 class="weekHeader" style="margin-top: -20px">

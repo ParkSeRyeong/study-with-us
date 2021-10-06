@@ -51,7 +51,7 @@
 
         <div class="container">
           <div class="row justify-content-between">
-            <div class="col below-btn-left">회원가입</div>
+            <div @click="pushToSignup()" class="col below-btn-left">회원가입</div>
             <div class="col below-btn-right">아이디/비밀번호 찾기</div>
           </div>
         </div>
@@ -118,6 +118,9 @@ export default {
       this.login_state = true
 
     },
+    pushToSignup() {
+      this.$router.push({ name: "Signup" })
+    }
 
   },
 };
