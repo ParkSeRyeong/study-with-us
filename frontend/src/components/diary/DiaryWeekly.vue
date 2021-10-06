@@ -15,7 +15,7 @@
         >
           <img src="../../assets/images/weekly_null.png" style="width: 100%; margin-top: 10px">
         </div>
-        <Bar style="margin-top: -30px" v-else></Bar>
+        <Bar style="margin-top: -30px;" v-else></Bar>
       </div>
     </div>
   </div>
