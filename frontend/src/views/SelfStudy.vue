@@ -394,7 +394,7 @@ export default {
         font-family: 'NanumBarunGothic-Light';
     }
 
-    #btn *{
+    .icon{
         float: right;
     }
 
