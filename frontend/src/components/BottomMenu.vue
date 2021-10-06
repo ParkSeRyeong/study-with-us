@@ -6,32 +6,32 @@
         <router-link to="/selfstudy" routerLinkActive="active"
           ><img class="icon" src="@/assets/images/1-1.png"
         /></router-link>
-        <div class="mt-2">공부</div>
+        <div class="mt-1">공부</div>
       </div>
       <div>
         <router-link to="/diary" routerLinkActive="active"
           ><img class="icon" src="@/assets/images/2.png"
         /></router-link>
-        <div class="mt-2">기록</div>
+        <div class="mt-1">기록</div>
       </div>
       <div>
         <router-link to="/main" routerLinkActive="active"
           ><img class="icon" src="@/assets/images/3-1.png"
         /></router-link>
 
-        <div class="mt-2">홈</div>
+        <div class="mt-1">홈</div>
       </div>
       <div>
         <router-link to="/studygroup" routerLinkActive="active"
           ><img class="icon" src="@/assets/images/4-2.png"
         /></router-link>
-        <div class="mt-2">그룹</div>
+        <div class="mt-1">그룹</div>
       </div>
       <div>
         <router-link to="/mypage" routerLinkActive="active"
           ><img class="icon" src="@/assets/images/5.png"
         /></router-link>
-        <div class="mt-2">마이페이지</div>
+        <div class="mt-1">마이페이지</div>
       </div>
     </div>
   </div>
@@ -59,7 +59,7 @@ export default {
   bottom: 0px;
   left: 0px;
   width: 100%;
-  height: 10vh;
+  height: 8vh;
   z-index: 100;
   font-family: "nanumsquare";
   font-size: 3.5vw;
@@ -73,16 +73,19 @@ export default {
   height: 100%;
   text-align: center;
   padding-top: 10px;
+  font-family: "IM_Hyemin-Regular";
+  font-size: 3vw;
+  font-weight: 700;
 }
 
 .menuitem {
   font-family: "nanumsquare";
   font-size: 3vw;
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .icon {
-  width: 30px;
-  height: 30px;
+  width: 23px;
+  height: 23px;
 }
 </style>

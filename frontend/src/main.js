@@ -3,13 +3,11 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import VueApexCharts from "vue3-apexcharts";
-import KProgress from "k-progress";
 
 createApp(App)
   .use(store)
   .use(router)
   .use(VueApexCharts)
-  .use(KProgress)
   .mount("#app");
 
 // import Vue from 'vue'
