@@ -168,16 +168,19 @@ public class    DiaryServiceImpl implements DiaryService {
 
         cal.set(cal.DAY_OF_WEEK, 1);
         Date first_day = Date.valueOf(ymd.format(cal.getTime()));
+        cal.add(cal.DATE, 6);
+        cal.getTime();
+        Date end_day = Date.valueOf(ymd.format(cal.getTime()));
 
         // Daily_study에서 목록이랑 전체 집중/딴짓 시간, 맥스 집중시간 가져옴
-        List<Daily_Study> list = dailyStudyRepository.getWeekStudyInfo(first_day, today, user);
-        BigDecimal getTotalFocus = dailyStudyRepository.getTotalFocusTime(first_day, today);
-        BigDecimal getTotalOther = dailyStudyRepository.getTotalOtherTime(first_day, today);
-        Time getMaxFocus = dailyStudyRepository.getMaxFocusTime(first_day, today, user.getUserid());
+        List<Daily_Study> list = dailyStudyRepository.getWeekStudyInfo(first_day, end_day, user);
+        BigDecimal getTotalFocus = dailyStudyRepository.getTotalFocusTime(first_day, end_day);
+        BigDecimal getTotalOther = dailyStudyRepository.getTotalOtherTime(first_day, end_day);
+        Time getMaxAlltime = dailyStudyRepository.getMaxAllTime(first_day, end_day, user.getUserid());
 
 
         // 이번 달에 공부를 하 나 도 안했어용
-        if (getTotalFocus == null || getTotalOther == null || getMaxFocus == null) {
+        if (getTotalFocus == null || getTotalOther == null || getMaxAlltime == null) {
             // 반환할 list = res
             List<WeeklyRes> res = new ArrayList<>();
             WeeklyRes nothing = WeeklyRes.builder()
@@ -195,8 +198,8 @@ public class    DiaryServiceImpl implements DiaryService {
         String total_focustime = switchString2Date(String.valueOf(getTotalFocus.intValue()));
         String total_othertime = switchString2Date(String.valueOf(getTotalOther.intValue()));
 
-        // double형 맥스 focustime : sec로 변환 for 퍼센트 계산
-        double ftime = time2sec(getMaxFocus);
+        // double형 맥스 alltime : sec로 변환 for 퍼센트 계산
+        double total_max_time = time2sec(getMaxAlltime);
 
         // hash에 담아둔당
         HashMap<String, WeeklyRes> date_list = new HashMap<>();
@@ -210,15 +213,15 @@ public class    DiaryServiceImpl implements DiaryService {
             double cur_other = other_times[2] + other_times[1] * 60 + other_times[0] * 3600;
             System.out.println(cur_focus + " / " + cur_other);
 
-            int cur_focus_percentage = (int) ((cur_focus / ftime) * 100.0);
-            int cur_other_percentage = (int) ((cur_other / ftime) * 100.0);
+            int cur_focus_percentage = (int) ((cur_focus / total_max_time) * 100.0);
+            int cur_other_percentage = (int) ((cur_other / total_max_time) * 100.0);
 
             WeeklyRes res = WeeklyRes.builder()
                     .totalFocusTime(total_focustime)
                     .totalOtherTime(total_othertime)
                     .dayAndWeek(sb.toString())
                     .day(ymd.format(ds.getDay()))
-                    .focusPercent(cur_focus_percentage - cur_other_percentage)
+                    .focusPercent(cur_focus_percentage)
                     .otherPercent(cur_other_percentage)
                     .build();
             date_list.put(ymd.format(ds.getDay()), res);
@@ -282,7 +285,7 @@ public class    DiaryServiceImpl implements DiaryService {
         List<Daily_Study> list = dailyStudyRepository.getWeekStudyInfo(first_day, last_day, user);
         BigDecimal getTotalFocus = dailyStudyRepository.getTotalFocusTime(first_day, last_day);
         BigDecimal getTotalOther = dailyStudyRepository.getTotalOtherTime(first_day, last_day);
-        Time getMaxFocus = dailyStudyRepository.getMaxFocusTime(first_day, last_day, user.getUserid());
+        Time getMaxFocus = dailyStudyRepository.getMaxAllTime(first_day, last_day, user.getUserid());
 
         // 이번 달에 공부를 하 나 도 안했어용
         if (getTotalFocus == null || getTotalOther == null || getMaxFocus == null) {

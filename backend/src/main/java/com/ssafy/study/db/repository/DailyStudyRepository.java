@@ -26,8 +26,8 @@ public interface DailyStudyRepository extends JpaRepository<Daily_Study, Long> {
      @Query(value = "SELECT d FROM Daily_Study as d where d.day between :startDate and :endDate and d.user = :user order by d.focustime desc")
      List<Daily_Study> getWeekStudyInfo(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("user") User user);
 
-     @Query(value = "SELECT max(focustime) FROM daily_study where day between :startDate and :endDate and userid = :userid order by focustime desc", nativeQuery = true)
-     Time getMaxFocusTime(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("userid") String userid);
+     @Query(value = "SELECT max(alltime) FROM daily_study where day between :startDate and :endDate and userid = :userid order by focustime desc", nativeQuery = true)
+     Time getMaxAllTime(@Param("startDate") Date startDate, @Param("endDate") Date endDate, @Param("userid") String userid);
 
      @Query(value = "SELECT sum(focustime) FROM daily_study where day between :startDate and :endDate order by focustime desc", nativeQuery = true)
      BigDecimal getTotalFocusTime(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
