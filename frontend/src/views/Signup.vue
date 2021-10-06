@@ -61,8 +61,6 @@
     type="button"
     class="signup-btn"
     @click="signup(credentials)"
-    data-bs-toggle="modal"
-    data-bs-target="#exampleModal"
   >
     회원가입
   </button>
@@ -129,6 +127,7 @@ export default {
         })
           .then((res) => {
             console.log(res)
+            this.$router.push({ name: 'EntrancePage' })
           })
           .catch((err) => {
             console.log(err)
@@ -144,9 +143,6 @@ export default {
         }
         console.log(this.warningtext)
       }
-    },
-    gotoLogin: function () {
-      this.$router.push({ name: 'entrancePage'})
     },
   },
   created() {
