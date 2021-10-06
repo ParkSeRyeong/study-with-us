@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div>
-                        <div @click="stop"><img class='iconBtn' src='@/assets/images/stop.png'></div>
+                        <router-link @click="stop" to="/main"><img class='iconBtn' src='@/assets/images/stop.png'></router-link>
                         <div v-if="toggle" @click="start"><img class='iconBtn' src='@/assets/images/play.png'></div>
                         <div v-else @click="pause"><img class='iconBtn' src='@/assets/images/pause.png'></div>
                     </div> 
