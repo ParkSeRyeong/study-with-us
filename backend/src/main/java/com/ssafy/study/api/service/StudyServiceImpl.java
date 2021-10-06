@@ -139,23 +139,23 @@ public class StudyServiceImpl implements StudyService {
 
         logger.debug("스터디 시간 업데이트 완료");
 
-        // 2. to-do 업데이트
-        List<Daily_Todo> todo_list = dailyTodoRepository.findByDailyStudy(today_study);
-        HashMap<String, Boolean> update_todo = info.getTodo();
-
-        for (Daily_Todo dt : todo_list) {
-            String todo = dt.getTodo();
-            Boolean done = dt.isDone();
-            Boolean update_status = update_todo.get(todo);
-
-            // 업데이트된 상태가 db의 상태와 다르다면?
-            if (update_status != done) {
-                logger.info("현재 db : " + done + " / 업데이트된 상태 : " + update_status);
-                dt.updateTodo(update_status);
-                dailyTodoRepository.save(dt);
-                logger.info("todo 업데이트 완료");
-            }
-        }
+//        // 2. to-do 업데이트
+//        List<Daily_Todo> todo_list = dailyTodoRepository.findByDailyStudy(today_study);
+//        HashMap<String, Boolean> update_todo = info.getTodo();
+//        for (Daily_Todo dt : todo_list) {
+//            String todo = dt.getTodo();
+//            Boolean done = dt.isDone();
+//            Boolean update_status = update_todo.get(todo);
+//
+//            // 업데이트된 상태가 db의 상태와 다르다면?
+//            if (update_status != done) {
+//                logger.info("현재 db : " + done + " / 업데이트된 상태 : " + update_status);
+//                dt.updateTodo(update_status);
+//                dailyTodoRepository.save(dt);
+//                logger.info("todo 업데이트 완료");
+//            }
+//        }
+//
 
         User_Alarm alarm = userAlarmRepository.findByUser(user);
         // screen이나 sound나 msg 중 하나라도 상태가 바뀐게 있을 때에만 업데이트.
@@ -172,9 +172,6 @@ public class StudyServiceImpl implements StudyService {
         int[] p = Arrays.stream(String.valueOf(prev).split(":")).mapToInt(Integer::parseInt).toArray();
         int[] u = Arrays.stream(String.valueOf(update).split(":")).mapToInt(Integer::parseInt).toArray();
 
-        System.out.println("------------------------------");
-        System.out.println(Arrays.toString(p));
-        System.out.println(Arrays.toString(u));
         int sec = p[2] + u[2];
         int min = (p[1] + u[1]);
         int hour = (p[0] + u[0]);

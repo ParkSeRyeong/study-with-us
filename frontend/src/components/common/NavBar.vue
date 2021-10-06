@@ -4,19 +4,18 @@
     <a href="#news">News</a>
     <a href="#contact">Contact</a>
     <button @click="logout()">logout</button>
-
   </div>
 </template>
 
 <script>
 export default {
   methods: {
-    logout () {
-      this.$store.dispatch('login/deleteJWT')
-      this.$router.push({ name: 'EntrancePage' })
-    } 
-  }
-}
+    logout() {
+      this.$store.dispatch("login/deleteJWT");
+      this.$router.push({ name: "EntrancePage" });
+    },
+  },
+};
 </script>
 
 <style>

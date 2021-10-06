@@ -22,9 +22,14 @@
           @value-changed="changeEvent"
         ></datepicker-lite>
 
-
-        <div style="margin-top: 50px" v-if="this.$store.state.daily_diary.Studytime[0]===-1" >
-          <img src="../assets/images/daily_null.png" style="width: 100%; margin-top: -10px">
+        <div
+          style="margin-top: 50px"
+          v-if="this.$store.state.daily_diary.Studytime[0] === -1"
+        >
+          <img
+            src="../assets/images/daily_null.png"
+            style="width: 100%; margin-top: -10px"
+          />
         </div>
         <Donut style="margin-top: 10px" v-else></Donut>
       </div>

@@ -3,14 +3,15 @@
     <div class="container">
       <div class="row justify-content-between">
         <h1>TO-DO LIST</h1>
-        <i v-if="!this.editState" @click="editTodo()" class="icon fas fa-edit"></i>
+        <i
+          v-if="!this.editState"
+          @click="editTodo()"
+          class="icon fas fa-edit"
+        ></i>
         <i v-else @click="editTodo()" class="icon far fa-save"></i>
       </div>
     </div>
-    <form
-      v-if="this.editState"
-      @submit.prevent="addTodo()"
-    >
+    <form v-if="this.editState" @submit.prevent="addTodo()">
       <div class="container">
         <div class="row justify-content-between">
           <div class="col-10">
@@ -20,7 +21,7 @@
               autocomplete="off"
               placeholder="할 일을 입력하세요."
               class="col-9-1"
-            >
+            />
           </div>
           <div class="col-2 todo-add-btn">
             <i @click="addTodo()" class="far fa-plus-square"></i>
@@ -29,18 +30,14 @@
       </div>
     </form>
     <ul>
-      <li
-        v-for="(todo, index) in this.todos"
-        :key="index"
-      >
+      <li v-for="(todo, index) in this.todos" :key="index">
         <div>
-          <i v-if="!(todo)" @click="doneTodo(index)" class="far fa-square"></i>
+          <i v-if="!todo" @click="doneTodo(index)" class="far fa-square"></i>
           <i v-else @click="doneTodo(index)" class="far fa-check-square"></i>
-          <span style="color: white">  .</span>
-          <span
-            :class="{ done: todo }"
-            @click="doneTodo(index)"
-          >{{ index }}</span>
+          <span style="color: white"> .</span>
+          <span :class="{ done: todo }" @click="doneTodo(index)">{{
+            index
+          }}</span>
         </div>
         <i
           v-if="this.editState"
@@ -54,107 +51,69 @@
 </template>
 
 <script>
-	// import { ref } from 'vue';
-	export default {
-		name: 'todo',
-    computed: {
-      todos: function () {
-        return this.$store.state.mainPage.todos
+// import { ref } from 'vue';
+export default {
+  name: "todo",
+  computed: {
+    todos: function() {
+      return this.$store.state.mainPage.todos;
+    },
+  },
+  data: function() {
+    return {
+      editState: false,
+      newTodo: null,
+      today: null,
+      todayYear: null,
+      todayMonth: null,
+      todayDate: null,
+      todayText: null,
+    };
+  },
+  created() {
+    this.today = new Date();
+    this.todayYear = this.today.getFullYear();
+    this.todayMonth = ("0" + (this.today.getMonth() + 1)).slice(-2);
+    this.todayDate = ("0" + this.today.getDate()).slice(-2);
+    this.todayText =
+      this.todayYear + "-" + this.todayMonth + "-" + this.todayDate;
+  },
+  methods: {
+    editTodo() {
+      if (this.editState == false) {
+        console.log(this.todos);
+        this.editState = true;
+      } else {
+        console.log(this.todos);
+        if (!(this.todos == this.$store.state.mainPage.todo)) {
+          this.$store.dispatch("mainPage/todoUpdate", this.todos);
+        }
+        this.todos = this.$store.state.mainPage.mainData.todo;
+        this.editState = false;
       }
     },
-    data: function () {
-      return {
-        editState: false,
-        newTodo: null,
-        today: null,
-        todayYear: null,
-        todayMonth: null,
-        todayDate: null,
-        todayText: null,
+    addTodo() {
+      if (this.newTodo) {
+        console.log(this.todos);
+        this.todos[this.newTodo] = false;
+        this.newTodo = null;
       }
     },
-    created() {
-      this.today = new Date()
-      this.todayYear = this.today.getFullYear()
-      this.todayMonth = ("0" + (this.today.getMonth() + 1)).slice(-2)
-      this.todayDate = ("0" + this.today.getDate()).slice(-2)
-      this.todayText = this.todayYear + '-' + this.todayMonth + '-' + this.todayDate
+    doneTodo(index) {
+      this.todos[index] = !this.todos[index];
+      var data = {
+        day: this.todayText,
+        done: this.todos[index],
+        todo: index,
+      };
+      console.log(data);
+      this.$store.dispatch("mainPage/todoCheck", data);
     },
-    methods: {
-      editTodo () {
-        if (this.editState == false) {
-          console.log(this.todos)
-          this.editState = true
-        } else {
-          console.log(this.todos)
-          if (!(this.todos == this.$store.state.mainPage.todo)) {
-            this.$store.dispatch('mainPage/todoUpdate', this.todos)
-          }
-          this.todos = this.$store.state.mainPage.mainData.todo
-          this.editState = false
-        }
-      },
-      addTodo () {
-        if (this.newTodo) {
-          console.log(this.todos)
-          this.todos[this.newTodo] = false
-          this.newTodo = null
-        }
-      },
-      doneTodo (index) {
-        this.todos[index] = !this.todos[index]
-        var data = {
-          'day' : this.todayText,
-          'done' : this.todos[index],
-          'todo' : index
-        }
-        console.log(data)
-        this.$store.dispatch('mainPage/todoCheck', data)
-      },
-      removeTodo (index) {
-        delete this.todos[index]
-      },
+    removeTodo(index) {
+      delete this.todos[index];
     },
-		// setup () {
-		// 	const newTodo = ref('');
-		// 	const defaultData = [{
-		// 		done: false,
-		// 		content: 'Write a blog post'
-		// 	}]
-		// 	const todosData = JSON.parse(localStorage.getItem('todos')) || defaultData;
-		// 	const todos = ref(todosData);
-    //   function addTodo () {
-		// 		if (newTodo.value) {
-		// 			todos.value.push({
-		// 				done: false,
-		// 				content: newTodo.value
-		// 			});
-		// 			newTodo.value = '';
-		// 		}
-		// 		saveData();
-		// 	}
-		// 	function doneTodo (todo) {
-		// 		todo.done = !todo.done
-		// 		saveData();
-		// 	}
-		// 	function removeTodo (index) {
-		// 		todos.value.splice(index, 1);
-		// 		saveData();
-		// 	}
-		// 	function saveData () {
-		// 		const storageData = JSON.stringify(todos.value);
-		// 		localStorage.setItem('todos', storageData);
-		// 	}
-		// 	return {
-		// 		todos,
-		// 		newTodo,
-		// 		addTodo,
-		// 		doneTodo,
-		// 		removeTodo,
-		// 		saveData
-		// 	}
-		// }
-	}
+  },
+};
 </script>
 
 <style>
