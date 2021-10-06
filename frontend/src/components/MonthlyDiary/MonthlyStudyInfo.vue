@@ -1,5 +1,5 @@
 <template>
-  <div style="width:100%;">
+  <div style="width:100%; padding-bottom:12vh;">
     <div class="box infoFont" style="font-family:'nanumsquare';">
       <div>{{ test }}</div>
 

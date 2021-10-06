@@ -1,6 +1,5 @@
 <template>
   <div>
-    <NavBar />
     <div class="main">
       <div class="wise-saying">
         <div class="text-2 nanumbarungothic-ultra-light-black-50px">“</div>
@@ -19,17 +18,35 @@
             :style="{ width: 0.15 * this.$store.state.window_width + 'px' }"
             src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/play-btn@2x.svg"
           />
-          <div class="todaydate animate-enter1" :style="{ 'font-size': 0.06 * this.$store.state.window_width + 'px', 'margin-top': 0.02 * this.$store.state.window_width + 'px' }">
+          <div
+            class="todaydate animate-enter1"
+            :style="{
+              'font-size': 0.06 * this.$store.state.window_width + 'px',
+              'margin-top': 0.02 * this.$store.state.window_width + 'px',
+            }"
+          >
             {{ this.todayText }}
           </div>
-          <h1 class="focusstudytime animate-enter2" :style="{ 'font-size': 0.11 * this.$store.state.window_width + 'px', 'margin-top': 0.03 * this.$store.state.window_width + 'px' }">
+          <h1
+            class="focusstudytime animate-enter2"
+            :style="{
+              'font-size': 0.11 * this.$store.state.window_width + 'px',
+              'margin-top': 0.03 * this.$store.state.window_width + 'px',
+            }"
+          >
             {{ this.$store.state.mainPage.mainData.focustime }}
           </h1>
           <img
             class="line-1 animate-enter4"
             src="https://anima-uploads.s3.amazonaws.com/projects/614138d997e275bf9f1a3a68/releases/61429a1f66b3b00ba3a869ec/img/line-1@2x.svg"
           />
-          <div class="totalstudytime animate-enter3" :style="{ 'font-size': 0.06 * this.$store.state.window_width + 'px', 'margin-top': 0.05 * this.$store.state.window_width + 'px' }">
+          <div
+            class="totalstudytime animate-enter3"
+            :style="{
+              'font-size': 0.06 * this.$store.state.window_width + 'px',
+              'margin-top': 0.05 * this.$store.state.window_width + 'px',
+            }"
+          >
             {{ this.$store.state.mainPage.mainData.alltime }}
           </div>
         </div>
@@ -40,37 +57,41 @@
       </div>
     </div>
   </div>
+  <BottomMenu />
 </template>
 
 <script>
-import NavBar from '@/components/common/NavBar.vue'
-import MainPageToDo from '@/components/MainPage/MainPageToDo.vue'
+// import NavBar from "@/components/common/NavBar.vue";
+import MainPageToDo from "@/components/MainPage/MainPageToDo.vue";
+import BottomMenu from "@/components/BottomMenu";
 
 export default {
-  name: 'MainPage',
-  data: function () {
+  name: "MainPage",
+  data: function() {
     return {
       today: null,
       todayYear: null,
       todayMonth: null,
       todayDate: null,
       todayText: null,
-    }
+    };
   },
   components: {
-    NavBar,
+    // NavBar,
     MainPageToDo,
+    BottomMenu,
   },
   created() {
-    this.$store.dispatch('mainPage/getJWT', this.$store.state.login.userToken)
-    this.$store.dispatch('mainPage/getMainData')
-    this.today = new Date()
-    this.todayYear = this.today.getFullYear()
-    this.todayMonth = ("0" + (this.today.getMonth() + 1)).slice(-2)
-    this.todayDate = ("0" + this.today.getDate()).slice(-2)
-    this.todayText = this.todayYear + '.' + this.todayMonth + '.' + this.todayDate
-  }
-}
+    this.$store.dispatch("mainPage/getJWT", this.$store.state.login.userToken);
+    this.$store.dispatch("mainPage/getMainData");
+    this.today = new Date();
+    this.todayYear = this.today.getFullYear();
+    this.todayMonth = ("0" + (this.today.getMonth() + 1)).slice(-2);
+    this.todayDate = ("0" + this.today.getDate()).slice(-2);
+    this.todayText =
+      this.todayYear + "." + this.todayMonth + "." + this.todayDate;
+  },
+};
 </script>
 
 <style>

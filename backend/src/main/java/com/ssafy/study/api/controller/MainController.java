@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/main")
@@ -25,7 +26,6 @@ public class MainController {
     @Autowired
     MainService mainService;
 
-    // @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "JWT token", required = true, dataType = "string", paramType = "header")})
     @ApiOperation(value = "메인페이지 진입")
     @GetMapping("/")
     public MyStudyRes getTodayInfo(HttpServletRequest request) {
