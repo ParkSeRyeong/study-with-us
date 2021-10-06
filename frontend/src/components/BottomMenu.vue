@@ -28,7 +28,7 @@
         <div class="mt-1">그룹</div>
       </div>
       <div>
-        <router-link @click="logout()" to="/login" routerLinkActive="active"
+        <router-link to="/mypage" routerLinkActive="active"
           ><img class="icon" src="@/assets/images/5.png"
         /></router-link>
         <div class="mt-1">마이페이지</div>

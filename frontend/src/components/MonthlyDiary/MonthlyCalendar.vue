@@ -283,6 +283,7 @@ export default {
   padding-bottom: 4vh;
   padding-top: 3vh;
   font-weight: bold;
+  margin-top: -20px;
 }
 
 .monthlyDays {

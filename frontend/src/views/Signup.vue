@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-bottom: 50px">
     <div class="page-background container" :style="{ width: this.$store.state.window_width + 'px', height: this.$store.state.window_height + 'px' }">
       <p class="signup-title">회원 가입</p>
       <br>
@@ -56,16 +56,14 @@
       <p class="signup-eletitle">전화번호</p>
       <input type="tel" id="phone" class="form-control" placeholder="전화번호 입력" v-model="credentials.phone">
     </div>  
-    <button
-      type="button"
-      class="signup-btn"
-      @click="signup(credentials)"
-      data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
-    >
-      회원가입
-    </button>
   </div>
+  <button
+    type="button"
+    class="signup-btn"
+    @click="signup(credentials)"
+  >
+    회원가입
+  </button>
 </template>
 
 <script>
@@ -129,6 +127,7 @@ export default {
         })
           .then((res) => {
             console.log(res)
+            this.$router.push({ name: 'EntrancePage' })
           })
           .catch((err) => {
             console.log(err)
@@ -144,9 +143,6 @@ export default {
         }
         console.log(this.warningtext)
       }
-    },
-    gotoLogin: function () {
-      this.$router.push({ name: 'entrancePage'})
     },
   },
   created() {
@@ -172,14 +168,16 @@ export default {
 }
 
 .signup-title {
-  font-size: 20px;
+  font-size: 25px;
+  text-align: center;
+  font-family: "NanumBarunGothic-Bold";
 }
 
 .signup-eletitle {
   text-align: left;
   padding-top: 10px;
   padding-bottom: 5px;
-  
+  font-family: "NanumBarunGothic-Bold";  
 }
 
 .warning-text {
@@ -198,7 +196,7 @@ export default {
   align-items: center;
   background-color: #218D93;
   color: white;
-  position: absolute;
+  position: fixed;
   bottom: 0px;
   display: inline-block;
   font-weight: 400;
