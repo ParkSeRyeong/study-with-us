@@ -16,8 +16,8 @@ const actions = {
       data: credentials,
     })
       .then((res) => {
-        console.log(res.data.jwt);
-        context.commit("saveJWT", res.data.jwt);
+        console.log(res.data.jwt)
+        context.commit("saveJWT", res.data.jwt)
       })
       .catch((err) => {
         console.log(err);
@@ -31,6 +31,7 @@ const actions = {
 const mutations = {
   saveJWT: function(state, token) {
     state.userToken = token;
+    console.log(state.userToken)
   },
   deleteJWT: function(state) {
     state.userToken = null;

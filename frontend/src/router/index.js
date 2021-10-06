@@ -29,7 +29,32 @@ const routes = [
         name: 'SelfStudy',
         component: () => import('@/views/SelfStudy.vue'),
       },
-    ],
+      {
+        path: '/studygroup',
+        name: 'StudyGroup',
+        component: () => import('@/views/StudyGroup.vue'),
+      },
+      {
+        path: '/mypage',
+        name: 'MyPage',
+        component: () => import('@/views/MyPage.vue')
+      },
+      {
+        path: '/diary',
+        name: 'Diary',
+        component: Diary,
+      },
+      {
+        path: '/monthly',
+        name: 'MonthlyDiary',
+        component: MonthlyDiary,
+      },
+      {
+        path: '/weeklydiary',
+        name: 'WeeklyDiary',
+        component: WeeklyDiary,
+      }
+    ]
   },
   {
     path: '/signup',
@@ -37,31 +62,10 @@ const routes = [
     component: Signup,
   },
   {
-    path: '/main',
-    name: 'MainPage',
-    component: MainPage,
-  },
-
-  {
-    path: '/diary',
-    name: 'Diary',
-    component: Diary,
-  },
-  {
-    path: '/monthly',
-    name: 'MonthlyDiary',
-    component: MonthlyDiary,
-  },
-  {
     path: '/login',
     name: 'EntrancePage',
     component: EntrancePage,
-  },
-  {
-    path: '/weeklydiary',
-    name: 'WeeklyDiary',
-    component: WeeklyDiary,
-  },
+  }
 ];
 
 const router = createRouter({

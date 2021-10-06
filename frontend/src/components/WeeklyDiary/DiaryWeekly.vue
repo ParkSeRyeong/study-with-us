@@ -3,31 +3,35 @@
   <div style="width:100%;">
     <div class="calendarM flex justify-content-center">
       <div class="study-diary-weekly screen" data-id="26:315">
-        <h1 class="weekHeader">
+        <h1 class="weekHeader" style="margin-top: -20px">
           <span v-on:click="onClickPrev(currentDay)" class="mainColor">◀</span>
           {{ DayAndWeek }}
           <span v-on:click="onClickNext(currentDay)" class="mainColor">▶</span>
         </h1>
 
-        <Bar></Bar>
+        <div
+            v-if="this.$store.state.weeklydiary.studyInfo[0] ===-1"
+            class="notstudy"
+        >
+          <img src="../../assets/images/weekly_null.png" style="width: 100%; margin-top: 10px">
+        </div>
+        <Bar style="margin-top: -30px" v-else></Bar>
       </div>
     </div>
   </div>
-  <MonthlyStudyInfo />
+
   <BottomMenu />
 </template>
 
 <script>
 import DiaryNav from "@/components/DiaryNav";
 import BottomMenu from "@/components/BottomMenu";
-import MonthlyStudyInfo from "@/components/MonthlyDiary/MonthlyStudyInfo";
 import Bar from '../../components/diary/bar'
 export default {
 
   components: {
     BottomMenu,
     DiaryNav,
-    MonthlyStudyInfo,
     Bar,
   },
   data() {

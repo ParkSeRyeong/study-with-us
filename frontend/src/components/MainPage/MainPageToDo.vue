@@ -46,7 +46,7 @@
         ></i>
       </li>
     </ul>
-    <h4 v-if="todos == null">할 일을 추가해주세요</h4>
+    <h4 v-if="Object.keys(todos).length == 0">할 일을 추가해주세요</h4>
   </div>
 </template>
 
@@ -54,11 +54,15 @@
 // import { ref } from 'vue';
 export default {
   name: "todo",
+  computed: {
+    todos: function() {
+      return this.$store.state.mainPage.todos;
+    },
+  },
   data: function() {
     return {
       editState: false,
       newTodo: null,
-      todos: {},
       today: null,
       todayYear: null,
       todayMonth: null,
@@ -67,9 +71,6 @@ export default {
     };
   },
   created() {
-    console.log(this.$store.state.mainPage);
-    this.todos = this.$store.state.mainPage.todos;
-    console.log(this.todos);
     this.today = new Date();
     this.todayYear = this.today.getFullYear();
     this.todayMonth = ("0" + (this.today.getMonth() + 1)).slice(-2);
@@ -77,7 +78,6 @@ export default {
     this.todayText =
       this.todayYear + "-" + this.todayMonth + "-" + this.todayDate;
   },
-  mounted() {},
   methods: {
     editTodo() {
       if (this.editState == false) {
@@ -94,8 +94,8 @@ export default {
     },
     addTodo() {
       if (this.newTodo) {
-        this.todos[this.newTodo] = false;
         console.log(this.todos);
+        this.todos[this.newTodo] = false;
         this.newTodo = null;
       }
     },
@@ -113,45 +113,6 @@ export default {
       delete this.todos[index];
     },
   },
-  // setup () {
-  // 	const newTodo = ref('');
-  // 	const defaultData = [{
-  // 		done: false,
-  // 		content: 'Write a blog post'
-  // 	}]
-  // 	const todosData = JSON.parse(localStorage.getItem('todos')) || defaultData;
-  // 	const todos = ref(todosData);
-  //   function addTodo () {
-  // 		if (newTodo.value) {
-  // 			todos.value.push({
-  // 				done: false,
-  // 				content: newTodo.value
-  // 			});
-  // 			newTodo.value = '';
-  // 		}
-  // 		saveData();
-  // 	}
-  // 	function doneTodo (todo) {
-  // 		todo.done = !todo.done
-  // 		saveData();
-  // 	}
-  // 	function removeTodo (index) {
-  // 		todos.value.splice(index, 1);
-  // 		saveData();
-  // 	}
-  // 	function saveData () {
-  // 		const storageData = JSON.stringify(todos.value);
-  // 		localStorage.setItem('todos', storageData);
-  // 	}
-  // 	return {
-  // 		todos,
-  // 		newTodo,
-  // 		addTodo,
-  // 		doneTodo,
-  // 		removeTodo,
-  // 		saveData
-  // 	}
-  // }
 };
 </script>
 

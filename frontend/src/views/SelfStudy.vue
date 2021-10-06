@@ -1,98 +1,66 @@
 <template>
   <div>
-    <TitleBar>SELF STUDY</TitleBar>
+    <TitleBar v-if="loading || !aiPage">SELF STUDY</TitleBar>
 
-    <div>
-      <TitleBar>SELF STUDY</TitleBar>
-
-      <div>
-        <div id="wrap">
-          <div id="init" v-if="!loading && !aiPage" @click="clickStart()">
-            <br /><br /><br /><br /><br /><br /><br />
-            <p class="top">손과 얼굴이 나오도록 각도를 조정하고</p>
-            <br /><br /><br />
-            <img id="pencil1" src="@/assets/images/pencil.png" />
-            <br /><br /><br /><br />
-            <p>아무곳이나 터치 해주세요!</p>
-          </div>
-
-          <div id="loading m-5" v-if="loading" class="y-border">
-            <br /><br /><br /><br /><br /><br /><br />
-            <p class="top">SELF STUDY를 시작합니다</p>
-            <br /><br /><br />
-            <img id="pencil1" src="@/assets/images/pencil.png" />
-            <br /><br /><br /><br />
-            <p>카메라 준비중...</p>
-          </div>
-        </div>
-
-        <div v-if="aiPage">
-          <div id="webcam-container"></div>
-          <br />
-          <div v-if="webcamLoad" id="stopwatch">
-            <div>
-              <p class="top">
-                <img class="pencil2" src="@/assets/images/연필.png" />집중 시간
-                : {{ formattedFocusElapsedTime
-                }}<img class="pencil2" src="@/assets/images/연필.png" />
-              </p>
-              <br />
-              <p class="bottom">
-                <img class="pencil2" src="@/assets/images/zzz.png" /> 졸은 시간
-                : {{ formattedSleepElapsedTime }}
-                <img class="pencil2" src="@/assets/images/zzz.png" />
-              </p>
-              <br />
-              <p class="bottom">
-                <img class="pencil2" src="@/assets/images/폰.png" />폰 시간 :
-                {{ formattedPhoneElapsedTime
-                }}<img class="pencil2" src="@/assets/images/폰.png" />
-              </p>
-              <br />
-            </div>
-            <div id="btn">
-              <div @click="stop">
-                <img class="icon" src="@/assets/images/stop.png" />
-              </div>
-              <div v-if="toggle" @click="start">
-                <img class="icon" src="@/assets/images/play.png" />
-              </div>
-              <div v-else @click="pause">
-                <img class="icon" src="@/assets/images/pause.png" />
-              </div>
-            </div>
-
-            <div>
-              <h2 id="studying" style="color:green">공부중...</h2>
-              <h2 id="phone" style="color:red" class="blink">
-                휴대폰 그만...!
-              </h2>
-              <h2 id="snoozing" style="color:red" class="blink">
-                일어나서 공부 합시다!
-              </h2>
-            </div>
-          </div>
+    <div id="container">
+      <div id="wrap">
+        <div id="init" v-if="!loading && !aiPage" @click="clickStart()">
+          <br /><br /><br /><br /><br /><br /><br />
+          <p style="font-size:20px">손과 얼굴이 나오도록 각도를 조정하고</p>
+          <br /><br /><br />
+          <img id="pencil1" src="@/assets/images/pencil.png" />
           <br /><br /><br /><br />
-          <div id="label-container"></div>
+          <p>아무곳이나 터치 해주세요!</p>
         </div>
-        <div v-if="toggle" @click="start">
-          <img class="icon" src="@/assets/images/play.png" />
-        </div>
-        <div v-else @click="pause">
-          <img class="icon" src="@/assets/images/pause.png" />
+
+        <div id="loading m-5" v-if="loading" class="y-border">
+          <br /><br /><br /><br /><br /><br /><br />
+          <p style="font-size:20px">SELF STUDY를 시작합니다</p>
+          <br /><br /><br />
+          <img id="pencil1" src="@/assets/images/pencil.png" />
+          <br /><br /><br /><br />
+          <p>카메라 준비중...</p>
         </div>
       </div>
 
-      <div>
-        <h2 id="studying" style="color:green">공부중...</h2>
-        <h2 id="phone" style="color:red" class="blink">휴대폰 그만...!</h2>
-        <h2 id="snoozing" style="color:red" class="blink">
-          일어나서 공부 합시다!
-        </h2>
+      <div v-if="aiPage">
+        <div v-if="webcamLoad" id="time">
+          <p class="top">집중 시간 : {{ formattedFocusElapsedTime }}</p>
+          <br />
+          <p class="bottom">
+            <img class="pencil2" src="@/assets/images/zzz.png" />{{
+              formattedSleepElapsedTime
+            }}<img class="pencil2" src="@/assets/images/zzz.png" />
+            <img class="pencil2" src="@/assets/images/폰.png" />{{
+              formattedPhoneElapsedTime
+            }}<img class="pencil2" src="@/assets/images/폰.png" />
+          </p>
+          <div id="btn">
+            <div @click="stop">
+              <img class="icon" src="@/assets/images/stop.png" />
+            </div>
+            <div v-if="toggle" @click="start">
+              <img class="icon" src="@/assets/images/play.png" />
+            </div>
+            <div v-else @click="pause">
+              <img class="icon" src="@/assets/images/pause.png" />
+            </div>
+          </div>
+        </div>
+
+        <div id="webcam-container"></div>
+        <br />
+        <div v-if="webcamLoad" id="stopwatch">
+          <div style="text-align:center; font-size: 13vw">
+            <h2 id="studying" style="color:green">공부 중...</h2>
+            <h2 id="phone" style="color:red" class="blink">휴대폰 그만!</h2>
+            <h2 id="snoozing" style="color:red" class="blink">일어납시다!</h2>
+          </div>
+        </div>
+        <br /><br /><br /><br /><br /><br /><br /><br />
+        <div id="label-container"></div>
       </div>
     </div>
-    <br /><br /><br /><br />
-    <div id="label-container"></div>
   </div>
 </template>
 
@@ -130,11 +98,14 @@ export default {
       phoneCheck: false,
       toggle: false,
       pauseToggle: false,
+      formattedAllElapsedTimeRgF: "",
+      formattedFocusElapsedTimeRgF: "",
+      formattedSleepElapsedTimeRgF: "",
+      formattedPhoneElapsedTimeRgF: "",
     };
   },
 
   mounted() {
-    console.log(this.$store.state.login.userToken);
     axios({
       method: "get",
       url: `${SERVER.URL}/study/stop`,
@@ -142,8 +113,6 @@ export default {
         "Access-Control-Allow-Origin": "*",
         Authorization: this.$store.state.login.userToken,
       },
-    }).then((res) => {
-      console.log(res);
     });
   },
   computed: {
@@ -171,6 +140,7 @@ export default {
     clickStart() {
       this.init();
     },
+
     async init() {
       this.loading = true;
 
@@ -273,6 +243,35 @@ export default {
         }
       }
     },
+    formattedAllElapsedTimeRg() {
+      const date = new Date(null);
+      date.setSeconds(
+        (this.focusElapsedTime +
+          this.sleepElapsedTime +
+          this.phoneElapsedTime) /
+          1000
+      );
+      const utc = date.toUTCString();
+      this.formattedAllElapsedTimeRgF = utc.substr(utc.indexOf(":") - 2, 8);
+    },
+    formattedFocusElapsedTimeRg() {
+      const date = new Date(null);
+      date.setSeconds(this.focusElapsedTime / 1000);
+      const utc = date.toUTCString();
+      this.formattedFocusElapsedTimeRgF = utc.substr(utc.indexOf(":") - 2, 8);
+    },
+    formattedSleepElapsedTimeRg() {
+      const date = new Date(null);
+      date.setSeconds(this.sleepElapsedTime / 1000);
+      const utc = date.toUTCString();
+      this.formattedSleepElapsedTimeRgF = utc.substr(utc.indexOf(":") - 2, 8);
+    },
+    formattedPhoneElapsedTimeRg() {
+      const date = new Date(null);
+      date.setSeconds(this.phoneElapsedTime / 1000);
+      const utc = date.toUTCString();
+      this.formattedPhoneElapsedTimeRgF = utc.substr(utc.indexOf(":") - 2, 8);
+    },
     startFocus() {
       this.focusTimer = setInterval(() => {
         this.focusElapsedTime += 1000;
@@ -312,8 +311,33 @@ export default {
       document.getElementById("webcam-container").classList.remove("blink");
     },
     stop() {
-      this.elapsedTime = 0;
+      this.formattedAllElapsedTimeRg();
+      this.formattedFocusElapsedTimeRg();
+      this.formattedSleepElapsedTimeRg();
+      this.formattedPhoneElapsedTimeRg();
+      console.log(this.formattedAllElapsedTimeRgF);
+      axios({
+        method: "post",
+        url: `${SERVER.URL}/study/stop`,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          Authorization: this.$store.state.login.userToken,
+        },
+        data: {
+          alltime: this.formattedAllElapsedTimeRgF,
+          focustime: this.formattedFocusElapsedTimeRgF,
+          sleeptime: this.formattedSleepElapsedTimeRgF,
+          phonetime: this.formattedPhoneElapsedTimeRgF,
+          todo: [],
+          screen: 0,
+          sound: 0,
+          sentence: 1,
+        },
+      }).then((res) => {
+        console.log(res);
+      });
     },
+    alltime() {},
   },
 };
 
@@ -369,16 +393,18 @@ p {
 }
 
 .top {
-  font-size: 20px;
+  font-size: 30px;
+  font-family: "NanumBarunGothic-Bold";
+  margin-top: 5vh;
 }
 
 .bottom {
   font-size: 15px;
+  font-family: "NanumBarunGothic-Light";
 }
 
-#btn * {
+.icon {
   float: right;
-  right: 5px;
 }
 
 #touch {
@@ -390,7 +416,11 @@ p {
   font-size: 5px;
 }
 .pencil2 {
-  width: 6vw;
-  vertical-align: middle;
+  width: 15px;
+  margin: 2px;
+}
+
+#time {
+  text-align: center;
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BottomMenu />
     <div class="main">
       <!-- quote start -->
       <div class="quote cafeFont d-flex justify-content-centers">
@@ -73,9 +74,8 @@
 </template>
 
 <script>
-// import NavBar from "@/components/common/NavBar.vue";
+import BottomMenu from "@/components/BottomMenu.vue";
 import MainPageToDo from "@/components/MainPage/MainPageToDo.vue";
-import BottomMenu from "@/components/BottomMenu";
 
 export default {
   name: "MainPage",
@@ -89,9 +89,8 @@ export default {
     };
   },
   components: {
-    // NavBar,
-    MainPageToDo,
     BottomMenu,
+    MainPageToDo,
   },
   created() {
     this.$store.dispatch("mainPage/getJWT", this.$store.state.login.userToken);

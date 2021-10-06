@@ -1,26 +1,41 @@
 <template>
   <div id="chart">
     <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+    <MonthlyStudyInfo style="margin-top: 20px"/>
   </div>
 </template>
 
 <script>
+import MonthlyStudyInfo from "../../components/MonthlyDiary/MonthlyStudyInfo";
 export default {
   name: "bar",
+  components:{MonthlyStudyInfo},
   data: function () {
     return {
       series: [{
         name: '순 공부 시간',
-        data: [13, 50, 41, 37, 22, 43, 21]
+        data: this.$store.state.weeklydiary.studyInfo,
       }, {
         name: '딴짓 시간',
-        data: [12, 50, 33, 52, 13, 43, 32]
+        data: this.$store.state.weeklydiary.otherInfo,
       }],
       chartOptions: {
+        tooltip: {
+          enabled: false,
+        },
+        dataLabels:{
+          enabled: false,
+          formatter: function (val) {
+            return val + '%'
+          },
+        },
         chart: {
           type: 'bar',
           height: 350,
           stacked: true,
+          toolbar:{
+            show:false,
+          }
         },
         plotOptions: {
           bar: {
@@ -28,11 +43,23 @@ export default {
           },
         },
         xaxis: {
-          categories: ['일','월','화','수','목','금','토'],
+          show: false,
+          categories: this.$store.state.weeklydiary.studyDay,
           labels: {
-            formatter: function (val) {
-              return val + "분"
-            }
+            show: false,
+          },
+          axisBorder:{
+            show:false,
+          }
+        },
+        yaxis:{
+          labels: {
+            style: {
+              fontSize: '15px',
+            },
+          },
+          axisBorder: {
+            show:false,
           }
         },
         fill: {
