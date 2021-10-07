@@ -33,10 +33,8 @@
           />
         </div>
         <div v-else>
-          <Donut style="margin-top: 10px"></Donut>
-          <DiaryTodo
-            style="margin-left: 30px; margin-right: 30px; margin-top: 30px"
-          />
+          <Donut></Donut>
+          <MainPageToDo style="margin-top: 3vh; margin-left:2vw;" />
         </div>
       </div>
     </div>
@@ -45,20 +43,24 @@
 </template>
 
 <script>
+import "vue-date-picker-lite/src/styles/style.scss";
+
 import DatepickerLite from "vue3-datepicker-lite";
 import Donut from "../components/diary/donut";
 import DiaryNav from "@/components/DiaryNav";
-import DiaryTodo from "@/components/diary/DiaryTodo";
+// import DiaryTodo from "@/components/diary/DiaryTodo";
 import BottomMenu from "@/components/BottomMenu";
 import TitleBar from "@/components/TitleBar";
+import MainPageToDo from "@/components/MainPage/MainPageToDo.vue";
 export default {
   components: {
     Donut,
     DatepickerLite,
     DiaryNav,
     BottomMenu,
-    DiaryTodo,
+    // DiaryTodo,
     TitleBar,
+    MainPageToDo,
   },
   data() {
     return {

@@ -75,23 +75,6 @@
         <div id="webcam-container"></div>
         <br />
         <div v-if="webcamLoad">
-          <div id="stopwatch">
-            <div
-              style="text-align:center; font-size: 13vw; font-family: 'NanumBarunGothic-Bold';"
-            >
-              <h3 id="studying" style="color:green" class="study-msg">
-                공부 중...
-              </h3>
-              <h3 id="phone" style="color:red" class="study-msg blink">
-                &#128245; 휴대폰 그만! &#128245;
-              </h3>
-              <h3 id="snoozing" style="color:red" class="blink study-msg">
-                일어납시다!
-              </h3>
-              <h3 id="pauseCm" class="blink">일시정지</h3>
-            </div>
-          </div>
-
           <!-- pause / stop button -->
           <div>
             <router-link @click="stop" to="/main"
@@ -102,6 +85,22 @@
             </div>
             <div v-else @click="pause">
               <img class="iconBtn" src="@/assets/images/pause.png" />
+            </div>
+          </div>
+          <!-- pause / stop button end -->
+
+          <div id="stopwatch">
+            <div style="text-align:center; font-size: 13vw;">
+              <h3 id="studying" style="color:green" class="study-msg">
+                공부 중...
+              </h3>
+              <h3 id="phone" style="color:red" class="study-msg blink">
+                &#128245; 휴대폰 그만! &#128245;
+              </h3>
+              <h3 id="snoozing" style="color:red" class="blink study-msg">
+                일어납시다!
+              </h3>
+              <h3 id="pauseCm" class="blink study-msg">일시정지</h3>
             </div>
           </div>
         </div>
@@ -208,7 +207,7 @@ export default {
 
       this.aiPage = true;
       // Convenience function to setup a webcam
-      webcam = new tmImage.Webcam(360, 360, flip); // width, height, flip
+      webcam = new tmImage.Webcam(window.outerWidth, 300, flip); // width, height, flip
       await webcam.setup(); // request access to the webcam
       await webcam.play();
       window.requestAnimationFrame(this.loop);
@@ -509,5 +508,6 @@ p {
   font-family: "IM_Hyemin-Regular";
   font-size: 8vw;
   font-weight: 700;
+  margin-left: 15%;
 }
 </style>
