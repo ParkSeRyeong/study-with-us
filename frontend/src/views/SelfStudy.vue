@@ -207,7 +207,7 @@ export default {
 
       this.aiPage = true;
       // Convenience function to setup a webcam
-      webcam = new tmImage.Webcam(window.outerWidth, 450, flip); // width, height, flip
+      webcam = new tmImage.Webcam(window.outerWidth, 400, flip); // width, height, flip
       await webcam.setup(); // request access to the webcam
       await webcam.play();
       window.requestAnimationFrame(this.loop);
