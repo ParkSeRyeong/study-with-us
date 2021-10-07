@@ -191,7 +191,7 @@ export default {
 
     async init() {
       this.loading = true;
-      await this.sleep(2000);
+      await this.sleep(1000);
       const URL = "https://teachablemachine.withgoogle.com/models/uK53pgina/";
       const modelURL = URL + "model.json";
       const metadataURL = URL + "metadata.json";
@@ -207,7 +207,7 @@ export default {
 
       this.aiPage = true;
       // Convenience function to setup a webcam
-      webcam = new tmImage.Webcam(window.outerWidth, 300, flip); // width, height, flip
+      webcam = new tmImage.Webcam(window.outerWidth, 450, flip); // width, height, flip
       await webcam.setup(); // request access to the webcam
       await webcam.play();
       window.requestAnimationFrame(this.loop);
