@@ -1,7 +1,7 @@
 <template>
   <div>
     <BottomMenu />
-    <div class="main">
+    <div class="main" style="backgroud-color:#FF0000;">
       <!-- quote start -->
       <div class="quote cafeFont d-flex justify-content-centers">
         <h1>“</h1>

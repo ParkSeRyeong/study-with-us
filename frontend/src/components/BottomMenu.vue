@@ -61,7 +61,6 @@ export default {
   width: 100%;
   height: 8vh;
   z-index: 100;
-  font-family: "nanumsquare";
   font-size: 3.5vw;
   /* border-top: 1px solid black; */
   background-color: #d8f2f4;
@@ -87,5 +86,13 @@ export default {
 .icon {
   width: 23px;
   height: 23px;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.8s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

@@ -1,30 +1,28 @@
 <template>
-  <section class="title-bar">
-    <h1 class="container mx-auto">
+  <section class="title-bar-design">
+    <h1 class="title-bar-contents mx-auto">
       <slot></slot>
     </h1>
   </section>
 </template>
 
-<script>
+<script scoped>
 export default {
-  name: 'TitleBar'
-}
-
+  name: "TitleBar",
+};
 </script>
 
 <style>
-  .title-bar {
-      background-color: #f5ff6971;
-      height: 7vh;
-  }
+.title-bar-design {
+  background-color: #bceef1;
+  height: 7vh;
+}
 
-  .container {
-    font-size: 25px;
-    font-family: 'NanumBarunGothic-Bold';
-    vertical-align: middle;
-    line-height: 8vh;
-  }
-
-  
-</style> 
+.title-bar-contents {
+  font-size: 7vw;
+  vertical-align: middle;
+  font-family: "IM_Hyemin-Regular";
+  font-weight: 600;
+  line-height: 8vh;
+}
+</style>

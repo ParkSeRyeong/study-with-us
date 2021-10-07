@@ -186,7 +186,7 @@ export default {
 
 .maintodo .icon {
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
   text-align: left;
   flex: 0 0 auto;
   width: auto;
