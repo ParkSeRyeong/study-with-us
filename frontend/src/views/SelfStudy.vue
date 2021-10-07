@@ -4,12 +4,12 @@
 
     <div>
       <!-- notice page start -->
-      <div id="wrap" class="studyBackImage displayCenter">
+      <div class="wrap studyBackImage displayCenter">
         <div
           id="init"
           v-if="!loading && !aiPage"
           @click="clickStart()"
-          class="pt-5 displayCenter"
+          class="pt-5"
         >
           <div class="">
             <img class="noticeIcon" src="@/assets/images/idea.png" />
@@ -23,24 +23,52 @@
           </div>
         </div>
 
-        <div id="loading m-5" v-if="loading" class="y-border">
-          <p>SELF STUDY를 시작합니다</p>
-          <br /><br /><br />
-          <p>카메라 준비중...</p>
+        <div id="loading" v-else-if="loading" class="displayCenter">
+          <div class="displayCenter">
+            <p class="noticeMSG" style="padding-top:30%;">공부를 시작합니다!</p>
+            <p
+              class="noticeMSG"
+              style="padding-bottom:30%;"
+              v-show="delayLoadingEffect()"
+            >
+              카메라 준비중...
+            </p>
+            <div v-show="delayLoadingTime">
+              <loader
+                object="#D2F3F5"
+                color1="#48D9DF"
+                color2="#39B6BB"
+                size="5"
+                speed="2"
+                bg="#343a40"
+                objectbg="#adadad"
+                opacity="0"
+                name="circular"
+              ></loader>
+            </div>
+            <div style="padding-bottom:61vh;"></div>
+          </div>
         </div>
       </div>
       <!-- notice page end -->
       <div v-if="aiPage">
+        <TitleBar>&nbsp;&nbsp;NOW STUDYING</TitleBar>
+
         <div v-if="webcamLoad">
-          <p class="top">집중 시간 : {{ formattedFocusElapsedTime }}</p>
+          <p class="top highlighting">
+            집중 시간 : {{ formattedFocusElapsedTime }}
+          </p>
           <br />
           <p class="bottom">
-            <img class="pencil2" src="@/assets/images/zzz.png" />{{
+            <img class="pencil2" src="@/assets/images/zzz.png" />&nbsp;{{
               formattedSleepElapsedTime
-            }}<img class="pencil2" src="@/assets/images/zzz.png" />
-            <img class="pencil2" src="@/assets/images/폰.png" />{{
+            }}&nbsp;<img
+              class="pencil2"
+              src="@/assets/images/zzz.png"
+            />&nbsp;&nbsp;
+            <img class="pencil2" src="@/assets/images/폰.png" />&nbsp;{{
               formattedPhoneElapsedTime
-            }}<img class="pencil2" src="@/assets/images/폰.png" />
+            }}&nbsp;<img class="pencil2" src="@/assets/images/폰.png" />
           </p>
         </div>
 
@@ -51,12 +79,20 @@
             <div
               style="text-align:center; font-size: 13vw; font-family: 'NanumBarunGothic-Bold';"
             >
-              <h2 id="studying" style="color:green">공부 중...</h2>
-              <h2 id="phone" style="color:red" class="blink">휴대폰 그만!</h2>
-              <h2 id="snoozing" style="color:red" class="blink">일어납시다!</h2>
-              <h2 id="pauseCm" class="blink">일시정지</h2>
+              <h3 id="studying" style="color:green" class="study-msg">
+                공부 중...
+              </h3>
+              <h3 id="phone" style="color:red" class="study-msg blink">
+                &#128245; 휴대폰 그만! &#128245;
+              </h3>
+              <h3 id="snoozing" style="color:red" class="blink study-msg">
+                일어납시다!
+              </h3>
+              <h3 id="pauseCm" class="blink">일시정지</h3>
             </div>
           </div>
+
+          <!-- pause / stop button -->
           <div>
             <router-link @click="stop" to="/main"
               ><img class="iconBtn" src="@/assets/images/stop.png"
@@ -94,6 +130,7 @@ export default {
 
   data() {
     return {
+      delayLoadingTime: false,
       loading: false,
       aiPage: false,
       webcamLoad: false,
@@ -142,10 +179,20 @@ export default {
     clickStart() {
       this.init();
     },
+    sleep(ms) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+      });
+    },
+    async delayLoadingEffect() {
+      await this.sleep(1000);
+      this.delayLoadingTime = true;
+      return true;
+    },
 
     async init() {
       this.loading = true;
-
+      await this.sleep(2000);
       const URL = "https://teachablemachine.withgoogle.com/models/uK53pgina/";
       const modelURL = URL + "model.json";
       const metadataURL = URL + "metadata.json";
@@ -338,7 +385,7 @@ export default {
           sentence: 1,
         },
       }).then((res) => {
-        alert(res.data.message);
+        console.log(res.data.message);
       });
     },
   },
@@ -365,20 +412,9 @@ export default {
 
 .studyBackImage {
   background-image: url("../assets/images/dark_table.png");
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
-  width: 100%;
-}
-
-/*------------------ */
-#wrap * {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  vertical-align: center;
-  color: white;
-  font-family: "IM_Hyemin-Regular";
-  font-size: 7vw;
+  height: 100%;
 }
 .displayCenter {
   display: flex;
@@ -392,6 +428,16 @@ export default {
   font-family: "IM_Hyemin-Regular";
   font-weight: 600;
   font-size: 4vw;
+}
+/*------------------ */
+.wrap * {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: center;
+  color: white;
+  font-family: "IM_Hyemin-Regular";
+  font-size: 7vw;
 }
 
 #init {
@@ -419,14 +465,23 @@ p {
 
 .top {
   text-align: center;
-  font-size: 30px;
-  font-family: "NanumBarunGothic-Bold";
-  margin-top: 5vh;
+  font-size: 9vw;
+  font-weight: 700;
+  font-family: "IM_Hyemin-Regular";
+  margin-top: 4vh;
+}
+.highlighting {
+  margin-left: 9vw;
+  margin-right: 9vw;
+  background: linear-gradient(to top, #b5f1f3 50%, transparent 30%);
 }
 
 .bottom {
   text-align: center;
   font-size: 15px;
+  font-family: "IM_Hyemin-Regular";
+  padding-bottom: 2vh;
+  font-weight: 700;
 }
 
 .iconBtn {
@@ -447,5 +502,12 @@ p {
 .pencil2 {
   width: 15px;
   margin: 2px;
+  vertical-align: middle;
+}
+
+.study-msg {
+  font-family: "IM_Hyemin-Regular";
+  font-size: 8vw;
+  font-weight: 700;
 }
 </style>
