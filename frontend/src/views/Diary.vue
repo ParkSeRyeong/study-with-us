@@ -1,5 +1,5 @@
 <template>
-  <TitleBar v-if="loading || !aiPage">&nbsp;&nbsp;DIARY</TitleBar>
+  <TitleBar>&nbsp;&nbsp;DIARY</TitleBar>
   <DiaryNav />
   <div class="diary">
     <div class="container-center-horizontal">
@@ -34,6 +34,8 @@
         </div>
         <div v-else>
           <Donut></Donut>
+        </div>
+        <div v-if="this.$store.state.daily_diary.Studytime[0] != -1">
           <MainPageToDo style="margin-top: 3vh; margin-left:2vw;" />
         </div>
       </div>

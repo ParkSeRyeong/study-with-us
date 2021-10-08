@@ -6,10 +6,7 @@
       <div class="quote cafeFont d-flex justify-content-centers">
         <h1>“</h1>
         <span
-          v-if="
-            this.$store.state.mainPage.mainData.quote != null &&
-              quoteLen(this.$store.state.mainPage.mainData.quote) == 1
-          "
+          v-if="quote != null && quoteLen(quote) == 1"
           class="highlightQuote"
           style="font-size:6vw"
         >
@@ -92,15 +89,22 @@ export default {
       todayMonth: null,
       todayDate: null,
       todayText: null,
+      token: null,
+      delayShow: false,
     };
   },
   components: {
     BottomMenu,
     MainPageToDo,
   },
+  computed: {
+    quote: function() {
+      return this.$store.state.mainPage.mainData.quote;
+    },
+  },
   created() {
-    this.$store.dispatch("mainPage/getJWT", this.$store.state.login.userToken);
-    this.$store.dispatch("mainPage/getMainData");
+    this.token = this.$store.state.login.userToken;
+    this.getMainData();
     this.today = new Date();
     this.todayYear = this.today.getFullYear();
     this.todayMonth = ("0" + (this.today.getMonth() + 1)).slice(-2);
@@ -108,7 +112,19 @@ export default {
     this.todayText =
       this.todayYear + "." + this.todayMonth + "." + this.todayDate;
   },
+
   methods: {
+    sleep(ms) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+      });
+    },
+    async getMainData() {
+      await this.$store.dispatch("mainPage/getJWT", this.token);
+      // await this.sleep(500);
+      this.$store.dispatch("mainPage/getMainData");
+      this.delayShow = true;
+    },
     quoteLen() {
       console.log(
         Object.keys(this.$store.state.mainPage.mainData.quote).length
