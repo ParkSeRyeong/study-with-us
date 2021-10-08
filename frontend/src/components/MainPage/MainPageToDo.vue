@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="maintodo"
-    style="overflow-y:auto; overflow-x:hidden; width:100%; height:150px;"
-  >
+  <div class="maintodo">
     <div class="container">
       <div class="row justify-content-between hyemin pb-2">
         <div class="d-flex">
@@ -14,7 +11,7 @@
             @click="editTodo()"
             class="icon fas fa-pencil-alt editIcon"
           ></i>
-          <i v-else @click="editTodo()" class="icon fas fa-times"></i>
+          <i v-else @click="editTodo()" class="icon fas fa-save"></i>
         </div>
       </div>
     </div>
@@ -40,7 +37,7 @@
     </form>
     <!-- todo edit end -->
 
-    <ul>
+    <ul style="overflow-y:auto; overflow-x:hidden; width:100%; height:150px;">
       <!-- todo item start -->
       <li v-for="(todo, index) in this.todos" :key="index" class="nanum">
         <div class="d-flex">

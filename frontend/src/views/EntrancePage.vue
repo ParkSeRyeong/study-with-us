@@ -38,7 +38,9 @@
           </button>
         </div>
         <div v-else>
-          <div class="welcome-ment">{{ this.credentials.userid }}님 어서오세요!</div>
+          <div class="welcome-ment">
+            {{ this.credentials.userid }}님 어서오세요!
+          </div>
           <button
             class="btn login-btn"
             type="button"

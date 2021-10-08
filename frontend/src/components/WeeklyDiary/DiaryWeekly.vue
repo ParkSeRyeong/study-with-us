@@ -1,4 +1,5 @@
 <template>
+  <TitleBar>&nbsp;&nbsp;DIARY</TitleBar>
   <DiaryNav />
   <div style="width:100%; margin-bottom: 50px;">
     <div class="calendarM flex justify-content-center">
@@ -10,10 +11,13 @@
         </h1>
 
         <div
-            v-if="this.$store.state.weeklydiary.studyInfo[0] ===-1"
-            class="notstudy"
+          v-if="this.$store.state.weeklydiary.studyInfo[0] === -1"
+          class="notstudy"
         >
-          <img src="../../assets/images/weekly_null.png" style="width: 100%; margin-top: 10px">
+          <img
+            src="../../assets/images/weekly_null.png"
+            style="width: 100%; margin-top: 10px"
+          />
         </div>
         <Bar style="margin-top: -30px;" v-else></Bar>
       </div>
@@ -26,13 +30,14 @@
 <script>
 import DiaryNav from "@/components/DiaryNav";
 import BottomMenu from "@/components/BottomMenu";
-import Bar from '../../components/diary/bar'
+import Bar from "../../components/diary/bar";
+import TitleBar from "@/components/TitleBar";
 export default {
-
   components: {
     BottomMenu,
     DiaryNav,
     Bar,
+    TitleBar,
   },
   data() {
     return {
